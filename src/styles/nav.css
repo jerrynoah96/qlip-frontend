@@ -1,0 +1,73 @@
+.navbar{
+    height: auto;
+    width: 100vw;
+    padding: 0 5%;
+    display: flex;
+    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 999; 
+    background: rgba(14, 14, 18, 1);
+    }
+  .navbar a{
+    color: white !important;
+  }
+  .navbar-toggler{
+    background-color: rgba(255, 255, 255) !important;
+    color: rgba(255, 255, 255);
+  
+  }
+  .navbar-toggler:focus{
+    text-decoration: none;
+    box-shadow: none !important;
+  }
+  
+  .navbar img{
+    height: 40px;
+    width: 40px;
+    top: 0;
+    margin-left: 0.5rem;
+  
+    
+  }
+  
+  .nav-links{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 1rem;
+    font-family: 'Raleway', sans-serif;
+    margin-left: auto !important;
+    
+    
+    
+  }
+  .launch-link img{
+    height: 30px;
+    width: 30px;
+  }
+  
+  .nav-links a{
+    font-size: 1rem;
+    text-decoration: none;
+    color: rgba(255, 255, 255);
+    cursor:pointer;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+  }
+  .launch-link{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    
+  /* Note: backdrop-filter has minimal browser support */
+  
+  border-radius: 36px;
+  border: 1px solid #5127DA;
+  padding: 1rem 2rem !important;
+  }

@@ -1,0 +1,91 @@
+.private-key-notify-bar{
+    background: rgba(22, 22, 30, 1);
+    width: 100vw;
+    height: 70px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3%;
+    
+
+}
+.private-key-notify{
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    
+
+}
+
+.private-key-notify img{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin-right: 1rem;
+}
+.private-key-detail span{
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 1);
+}
+.private-key-notify p{
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8rem;
+}
+
+.footer{
+    background: rgba(14, 14, 18, 1);
+    color: rgba(255, 255, 255, 1);
+    height: 40vh;
+    
+    
+
+}
+.footer-content{
+    display: flex;
+    width: 100vw;
+    position: relative !important;
+    
+   
+}
+.footer-column{
+    display: flex;
+    flex-direction: column;
+
+}
+.footer-column a{
+    margin-bottom: 1rem;
+    text-decoration: none;
+    color: rgba(255, 255, 255);
+    font-size: 1rem;
+    font-family: sans-serif;
+}
+
+.column2{
+    position: absolute;
+    top: 20%;
+    left: 50%;
+}
+.column1{
+    position: absolute;
+    top: 20%;
+    left: 40%;
+}
+.logo{
+    position: absolute;
+    top: 20%;
+    left: 15%;
+    font-size: 3rem;
+}
+.logo img{
+    height: 70px;
+    width: 70px;
+}
+

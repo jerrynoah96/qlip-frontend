@@ -1,0 +1,210 @@
+.create-section{
+    background: rgba(14, 14, 18, 1);
+    color: rgba(255, 255, 255);
+    padding-bottom: 4rem;
+}
+
+.create-section-form{
+    width: 60vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.create-form{
+    margin-top: 2rem;
+}
+
+.upload-file-box label {
+    color: white;
+    width: 200px;
+    padding: 0.7rem !important;
+    font-family: sans-serif;
+    font-size: 1rem;
+    border-radius: 40px;
+    cursor: pointer;
+    margin-top: 1rem;
+     border: 1px solid #5127DA;
+    
+    
+    
+  }
+
+  .upload-file-box{
+      width: auto;
+      height: 150px;
+     text-align: center;
+     margin-top: 2rem;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: space-between;
+     margin-top: 4rem !important;
+     margin-bottom: 1.5rem;
+     
+  }
+
+  .upload-file-box h2{
+      width: 100% !important;
+      display: block;
+      font-size: 1.2rem;
+      font-family: sans-serif;
+      font-weight: 400;
+      
+      text-align: center;
+  }
+
+  .upload-file-box span{
+      display: block;
+      color: rgba(255, 255, 255, 0.6);
+      font-family: sans-serif;
+      font-size: 0.9rem;
+     
+  }
+
+  .item-details-input h2{
+      font-size: 1.3rem;
+      font-family: sans-serif;
+      margin-bottom: 1rem;
+  }
+  .input-box{
+     
+      margin-bottom: 1rem;
+  }
+  .input-box label{
+      display: block;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 0.5rem;
+      
+  }
+  .input-box input{
+      width: 500px;
+      border: thin solid rgba(255, 255, 255, 0.1);
+      background-color: inherit;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.8rem;
+      height: 40px;
+      border-radius: 5px;
+  }
+  .input-box input::placeholder{
+      font-size: 0.8rem;
+  }
+
+  input:focus{
+      outline: none;
+  }
+
+  .small-inputs{
+      display: flex;
+      justify-content: space-between;
+  }
+  .small-inputs .input-box input{
+    width: 150px;
+}
+.toggle-option{
+    width: 500px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+.toggle-option .texts p{
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8rem;
+
+}
+
+.toggle-option .texts span{
+    color: rgba(255, 255, 255, 1);
+    font-size: 1.3rem;
+
+}
+
+.collection-choice span{
+    color: rgba(255, 255, 255, 1);
+    font-size: 1.3rem;
+    
+}
+
+.collection-choice p{
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8rem;
+    
+}
+.collection-choice{
+    width: 500px;
+    
+}
+
+.collection-choice .boxes{
+    width: 500px;
+    display: flex;
+    justify-content: space-between;
+
+}
+.boxes .box{
+    width: 115px;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    background: rgba(20, 20, 22, 1);
+    padding: 0 0.3rem;
+    cursor: pointer;
+}
+.boxes .box span{
+    font-size: 1rem;
+    
+}
+.boxes .box img{
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    margin-bottom: 0.5rem;
+    
+}
+
+.submit-btn-box{
+    width: 500px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.submit-btn-box button{
+    background: rgba(75, 35, 204, 1);
+    color: rgba(255, 255, 255);
+    border: none;
+    width: 170px;
+    padding: 1rem 1.5rem;
+    border-radius: 30px;
+    display: flex;
+    justify-content: space-between;
+    
+    align-items: center;
+    font-size: 1.1rem;
+}
+
+.submit-btn-box button img{
+    height: 0.5rem;
+}
+
+.submit-btn-box .auto-save{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 160px;
+   
+    padding: 1rem 1.5rem;
+
+}
+
+.preview{
+    position: absolute;
+    right: 10%;
+    top: 20%;
+    
+}

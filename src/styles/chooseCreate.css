@@ -1,0 +1,83 @@
+.choose-create{
+    background: rgba(14, 14, 18, 1);
+    height: 80vh;
+    color: rgba(255, 255, 255); 
+    position: relative;
+    box-sizing: border-box !important;
+}
+
+.choose-create h1{
+    font-size: 3rem;
+    font-weight: 700 !important;
+    color: rgba(255, 255, 255, 1);
+}
+
+
+.choose-create-heading{
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -15%);
+    text-align: center;
+
+}
+.choose-describe{
+    color: rgba(255, 255, 255, 0.5);
+    width: 40vw;
+}
+
+.choose-describe p{
+    
+    display: inline !important;
+    color: rgba(255, 255, 255, 1);
+    font-weight: 400;
+}
+
+.create-option{
+    height: 350px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.create-option h2{
+    margin-top: 3rem;
+    color: rgba(255, 255, 255, 1);
+    font-weight: 400;
+    font-size: 1.3rem;
+
+
+}
+.create-option span{
+    color: rgba(255, 255, 255, 0.5);
+    
+}
+
+.create-options{
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50vw;
+    display: flex;
+    justify-content: center;
+    justify-content: space-between;
+}
+
+.create-option button{
+    margin-top: 2rem;
+    background-color: #4B23CC;
+    border: none;
+    padding: 0.8rem 1.8rem;
+    color: rgba(255, 255, 255);
+    border-radius: 30px;
+}
+
+.create-multiple button{
+    background-color: inherit !important;
+    border: thin solid rgba(255, 255, 255);
+}
+
+
