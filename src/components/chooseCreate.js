@@ -4,7 +4,13 @@ import multipleLogo from '../images/multiple.svg';
 import '../styles/chooseCreate.css';
 
 
-const ChooseCreate = ()=> {
+const ChooseCreate = (props)=> {
+    let currentpage = 'options';
+    const setPage=(page)=> {
+        page = currentpage;
+        props.setPage(page);
+
+    }
 
 
     return(
@@ -26,7 +32,8 @@ const ChooseCreate = ()=> {
                     <h2 className="choice-title">Single</h2>
                     <span className="choice-desc"> create a one kind collectible</span>
 
-                    <button>Create Single</button>
+                    <button
+                    onClick={setPage}>Create Single</button>
                 </div>
 
                 <div className="create-option create-multiple">
@@ -35,7 +42,8 @@ const ChooseCreate = ()=> {
                     <h2 className="choice-title">Multiple</h2>
                     <span className="choice-desc"> sell one collectible multiple times</span>
 
-                    <button>Create Multiple</button>
+                    <button
+                    type="button" disabled>Create Multiple</button>
                 </div>
 
             </div>

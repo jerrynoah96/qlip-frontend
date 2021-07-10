@@ -4,7 +4,7 @@ import mapImg from '../images/map.png';
 import '../styles/create-preview.css';
 
 
-const Preview = () => {
+const Preview = (props) => {
     const [selected, setSelected] = useState(false);
 
 
@@ -23,12 +23,12 @@ const Preview = () => {
 
             </div>
             <div className="img">
-                <img src={mapImg} alt="nft img"/>
+                <img src={props.userImage} alt=""/>
 
             </div>
             <div className="image-details">
-                <span className="img-name">African Mask</span>
-                <span className="description">A collection of African's rich heritage</span>
+                <span className="img-name">{props.imageName}</span>
+                <span className="description">{props.imagedescription}</span>
 
             </div>
 

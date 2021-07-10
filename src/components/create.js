@@ -8,44 +8,210 @@ import arrow from '../images/arrow.svg';
 import autoSaveIcon from '../images/autosaving.svg';
 import { ToggleButton } from "./toggleButton";
 import Preview from './create-preview';
-
+import Modal from 'react-bootstrap/Modal';
 import '../styles/create.css';
 
+
+
+const ipfsClient = require('ipfs-http-client')
+const ipfs = ipfsClient({host: "ipfs.infura.io", port: 5001, protocol:"https"})
+
+const pinataSDK = require('@pinata/sdk');
+const pinata = pinataSDK('583a9e7e2b1ccaea8de3',
+ '2ca5978f83ed954ee26ca3f6501ba443caf7e17eff01134623ad3e2fabd9bd9f');
 class Create extends Component {
 
 
     constructor(props) {
         super(props);
         this.state={
-            selected: false,
-            selected1: false,
-            selected2: false
+            show: false,
+            imgReadableStream: null,
+            buffer: "",
+            imgIpfsHash: "",
+            userImage: null,
+            loaderShow: false,
+            loaderUrl: "https://i.pinimg.com/originals/3f/6b/90/3f6b904917f65c3aa8f8e1207323ad88.jpg",
+            progressText: "processing request",
+            nftDetails: {
+                owner: null,
+                imgHash:  null,
+                item_name: "",
+                description: "",
+                price: "",
+                royalty: "",
+                size: "",
+                property: "",
+                on_sale: false,
+                instant_sale_price: false,
+                unlock_on_purchase: false,
+                category: ""
+            }
             
     
         }
     
-       {/* this.handleInput = this.handleInput.bind(this);
-        this.uploadImgToIPFS = this.uploadImgToIPFS.bind(this);
-        this.uploadToIPFS = this.uploadToIPFS.bind(this);
-       this.submitForm = this.submitForm.bind(this); */}
+       this.handleInput = this.handleInput.bind(this);
+         this.uploadImgToIPFS = this.uploadImgToIPFS.bind(this);
+     //   this.CaptureDetails = this.CaptureDetails.bind(this);
+       this.MintNft = this.MintNft.bind(this); 
+      
     }
 
    
       handleInput=(e)=> {
         this.setState({
-          [e.target.name]: e.target.value
-        });
+            nftDetails :{
+                ...this.state.nftDetails,
+                [e.target.name]: e.target.value
+
+            }
+        })
+       console.log(this.state.nftDetails, 'God when' )
+    
       }
+
+
+      captureImg = (e)=>{
+        e.preventDefault();
+        console.log('file catured')
+        //process file for ipfs
+        //first fetch file from event
+        const userFile = e.target.files[0];
+        this.setState({
+            userImage: URL.createObjectURL(userFile)
+        })
+        console.log(this.state.userImage, userFile,'images');
+        const reader = new window.FileReader();
+        reader.readAsArrayBuffer(userFile);
+        reader.onloadend = () => {
+            this.setState({
+                buffer: Buffer(reader.result)
+            })
+            console.log(this.state.buffer, 'new buffer');
+           
+        }
+    
+    }
+    handleClose=()=> {
+        this.setState({
+            show: false
+        })
+    }
+    
+
+   
+
+    uploadImgToIPFS = async (e)=> {
+        
+        console.log('pushing file to IPFS')
+        if(this.state.buffer){
+            try{
+                const result = await ipfs.add(this.state.buffer)
+                const imgIpfsHash = result.cid.string;
+                //console.log('result', result);
+                this.setState({
+                    imgIpfsHash
+                })
+                this.setState({
+                    nftDetails :{
+                        ...this.state.nftDetails,
+                        imgHash: "https://ipfs.infura.io/ipfs/"+imgIpfsHash
+
+                    }
+                })
+
+                 console.log(this.state.imgIpfsHash, 'Img ipfs hash')
+                 console.log(this.state.nftDetails.imgHash, 'ipfs link json')
+                
+            }
+            catch(e){
+                console.log('error', e)
+            }
+        
+        } else{
+            alert('choose a valid file');
+        }
+
+    }
+
+    MintNft=async(e)=> {
+        this.setState({
+            loaderShow: true
+        })
+        e.preventDefault();
+        this.setState({
+            progressText: "pinning your file to IPFS"
+        })
+
+        try{
+            await this.uploadImgToIPFS();
+       this.setState({
+        progressText: "Minting NFT",
+        loaderUrl: "https://flevix.com/wp-content/uploads/2021/06/Neon-Loading.gif"
+    })
+
+        await this.props.contractDetails.contractInstance.methods.mintWithIndex(this.props.contractDetails.account,
+            this.state.nftDetails.imgHash, this.state.nftDetails.category).send({
+                from: this.props.contractDetails.account
+            })
+
+    
+      
+
+      this.setState({
+        progressText: "Finalizing"
+    })
+      const res = this.state.nftDetails;
+      await pinata.pinJSONToIPFS(res);
+      this.setState({
+        progressText: "DONE!",
+        loaderUrl: "https://i.pinimg.com/originals/3f/6b/90/3f6b904917f65c3aa8f8e1207323ad88.jpg"
+    })
+
+}
+catch(error){
+    this.setState({
+        progressText: "Oops, Looks like you can't Mint an NFT yet, kindly contact Admin",
+        loaderUrl: "https://c4.wallpaperflare.com/wallpaper/159/71/731/errors-minimalism-typography-red-wallpaper-preview.jpg"
+    })
+    
+}
+        
+}
+
+
+
+    
+   
+
+   
+
 
 render(){
     return(
         <div className="create-section">
+        <Modal show={this.state.show} onHide={this.handleClose}>
+        <Modal.Body>Artist Collection selected</Modal.Body>
+      </Modal>
             <div className="preview">
-            <Preview />
+            <Preview userImage={this.state.userImage}
+            imageName={this.state.nftDetails.item_name}
+            imagedescription={this.state.nftDetails.description}/>
 
             </div>
 
-            
+
+            { this.state.loaderShow ? <div className="progress-loader" display={this.state.loaderShow}>
+
+        
+     
+
+      
+    
+            <img src={this.state.loaderUrl} />
+            <span>{this.state.progressText}</span>
+            </div>: null }
             
 
             <div className="create-section-form">
@@ -62,7 +228,7 @@ render(){
                     <h2>Upload File in Any Format</h2>
                     <span>PNG, GIF, JPG, WMV, MP4, MP3, OBJ, 3DS</span>
 
-                    <input type="file" id="actual-btn" hidden/>
+                    <input type="file" id="actual-btn" hidden onChange={this.captureImg}/>
                     <label for="actual-btn">Browse Files</label>
 
                 </div>
@@ -71,8 +237,9 @@ render(){
 
                     <div className="input-box">
                     <label htmlFor="item-name">ITEM NAME</label>
-                    <input type="text" id="item-name" placeholder="e.g.Redeemable Botcoin Card with logo"
-                    name="item-name" 
+                    <input type="text" id="item_name" placeholder="e.g.Redeemable Botcoin Card with logo"
+                    name="item_name" 
+                    value={this.state.nftDetails.item_name}
                     onChange={this.handleInput} />
                     </div> 
 
@@ -81,6 +248,7 @@ render(){
                     <label htmlFor="description">DESCRIPTION</label>
                     <input type="text" id="description" placeholder="e.g. After Purchasing, you will be able to recieve the logo"
                     name="description" 
+                    value={this.state.nftDetails.description}
                     onChange={this.handleInput} />
 
                 </div>
@@ -89,30 +257,47 @@ render(){
                     <label htmlFor="price">PRICE</label>
                     <input type="number" id="price" placeholder="e.g. 100"
                     name="price" 
+                    value={this.state.nftDetails.price}
                     onChange={this.handleInput} />
 
                 </div>
                 <div className="small-inputs">
-                    <div className="input-box">
+                <div className="input-box">
+                    {/*
                         <label htmlFor="royalty">ROYALTIES</label>
                         <input type="text" id="royalty" placeholder="e.g. 10%"
                         name="royalty" 
+                        value={this.state.nftDetails.royalty}
                         onChange={this.handleInput} />
+                         */}
 
-                    </div>
+        <label htmlFor="royalty">
+          ROYALTIES
+          <select value={this.state.value} id="royalty" name="royalty" onChange={this.handleInput} className="input-box">            
+            <option value={this.state.nftDetails.royalty}>10</option>
+            <option value={this.state.nftDetails.royalty}>20</option>
+            <option value={this.state.nftDetails.royalty}>30</option>
+            <option value={this.state.nftDetails.royalty}>40</option>
+          </select>
+        </label>
+        </div>
+
+                   
 
                     <div className="input-box">
                         <label htmlFor="size">SIZE</label>
                         <input type="text" id="size" placeholder="e.g. Size"
                         name="size" 
+                        value={this.state.nftDetails.size}
                         onChange={this.handleInput} />
 
                     </div>
 
                     <div className="input-box">
                         <label htmlFor="properties">PROPERTIES</label>
-                        <input type="text" id="properties" placeholder="e.g. Height, Width"
-                        name="properties" 
+                        <input type="text" id="property" placeholder="e.g. Height, Width"
+                        name="property" 
+                        value={this.state.nftDetails.property}
                         onChange={this.handleInput} />
 
                     </div>
@@ -133,11 +318,14 @@ render(){
 
                         <div className="green-toggle">
                         <ToggleButton
-                            selected={this.state.selected}
+                            selected={this.state.nftDetails.on_sale}
                             toggleSelected= {()=> {
                                 this.setState({
-                                    selected: !this.state.selected
-                      
+                                    nftDetails :{
+                                        ...this.state.nftDetails,
+                                        on_sale: !this.state.nftDetails.on_sale
+                
+                                    }
                                 })
 
                             }}
@@ -160,11 +348,14 @@ render(){
 
                         <div className="green-toggle">
                         <ToggleButton
-                            selected={this.state.selected1}
+                            selected={this.state.nftDetails.instant_sale_price}
                             toggleSelected={()=> {
                                 this.setState({
-                                    selected1: !this.state.selected1
-                      
+                                    nftDetails :{
+                                        ...this.state.nftDetails,
+                                        instant_sale_price: !this.state.nftDetails.instant_sale_price
+                
+                                    }
                                 })
 
                             }}
@@ -187,13 +378,15 @@ render(){
 
                         <div className="green-toggle">
                         <ToggleButton
-                            selected={this.state.selected2}
+                            selected={this.state.nftDetails.unlock_on_purchase}
                             toggleSelected={()=> {
                                 this.setState({
-                                    selected2: !this.state.selected2
-                      
+                                    nftDetails :{
+                                        ...this.state.nftDetails,
+                                        unlock_on_purchase: !this.state.nftDetails.unlock_on_purchase
+                
+                                    }
                                 })
-
                             }}
                         />
 
@@ -217,19 +410,50 @@ render(){
 
                         </div>
 
-                        <div className="box">
+                        <div className="box art-collection"
+                        onClick={()=> {
+                            this.setState({
+                                show: true,
+                                nftDetails :{
+                                    ...this.state.nftDetails,
+                                    category: 1
+            
+                                }
+                            })
+
+                            
+                        }}>
                             <img src={artLogo}/>
                             <span>Artist Collection</span>
 
                         </div>
 
-                        <div className="box">
+                        <div className="box music-collection"
+                         onClick={()=> {
+                            this.setState({
+                                nftDetails :{
+                                    ...this.state.nftDetails,
+                                    category: 2
+            
+                                }
+                            })
+                        }}
+                         >
                             <img src={audioLogo}/>
                             <span>Music Collection</span>
 
                         </div>
 
-                        <div className="box">
+                        <div className="box video-collection"
+                         onClick={()=> {
+                            this.setState({
+                                nftDetails :{
+                                    ...this.state.nftDetails,
+                                    category: 3
+            
+                                }
+                            })
+                        }}>
                             <img src={reelLogo}/>
                             <span>Reel Collection</span>
 
@@ -246,14 +470,15 @@ render(){
 
                 </div> 
                 <div className="submit-btn-box">
-                    <button>Create Item 
+                    <button onClick={this.MintNft}>Create Item 
                         <img src={arrow} alt="arrow-icon"/>
                     </button>
+                     
 
                     <div className="auto-save">
                         <span>
                         Auto Saving
-                            </span>
+                        </span>
                         <img src={autoSaveIcon} alt="auto-save"/>
                     </div>
 
@@ -261,8 +486,10 @@ render(){
             
 
             </form>
+            
 
             </div>
+            
 
         </div>
     )
