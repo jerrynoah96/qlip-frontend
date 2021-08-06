@@ -38,6 +38,7 @@ let btnText = "Connect Wallet"
 const NavBar = (props) => {
 
   async function showWeb3Modal() {
+
     if (!provider) {
       const web3Modal = new Web3Modal({
         cacheProvider: true, // optional
@@ -48,13 +49,19 @@ const NavBar = (props) => {
       
     }
 
-   //provider._portis.showWeb3Modal();
-
-    if (!accounts) {
+   //showWeb3Modal();
+    
+    if(!accounts){
       accounts = await web3.eth.getAccounts();
+      const networkId =await web3.eth.net.getNetworkType();
       props.setWeb3(web3);
-      btnText = "Connected"
-     //console.log(accounts[0]);
+      if(networkId !== "private"){
+        btnText= "Connect Wallet"  
+      }
+      else{
+        btnText = "Connected"
+      }
+      
     }
   }
 
@@ -66,11 +73,19 @@ const NavBar = (props) => {
    
   }
 
+  let currentpage = 'landing';
+    const setPage=(page)=> {
+        page = currentpage;
+        props.setPage(page);
+
+    }
+
 
  
 return (
     <Navbar collapseOnSelect expand="lg">
-    <Navbar.Brand href="#home" className="brand">
+    <Navbar.Brand href="#home" className="brand"
+    onClick={setPage}>
     <img src={logo} alt="logo" className="brand-logo"/>{' '}
         QLIP
         </Navbar.Brand>
@@ -79,7 +94,10 @@ return (
         <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="ml-auto nav-links">
             <Nav.Link className="nav-link" to="about" smooth={true} duration={1000}>Explore</Nav.Link>
-            <Nav.Link className="nav-link" to="tokenEcons" smooth={true} duration={1000}>Live Auctions</Nav.Link>
+            <Nav.Link className="nav-link" to="tokenEcons" smooth={true} duration={1000}
+            onClick={()=> {
+              props.setPage("profile")
+            }}>My Profile</Nav.Link>
             <Nav.Link className="nav-link" to="roadmap" smooth={true} duration={1000}>CLIP NFTs</Nav.Link>
             <Nav.Link className="nav-link" to="team" smooth={true} duration={1000} >Community</Nav.Link>
             <Nav.Link className="nav-link" to="contact" smooth={true} duration={1000}>Mint Store</Nav.Link>

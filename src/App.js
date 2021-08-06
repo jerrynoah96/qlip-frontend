@@ -15,6 +15,7 @@ class App extends Component  {
 state={
   web3: null,
   show: false,
+  modalMessage: null,
   currentpage: "landing",
   contractDetails:{
     account: null,
@@ -32,14 +33,21 @@ SetWeb3=async(web3)=> {
   const accounts = await web3.eth.getAccounts();
   const account = accounts[0];
   const networkId =await this.state.web3.eth.net.getNetworkType();
- if(networkId != "private"){
+  this.setState({
+    show: true
+  })
+ if(networkId !== "private"){
    this.setState({
-     show: true
+    modalMessage: "Kindly ensure you're on the binance test network and Reload the page"
    })
 
  }
-  //instantiate contract
-  const contractInstance = new this.state.web3.eth.Contract(contractABI, this.state.contractDetails.contractAddress);
+ else{
+   this.setState({
+     modalMessage: `connected address: ` +account.slice(0,5).concat('...').concat(account.slice(13,18)) 
+   })
+
+   const contractInstance = new this.state.web3.eth.Contract(contractABI, this.state.contractDetails.contractAddress);
 
   this.setState({
     contractDetails:{
@@ -48,7 +56,11 @@ SetWeb3=async(web3)=> {
       contractInstance
     }
   })
-console.log(this.state.contractDetails, 'contract details in state');
+ }
+  //instantiate contract
+  
+console.log(this.state.contractDetails,
+  this.state.contractDetails.contractInstance, 'contract details in state');
  
 
 }
@@ -56,6 +68,12 @@ console.log(this.state.contractDetails, 'contract details in state');
 SetPage = (page)=> {
   this.setState({
     currentpage: page
+  })
+}
+
+handleClose=()=> {
+  this.setState({
+      show: false
   })
 }
   
@@ -67,22 +85,33 @@ SetPage = (page)=> {
     }
     if(this.state.currentpage == "choose create"){
       currentDisplayPage= <ChooseCreate 
-      contractDetails={this.state.contractDetails}
+      
       setPage={this.SetPage}/>
   }
   if(this.state.currentpage == "create"){
-    currentDisplayPage= <Create/>
+    currentDisplayPage= <Create
+    contractDetails={this.state.contractDetails}
+    setPage={this.SetPage}/>
 }
 if(this.state.currentpage == "options"){
   currentDisplayPage= <Options
   setPage={this.SetPage}/>
 }
+
+if(this.state.currentpage == "profile"){
+  currentDisplayPage= <Profile
+  setPage={this.SetPage}
+  contractDetails={this.state.contractDetails}/>
+}
     return (
       <div className="App">
         <Modal show={this.state.show} onHide={this.handleClose}>
-        <Modal.Body>Kindly ensure you're on the BSC test network and Reload the page</Modal.Body>
+        <Modal.Body>{this.state.modalMessage}</Modal.Body>
       </Modal>
-        <NavBar setWeb3={this.SetWeb3}/>
+
+      
+        <NavBar setWeb3={this.SetWeb3} setPage={this.SetPage}
+        />
         {currentDisplayPage}
       
         <Footer />

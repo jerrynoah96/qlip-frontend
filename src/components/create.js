@@ -67,7 +67,7 @@ class Create extends Component {
 
             }
         })
-       console.log(this.state.nftDetails, 'God when' )
+      
     
       }
 
@@ -144,41 +144,58 @@ class Create extends Component {
             progressText: "pinning your file to IPFS"
         })
 
-        try{
-            await this.uploadImgToIPFS();
-       this.setState({
-        progressText: "Minting NFT",
-        loaderUrl: "https://flevix.com/wp-content/uploads/2021/06/Neon-Loading.gif"
-    })
-
-        await this.props.contractDetails.contractInstance.methods.mintWithIndex(this.props.contractDetails.account,
-            this.state.nftDetails.imgHash, this.state.nftDetails.category).send({
-                from: this.props.contractDetails.account
-            })
-
-    
-      
-
-      this.setState({
-        progressText: "Finalizing"
-    })
-      const res = this.state.nftDetails;
-      await pinata.pinJSONToIPFS(res);
-      this.setState({
-        progressText: "DONE!",
-        loaderUrl: "https://i.pinimg.com/originals/3f/6b/90/3f6b904917f65c3aa8f8e1207323ad88.jpg"
-    })
-
-}
-catch(error){
-    this.setState({
-        progressText: "Oops, Looks like you can't Mint an NFT yet, kindly contact Admin",
-        loaderUrl: "https://c4.wallpaperflare.com/wallpaper/159/71/731/errors-minimalism-typography-red-wallpaper-preview.jpg"
-    })
-    
-}
+        await this.uploadImgToIPFS();
+        this.setState({
+            nftDetails :{
+                ...this.state.nftDetails,
+                owner: this.props.contractDetails.account
+            }
+        })
+        const res = this.state.nftDetails;
         
-}
+        const pinataRes = await pinata.pinJSONToIPFS(res);
+          this.setState({
+            loaderUrl: "https://i.pinimg.com/originals/3f/6b/90/3f6b904917f65c3aa8f8e1207323ad88.jpg"
+        })
+
+        const URI = "https://ipfs.infura.io/ipfs/"+pinataRes.IpfsHash
+
+
+    try{
+
+    
+            
+            this.setState({
+                progressText: "Minting NFT",
+                loaderUrl: "https://flevix.com/wp-content/uploads/2021/06/Neon-Loading.gif"
+                })
+        
+            const mint_reciept = await this.props.contractDetails.contractInstance.methods.mintWithIndex(this.props.contractDetails.account,
+                    URI, this.state.nftDetails.category).send({
+                        from: this.props.contractDetails.account
+                    })
+
+                    this.setState({
+                        progressText: "Done"
+                     })
+           // console.log(mint_reciept, 'mint reciept')
+           console.log(mint_reciept.status, 'status')
+           if(mint_reciept.status == true){
+               this.props.setPage("profile");
+            }
+
+         
+    }
+
+       catch(error){
+            this.setState({
+                progressText: "Oops, Looks like you can't Mint an NFT yet, kindly contact Admin",
+                loaderUrl: "https://c4.wallpaperflare.com/wallpaper/159/71/731/errors-minimalism-typography-red-wallpaper-preview.jpg"
+            })
+    
+        } 
+        
+        }
 
 
 

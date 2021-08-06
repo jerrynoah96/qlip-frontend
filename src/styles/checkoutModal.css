@@ -1,0 +1,108 @@
+.checkout-modal-container {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  /* backdrop-filter: blur(8px); */
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e0dede;
+  display: none;
+}
+
+.checkout-modal {
+  background-color: #0e0e12;
+  width: 90%;
+  max-width: 30rem;
+  border-radius: 1rem;
+  padding: 2rem;
+}
+
+.modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.modal-head h1 {
+  font-size: 1.6rem;
+}
+
+.modal-head .cancel-icon-contaner {
+  padding: 0.5rem;
+  border: 0.5px solid rgba(224, 222, 222, 0.2);
+  border-radius: 50%;
+}
+
+.modal-body {
+  font-size: 0.9rem;
+}
+
+.modal-body .about-to-buy span {
+  color: #b49dff;
+}
+.modal-body .price-details-container {
+  margin-top: 2rem;
+}
+.modal-body .price-detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+}
+
+.modal-body .price-detail p span {
+  color: #777e90;
+}
+
+.modal-body .price-detail:first-of-type {
+  border-bottom: 0.5px solid rgba(224, 222, 222, 0.2);
+}
+
+.warning-alert {
+  background-color: rgba(255, 225, 60, 0.08);
+  display: flex;
+  border-radius: 0.5rem;
+  padding: 1.2rem;
+  color: #ffbe0a;
+}
+
+.warning-alert .warning-icon {
+  margin-right: 1.5rem;
+}
+
+.warning-alert h2 {
+  font-size: 0.8rem;
+  margin-bottom: 0.2rem;
+}
+
+.warning-alert p {
+  font-size: 0.7rem;
+}
+
+.button-group {
+  margin-top: 2rem;
+}
+
+.pay-button,
+.cancel-button {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.pay-button {
+  background-color: #4f26d7;
+}
+
+.cancel-button {
+  background-color: transparent;
+  border: 1px solid #4f26d7;
+}

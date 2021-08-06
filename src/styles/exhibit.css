@@ -1,0 +1,234 @@
+.exhibit-main-body {
+  padding: 1rem;
+}
+
+.nft-picture-container {
+  border: 0.6rem solid #47464b;
+  border-radius: 1rem;
+}
+
+.nft-picture {
+  width: 100%;
+}
+
+.nft-description {
+  position: relative;
+  padding: 1rem 3rem;
+  color: #fff9df;
+}
+
+.nft-name {
+  font-family: Beleren2016 Small Caps;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 21px;
+  letter-spacing: 0em;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+}
+
+.nft-decsriptive-text {
+  text-align: center;
+  letter-spacing: 2px;
+  font-size: 0.5rem;
+}
+
+.left-vertical-text,
+.right-vertical-text {
+  position: absolute;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  top: 2rem;
+  font-size: 0.8rem;
+  font-weight: 100;
+}
+
+.left-vertical-text {
+  left: 1rem;
+}
+
+.right-vertical-text {
+  right: 1rem;
+  letter-spacing: 0.5rem;
+}
+
+.nft-price {
+  font-size: 1.1rem;
+  text-align: center;
+  margin-top: 2rem;
+  color: #878787;
+}
+
+.nft-info-container {
+  margin-top: 2rem;
+}
+
+.first-section,
+.second-section {
+  border: 0.671562px solid #16161e;
+  padding: 2rem 1rem;
+  border-radius: 0.2rem;
+  color: #bec2ca;
+}
+
+.second-section {
+  margin-top: 1rem;
+}
+
+.first-section .name {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.first-section .ownership_availableNumber {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+}
+
+.first-section .ownership_availableNumber .ownership {
+  display: flex;
+  align-items: center;
+}
+
+.first-section .ownership_availableNumber .profile-picture {
+  width: 2rem;
+  height: 2rem;
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+.first-section .ownership_availableNumber p {
+  font-size: 0.7rem;
+  display: inline;
+  color: #bec2ca;
+}
+
+.first-section .ownership_availableNumber p {
+  display: flex;
+  align-items: center;
+}
+
+.first-section .ownership_availableNumber p .verifiedIcon {
+  width: 1.2rem;
+}
+
+.first-section .current-price {
+  font-size: 0.9rem;
+  color: #bec2ca;
+  margin-bottom: 1rem;
+}
+
+.first-section .price-container {
+  display: flex;
+  align-items: center;
+}
+
+.first-section .price-container .price {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.first-section .price-container .price span {
+  font-size: 0.8rem;
+  font-weight: 100;
+}
+
+.first-section .buy-btn {
+  background: linear-gradient(180deg, #5429e1 0%, #441ebf 100%);
+  padding: 1rem 4rem;
+  margin-top: 2rem;
+  border-radius: 1.5rem;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.second-section nav {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.second-section nav ul {
+  display: flex;
+  justify-content: space-between;
+  overflow-x: scroll;
+}
+
+.second-section nav ul::-webkit-scrollbar {
+  display: none;
+}
+
+.second-section nav ul li {
+  list-style: none;
+  padding: 0.4rem 1rem;
+  white-space: nowrap;
+  font-size: 0.7rem;
+}
+
+.second-section nav ul li.active-nav {
+  background: linear-gradient(180deg, #5429e1 0%, #441ebf 100%);
+  border-radius: 1rem;
+}
+
+.second-section .selected-item-content {
+  font-size: 0.8rem;
+}
+
+.selected-item-content .group-one,
+.selected-item-content .group-two,
+.selected-item-content .group-three {
+  margin-top: 2rem;
+}
+
+.contractAddress-value {
+  color: #b49dff;
+  font-size: 0.7rem;
+}
+
+.contractAddress-key,
+.tokenId-key,
+.creator-key {
+  margin-bottom: 0.5rem;
+}
+
+@media only screen and (min-width: 768px) {
+  .exhibit-main-body {
+    padding: 2rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  .nft-picture-container {
+    width: 48%;
+  }
+
+  .nft-info-container {
+    margin-top: 0;
+  }
+
+  .first-section {
+    padding-top: 2rem;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .exhibit-main-body {
+    padding: 2rem 10%;
+  }
+  .nft-picture-container {
+    width: 50%;
+    margin-right: 3rem;
+  }
+
+  .nft-info-container {
+    width: 50%;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .exhibit-main-body {
+    padding: 2rem 15%;
+  }
+}
