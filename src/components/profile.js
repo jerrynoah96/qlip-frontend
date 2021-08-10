@@ -12,37 +12,118 @@ import "../styles/NFTCard.css"
 
 const Profile = (props) => {
  // const [tokensArray, setTokensArray] = useState([]);
-  const [tokenUrls, setTokenUrls]= useState([]);
-console.log("with new api")
-    const fetchTokens =async ()=> {
-     const res = await fetch("https://api.covalenthq.com/v1/97/address/0x9dc821bc9B379a002E5bD4A1Edf200c19Bc5F9CA/balances_v2/?nft=true&key=ckey_a452d9486064473fa3ca4c02075");
-     const resJson = await res.json();
-    
-    console.log(resJson, 'resJson')
-   const tokensArray = resJson.data.items; 
-     
-     tokensArray.map((token)=> {
-      if(token.nft_data !== null){
-        if(token.nft_data.contract_address === props.contractAddress){
-          (token.nft_data).map((nft)=> {
-            console.log(nft, 'nfts in address')   
-          })
-        }
-      }
-    }) 
 
-   
-    
+ const urlList = props.tokenUrls;
+ 
+  const [tokenDetails, setTokenDetails]= useState([]);
+  let tokenObjects = [];
+ 
   
-    }
+  
+
+  const fetchTokens =()=>{ 
+   
+     urlList.map(async(url)=>{
+      const res = await fetch(url);
+      const result = await res.json();
+      tokenObjects.push(result);
+     
+     
+    } )
+   
+   
+   
+  }
+
+  const displayTokens = tokenObjects.map((token)=> {
+    return(
+      <div className = "nft-card">
+      <div className = "nft-image-container">
+          <img src = {token.imgHash} alt = "nft product" className = "nft-image" />
+      </div>
+      <div className = "nft-details">
+          <h3 className = "nft-name">{token.token_name}</h3>
+          <div className = "detail-1">
+              <h4>{token.price} QLIP</h4>
+              <p>1 of 1</p>
+          </div>
+          <div className = "detail-2">
+              <p><span>Highest bid </span>0.001ETH</p>
+              <p><span>new bid &#128293;</span></p>
+          </div>
+      </div>
+      <button className = "buy-btn">Buy NFT</button>
+  </div>
+    )
+  })
+
+  
+   
+
     
+    
+ /*   const fetchTokenDetails =()=>{
+      const tokenArray =  [];
+
+    tokenUrls.map((tokenUrl)=> {
+      var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+      };
+      
+      fetch(tokenUrl, requestOptions)
+        .then(response => response.json())
+        .then(result => {
+         
+          tokenArray.push(result);
+        })
+        .catch(error => console.log('error', error));
+     // const res = await fetch(tokenUrl);
+     // const resJson = res.json();
+     // console.log(resJson, 'json for each')
+    })
+
+    setTokenDetails(tokenArray);
+   
+   
+  } */
+
+/*
+ const  finalTokenOutput = tokenDetails.map((token)=> {
+     console.log(token, 'token')
+    return(
+      <div className = "nft-card">
+      <div className = "nft-image-container">
+          <img src = {token.imgHash} alt = "nft product" className = "nft-image" />
+      </div>
+      <div className = "nft-details">
+          <h3 className = "nft-name">{token.token_name}</h3>
+          <div className = "detail-1">
+              <h4>{token.price} QLIP</h4>
+              <p>1 of 1</p>
+          </div>
+          <div className = "detail-2">
+              <p><span>Highest bid </span>0.001ETH</p>
+              <p><span>new bid &#128293;</span></p>
+          </div>
+      </div>
+      <button className = "buy-btn">Buy NFT</button>
+  </div>
+
+    )
+  }) */
+  
+
+  
+
 
  
 
   
 
-    useEffect(()=> {
-      fetchTokens();
+    useEffect(async ()=> {
+     await fetchTokens();
+  
     },[fetchTokens])
     return(
         <div className = "profile-main-body">
@@ -91,7 +172,7 @@ console.log("with new api")
               </ul>
             </div>
             <div className = "nfts-container">
-              
+              {displayTokens}
              
             </div>
           </div>

@@ -12,17 +12,24 @@ import './App.css';
 
 
 class App extends Component  {
-state={
-  web3: null,
-  show: false,
-  modalMessage: null,
-  currentpage: "landing",
-  contractDetails:{
-    account: null,
-    contractAddress: "0x26af38b47aeccc97438999a45dda88eaf5f11877",
-    contractInstance: null
+constructor(props){
+  super(props);
 
+  this.state={
+    web3: null,
+    show: false,
+    modalMessage: null,
+    currentpage: "landing",
+    tokenUrls: [],
+    contractDetails:{
+      account: null,
+      contractAddress: "0x26af38b47aeccc97438999a45dda88eaf5f11877",
+      contractInstance: null
+
+    }
   }
+  this.SetWeb3 = this.SetWeb3.bind(this);
+  this.FetchTokens = this.FetchTokens.bind(this);
 }
 
 SetWeb3=async(web3)=> {
@@ -61,6 +68,8 @@ SetWeb3=async(web3)=> {
   
 console.log(this.state.contractDetails,
   this.state.contractDetails.contractInstance, 'contract details in state');
+
+ await this.FetchTokens();
  
 
 }
@@ -76,6 +85,32 @@ handleClose=()=> {
       show: false
   })
 }
+
+FetchTokens =async ()=> {
+  const res = await fetch("https://api.covalenthq.com/v1/97/address/0x9dc821bc9B379a002E5bD4A1Edf200c19Bc5F9CA/balances_v2/?nft=true&key=ckey_a452d9486064473fa3ca4c02075");
+  const resJson = await res.json();
+ 
+ 
+  const tokensArray = resJson.data.items; 
+  
+  
+  
+  tokensArray.map((token)=> {
+    
+   if(token.nft_data !== null){
+     // console.log(token, 'with nft data before contract address')
+   if(token.contract_address === this.state.contractDetails.contractAddress){
+     
+       (token.nft_data).map((nft)=> {
+        this.setState({
+          tokenUrls: [...this.state.tokenUrls, nft.token_url]
+        })
+       })
+     }
+   }
+ }) 
+
+ }
   
 
   render(){
@@ -101,6 +136,7 @@ if(this.state.currentpage == "options"){
 if(this.state.currentpage == "profile"){
   currentDisplayPage= <Profile
   setPage={this.SetPage}
+  tokenUrls={this.state.tokenUrls}
   contractDetails={this.state.contractDetails}/>
 }
     return (
