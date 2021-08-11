@@ -33,9 +33,6 @@ constructor(props){
 }
 
 
-componentWillMount() {
-  this.FetchTokens();
-}
 
 SetWeb3=async(web3)=> {
   this.setState({
@@ -69,12 +66,12 @@ SetWeb3=async(web3)=> {
     }
   })
  }
-  //instantiate contract
+  // instantiate contract
   
 console.log(this.state.contractDetails,
   this.state.contractDetails.contractInstance, 'contract details in state');
 
-//  await this.FetchTokens();
+ await this.FetchTokens();
  
 
 }
@@ -92,7 +89,7 @@ handleClose=()=> {
 }
 
 FetchTokens = async () => {
-  const res = await fetch("https://api.covalenthq.com/v1/97/address/0x9dc821bc9B379a002E5bD4A1Edf200c19Bc5F9CA/balances_v2/?nft=true&key=ckey_a452d9486064473fa3ca4c02075");
+  const res = await fetch("https://api.covalenthq.com/v1/97/address/0x9dc821bc9B379a002E5bD4A1Edf200c19Bc5F9CA/balances_v2/?nft=true&key=ckey_8af791fd59fb496f8c59a1dac1ahttps://api.covalenthq.com/v1/97/address/0x9dc821bc9B379a002E5bD4A1Edf200c19Bc5F9CA/balances_v2/?nft=true&key=ckey_8af791fd59fb496f8c59a1dac1a");
   const resJson = await res.json();
  
   const tokensArray = resJson.data.items; 

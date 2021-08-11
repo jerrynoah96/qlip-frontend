@@ -9,6 +9,7 @@ import NFTCard from "./nftcard";
 import axios from "axios";
 import "../styles/profile.css";
 import "../styles/NFTCard.css"
+import Loader from "./Loader";
 
 const Profile = (props) => {
  // const [tokensArray, setTokensArray] = useState([]);
@@ -120,17 +121,12 @@ const Profile = (props) => {
     )
   }) */
   
-
-  
-
-
- 
-
-  
-
     useEffect( ()=> {
       fetchTokens();
     },[])
+
+
+
     return(
         <div className = "profile-main-body">
         <div className = "cover-photo-container">
@@ -178,7 +174,18 @@ const Profile = (props) => {
               </ul>
             </div>
             <div className = "nfts-container">
-              {displayTokens}
+
+              {/* {!!tokenObjects.length && 
+              tokenObjects.map(token => {
+                return(
+                    <NFTCard key = {token.imgHash} name = {token.item_name} imageSrc = {token.imgHash} price = {token.price} description = {token.description} />
+                  )
+                })}
+
+                  {!tokenObjects.length && <Loader />} */}
+
+                  {!!tokenObjects.length ? displayTokens : <Loader />}
+              
              
             </div>
           </div>
