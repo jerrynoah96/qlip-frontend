@@ -27,13 +27,13 @@ class Create extends Component {
         this.state={
             show: false,
             imgReadableStream: null,
-            buffer: "",
             imgIpfsHash: "",
-            userImage: null,
             loaderShow: false,
             loaderUrl: "https://i.pinimg.com/originals/3f/6b/90/3f6b904917f65c3aa8f8e1207323ad88.jpg",
             progressText: "processing request",
             nftDetails: {
+                userImage: null,
+                buffer: "",
                 owner: null,
                 imgHash:  null,
                 item_name: "",
@@ -48,7 +48,7 @@ class Create extends Component {
                 category: ""
             }
             
-    
+
         }
     
        this.handleInput = this.handleInput.bind(this);
@@ -67,11 +67,20 @@ class Create extends Component {
 
             }
         })
+       console.log(this.state.nftDetails.category, this.state.nftDetails.royalty)
       
     
       }
 
+     setPage=(page)=> {
+        page = 'options';
+        this.props.setPage(page);
+        this.props.setFormDetails(this.state.nftDetails);
 
+
+    }
+
+      
       captureImg = (e)=>{
         e.preventDefault();
         console.log('file catured')
@@ -79,14 +88,22 @@ class Create extends Component {
         //first fetch file from event
         const userFile = e.target.files[0];
         this.setState({
-            userImage: URL.createObjectURL(userFile)
+            nftDetails:{
+                ...this.state.nftDetails,
+                userImage: URL.createObjectURL(userFile)
+            }
+            
         })
-        console.log(this.state.userImage, userFile,'images');
+        console.log(this.state.nftDetails.userImage, userFile,'images');
         const reader = new window.FileReader();
         reader.readAsArrayBuffer(userFile);
         reader.onloadend = () => {
             this.setState({
-                buffer: Buffer(reader.result)
+                nftDetails:{
+                    ...this.state.nftDetails,
+                    buffer: Buffer(reader.result)
+                }
+                
             })
             console.log(this.state.buffer, 'new buffer');
            
@@ -110,9 +127,7 @@ class Create extends Component {
                 const result = await ipfs.add(this.state.buffer)
                 const imgIpfsHash = result.cid.string;
                 //console.log('result', result);
-                this.setState({
-                    imgIpfsHash
-                })
+                
                 this.setState({
                     nftDetails :{
                         ...this.state.nftDetails,
@@ -212,7 +227,7 @@ render(){
         <Modal.Body>Artist Collection selected</Modal.Body>
       </Modal>
             <div className="preview">
-            <Preview userImage={this.state.userImage}
+            <Preview userImage={this.state.nftDetails.userImage}
             imageName={this.state.nftDetails.item_name}
             imagedescription={this.state.nftDetails.description}/>
 
@@ -278,8 +293,28 @@ render(){
                     onChange={this.handleInput} />
 
                 </div>
-                <div className="small-inputs">
-                <div className="input-box">
+
+    <div className="input-box categories">
+                    {/*
+                        <label htmlFor="royalty">ROYALTIES</label>
+                        <input type="text" id="royalty" placeholder="e.g. 10%"
+                        name="royalty" 
+                        value={this.state.nftDetails.royalty}
+                        onChange={this.handleInput} />
+                         */}
+        <label htmlFor="category">
+            CATEGORIES
+          <select defaultValue={this.state.nftDetails.category} id="category" name="category" onChange={this.handleInput} className="input-box royalties">            
+            <option value="1">Photography</option>
+            <option value="2">Art</option>
+            <option value="3">Meme</option>
+          </select>
+        
+        </label>
+        
+     </div>
+
+     <div className="input-box royalties">
                     {/*
                         <label htmlFor="royalty">ROYALTIES</label>
                         <input type="text" id="royalty" placeholder="e.g. 10%"
@@ -289,18 +324,19 @@ render(){
                          */}
 
         <label htmlFor="royalty">
-          ROYALTIES
-          <select value={this.state.value} id="royalty" name="royalty" onChange={this.handleInput} className="input-box">            
-            <option value={this.state.nftDetails.royalty}>10</option>
-            <option value={this.state.nftDetails.royalty}>20</option>
-            <option value={this.state.nftDetails.royalty}>30</option>
-            <option value={this.state.nftDetails.royalty}>40</option>
+            ROYALTIES
+          <select defaultValue={this.state.nftDetails.royalty} id="royalty" name="royalty" onChange={this.handleInput} className="input-box royalties">            
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
           </select>
+          <span>Suggested: 0%, 10%, 20%, 30%. Maximum is 50%</span>
         </label>
-        </div>
-
-                   
-
+        
+     </div>
+                <div className="small-inputs">
+    
                     <div className="input-box">
                         <label htmlFor="size">SIZE</label>
                         <input type="text" id="size" placeholder="e.g. Size"
@@ -311,7 +347,7 @@ render(){
                     </div>
 
                     <div className="input-box">
-                        <label htmlFor="properties">PROPERTIES</label>
+                        <label htmlFor="properties">PROPERTIES(Optional)</label>
                         <input type="text" id="property" placeholder="e.g. Height, Width"
                         name="property" 
                         value={this.state.nftDetails.property}
@@ -412,7 +448,8 @@ render(){
                     </div>
 
                 </div>
-                
+              {
+              /*  
                 <div className="collection-choice">
                     <span>
                         Choose collection
@@ -479,7 +516,8 @@ render(){
                     </div>
 
                 </div>
-
+                */
+                    }
                 
                     
             
@@ -487,7 +525,7 @@ render(){
 
                 </div> 
                 <div className="submit-btn-box">
-                    <button onClick={this.MintNft}>Create Item 
+                    <button onClick={this.setPage}>Create Item 
                         <img src={arrow} alt="arrow-icon"/>
                     </button>
                      

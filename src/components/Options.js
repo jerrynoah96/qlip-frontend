@@ -10,6 +10,7 @@ const Options=(props)=> {
         props.setPage(page);
 
     }
+    console.log(props.form_details, 'oh my')
 
 
 

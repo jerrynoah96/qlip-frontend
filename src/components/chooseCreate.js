@@ -5,7 +5,7 @@ import '../styles/chooseCreate.css';
 
 
 const ChooseCreate = (props)=> {
-    let currentpage = 'options';
+    let currentpage = 'create';
     const setPage=(page)=> {
         page = currentpage;
         props.setPage(page);

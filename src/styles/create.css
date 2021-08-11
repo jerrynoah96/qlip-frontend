@@ -65,13 +65,26 @@
       margin-bottom: 1rem;
   }
   .input-box{
-     
       margin-bottom: 1rem;
+  }
+
+  .royalties{
+      width: 600px !important;
+  }
+  .royalties label{
+      display: flex;
+      flex-direction: column;
+
+  }
+  .royalties span{
+      font-size: 0.8rem;
+      font-weight: lighter;
+      margin-top: -1rem;
   }
   .input-box label{
       display: block;
       font-size: 0.8rem;
-      color: rgba(255, 255, 255, 0.7);
+      color: rgba(30, 16, 16, 0.7);
       margin-bottom: 0.5rem;
       
   }
@@ -93,6 +106,7 @@
       outline: none;
   }
   .input-box label{
+      color: rgba(255, 255, 255, 0.8);
       display: flex;
       flex-direction: column;
   }
@@ -112,6 +126,7 @@ option{
 }
 
   .small-inputs{
+      width: 400px;
       display: flex;
       justify-content: space-between;
   }

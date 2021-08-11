@@ -26,6 +26,23 @@ constructor(props){
       contractAddress: "0x26af38b47aeccc97438999a45dda88eaf5f11877",
       contractInstance: null
 
+    },
+    form_details: {
+      userImage: null,
+      buffer: "",
+      owner: null,
+      imgHash:  null,
+      item_name: "",
+      description: "",
+      price: "",
+      royalty: "",
+      size: "",
+      property: "",
+      on_sale: false,
+      instant_sale_price: false,
+      unlock_on_purchase: false,
+      category: ""
+
     }
   }
   this.SetWeb3 = this.SetWeb3.bind(this);
@@ -88,6 +105,45 @@ handleClose=()=> {
   })
 }
 
+FormDetails = async(form_details)=> {
+  const userImage = form_details.userImage;
+  const buffer = form_details.buffer;
+  const owner = form_details.owner;
+  const imgHash = form_details.imgHash;
+  const description = form_details.description;
+  const item_name = form_details.item_name;
+  const price = form_details.price;
+  const royalty = form_details.royalty;
+  const size = form_details.size;
+  const property = form_details.property;
+  const on_sale = form_details.on_sale;
+  const instant_sale_price = form_details.instant_sale_price;
+  const unlock_on_purchase = form_details.unlock_on_purchase;
+  const category = form_details.category;
+
+  await  this.setState({
+    form_details:{
+      ...this.state.form_details,
+      userImage,
+      buffer,
+      owner,
+      imgHash,
+      item_name,
+      description,
+      price,
+      royalty,
+      size,
+      property,
+      on_sale,
+      instant_sale_price,
+      unlock_on_purchase,
+      category
+    }
+  })
+  
+  console.log(this.state.form_details, 'form details')
+}
+
 FetchTokens = async () => {
   const res = await fetch("https://api.covalenthq.com/v1/97/address/0x9dc821bc9B379a002E5bD4A1Edf200c19Bc5F9CA/balances_v2/?nft=true&key=ckey_8af791fd59fb496f8c59a1dac1ahttps://api.covalenthq.com/v1/97/address/0x9dc821bc9B379a002E5bD4A1Edf200c19Bc5F9CA/balances_v2/?nft=true&key=ckey_8af791fd59fb496f8c59a1dac1a");
   const resJson = await res.json();
@@ -143,11 +199,13 @@ FetchTokens = async () => {
   if(this.state.currentpage == "create"){
     currentDisplayPage= <Create
     contractDetails={this.state.contractDetails}
-    setPage={this.SetPage}/>
+    setPage={this.SetPage}
+    setFormDetails={this.FormDetails}/>
 }
 if(this.state.currentpage == "options"){
   currentDisplayPage= <Options
-  setPage={this.SetPage}/>
+  setPage={this.SetPage}
+  form_details={this.state.form_details}/>
 }
 
 if(this.state.currentpage == "profile"){
