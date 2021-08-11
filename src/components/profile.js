@@ -9,6 +9,7 @@ import NFTCard from "./nftcard";
 import axios from "axios";
 import "../styles/profile.css";
 import "../styles/NFTCard.css"
+import Loader from "./Loader";
 
 const Profile = (props) => {
  // const [tokensArray, setTokensArray] = useState([]);
@@ -16,33 +17,39 @@ const Profile = (props) => {
  const urlList = props.tokenUrls;
  
   const [tokenDetails, setTokenDetails]= useState([]);
-  let tokenObjects = [];
+  const [tokenObjects, setTokenObjects] = useState([])
+  // let tokenObjects = [];
  
   
   
 
   const fetchTokens =()=>{ 
-   
-     urlList.map(async(url)=>{
+
+    //   urlList.map(async(url)=>{
+    //   const res = await fetch(url);
+    //   const result = await res.json();
+    //   tokenObjects.push(result);
+    // } )
+    
+    const tokenObjectsPlaceholder = [];
+    const tokenObj = []
+     urlList.forEach(async url => {
       const res = await fetch(url);
       const result = await res.json();
-      tokenObjects.push(result);
-     
-     
-    } )
-   
-   
+      tokenObj.push(result)
+      if(tokenObj.length === urlList.length) setTokenObjects(tokenObj)
+    })
    
   }
 
   const displayTokens = tokenObjects.map((token)=> {
     return(
-      <div className = "nft-card">
+      <div key = {token.owner} className = "nft-card">
       <div className = "nft-image-container">
           <img src = {token.imgHash} alt = "nft product" className = "nft-image" />
       </div>
       <div className = "nft-details">
-          <h3 className = "nft-name">{token.token_name}</h3>
+          <h3 className = "nft-name">{token.item_name}</h3>
           <div className = "detail-1">
               <h4>{token.price} QLIP</h4>
               <p>1 of 1</p>
@@ -54,6 +61,7 @@ const Profile = (props) => {
       </div>
       <button className = "buy-btn">Buy NFT</button>
   </div>
+      // <NFTCard key = {token.imgHash} name = {token.item_name} imageSrc = {token.imgHash} price = {token.price} description = {token.description} />
     )
   })
 
@@ -113,18 +121,12 @@ const Profile = (props) => {
     )
   }) */
   
+    useEffect( ()=> {
+      fetchTokens();
+    },[])
 
-  
 
 
- 
-
-  
-
-    useEffect(async ()=> {
-     await fetchTokens();
-  
-    },[fetchTokens])
     return(
         <div className = "profile-main-body">
         <div className = "cover-photo-container">
@@ -172,7 +174,18 @@ const Profile = (props) => {
               </ul>
             </div>
             <div className = "nfts-container">
-              {displayTokens}
+
+              {/* {!!tokenObjects.length && 
+              tokenObjects.map(token => {
+                return(
+                    <NFTCard key = {token.imgHash} name = {token.item_name} imageSrc = {token.imgHash} price = {token.price} description = {token.description} />
+                  )
+                })}
+
+                  {!tokenObjects.length && <Loader />} */}
+
+                  {!!tokenObjects.length ? displayTokens : <Loader />}
+              
              
             </div>
           </div>

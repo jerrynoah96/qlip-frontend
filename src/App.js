@@ -32,6 +32,8 @@ constructor(props){
   this.FetchTokens = this.FetchTokens.bind(this);
 }
 
+
+
 SetWeb3=async(web3)=> {
   this.setState({
     web3
@@ -64,7 +66,7 @@ SetWeb3=async(web3)=> {
     }
   })
  }
-  //instantiate contract
+  // instantiate contract
   
 console.log(this.state.contractDetails,
   this.state.contractDetails.contractInstance, 'contract details in state');
@@ -86,30 +88,45 @@ handleClose=()=> {
   })
 }
 
-FetchTokens =async ()=> {
-  const res = await fetch("https://api.covalenthq.com/v1/97/address/0x9dc821bc9B379a002E5bD4A1Edf200c19Bc5F9CA/balances_v2/?nft=true&key=ckey_a452d9486064473fa3ca4c02075");
+FetchTokens = async () => {
+  const res = await fetch("https://api.covalenthq.com/v1/97/address/0x9dc821bc9B379a002E5bD4A1Edf200c19Bc5F9CA/balances_v2/?nft=true&key=ckey_8af791fd59fb496f8c59a1dac1ahttps://api.covalenthq.com/v1/97/address/0x9dc821bc9B379a002E5bD4A1Edf200c19Bc5F9CA/balances_v2/?nft=true&key=ckey_8af791fd59fb496f8c59a1dac1a");
   const resJson = await res.json();
- 
  
   const tokensArray = resJson.data.items; 
   
   
-  
-  tokensArray.map((token)=> {
-    
-   if(token.nft_data !== null){
-     // console.log(token, 'with nft data before contract address')
-   if(token.contract_address === this.state.contractDetails.contractAddress){
-     
-       (token.nft_data).map((nft)=> {
-        this.setState({
-          tokenUrls: [...this.state.tokenUrls, nft.token_url]
-        })
-       })
-     }
-   }
- }) 
+//   tokensArray.map((token)=> {
 
+    
+    
+//    if(token.nft_data !== null){
+//     //  console.log(token, 'with nft data before contract address')
+//    if(token.contract_address === this.state.contractDetails.contractAddress){
+     
+//        (token.nft_data).map((nft)=> {
+//         this.setState({
+//           tokenUrls: [...this.state.tokenUrls, nft.token_url]
+//         })
+//        })
+//      }
+//    }
+//  }) 
+
+
+    const placeHolder = []
+    tokensArray.forEach(token => {
+      if(token.nft_data !== null && token.contract_address === this.state.contractDetails.contractAddress) {
+        token.nft_data.forEach(nft_data => {
+          placeHolder.push(nft_data.token_url);
+        })
+      }
+
+        
+    })
+
+    this.setState({
+      tokenUrls: placeHolder
+    })
  }
   
 
@@ -142,8 +159,8 @@ if(this.state.currentpage == "profile"){
     return (
       <div className="App">
         <Modal show={this.state.show} onHide={this.handleClose}>
-        <Modal.Body>{this.state.modalMessage}</Modal.Body>
-      </Modal>
+          <Modal.Body>{this.state.modalMessage}</Modal.Body>
+        </Modal>
 
       
         <NavBar setWeb3={this.SetWeb3} setPage={this.SetPage}
