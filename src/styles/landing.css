@@ -101,6 +101,13 @@ main {
   margin-top: 3rem;
 }
 
+.top-seller-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+}
+
 .marketplace {
 }
 

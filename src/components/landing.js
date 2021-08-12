@@ -7,6 +7,8 @@ import oshunNft from "../images/OSHUN_NFT.png"
 import NFTExhibitionCard from "./NFTExhibitionCard";
 import NFTCard from "./nftcard";
 import productImage from "../images/product_img.svg"
+import sellerPic from "../images/Ranked_Seller.png"
+import TopSellers from "./TopSellers"
 const Landing =(props)=> {
 
 
@@ -76,7 +78,16 @@ const Landing =(props)=> {
                 </div>
 
                 <div className = "sections top-sellers">
-                    <h1 className = "section-header">Top Selers</h1>
+                    <h1 className = "section-header">Top Sellers</h1>
+                    <div className = "top-seller-container">
+                        <TopSellers key = "1" name = "Karla Gyan" profilePic = {sellerPic} number = "1" balance = "700" />
+                        <TopSellers key = "2" name = "Karla Gyan" profilePic = {sellerPic} number = "2" balance = "500" />
+                        <TopSellers key = "3" name = "Karla Gyan" profilePic = {sellerPic} number = "3" balance = "200" />
+                        <TopSellers key = "4" name = "Karla Gyan" profilePic = {sellerPic} number = "4" balance = "100" />
+                        <TopSellers key = "5" name = "Karla Gyan" profilePic = {sellerPic} number = "5" balance = "100" />
+                    </div>
+
+                    {/* 2. 3772ff 3. 0ead6f ... 23262f */}
                     
                 </div>
 

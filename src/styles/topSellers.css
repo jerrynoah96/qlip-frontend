@@ -1,0 +1,55 @@
+.top-seller-card {
+  background-color: #141416;
+  width: 14rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+  padding: 3rem 0;
+}
+.rank-tag {
+  padding: 0.2rem 1rem;
+  border-radius: 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.rank-tag span {
+  color: #fff;
+}
+.seller-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-picture-container {
+  border: 4px solid #4caf50;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.profile-picture {
+  width: 100%;
+  height: 100%;
+}
+
+.verified-icon {
+  position: absolute;
+  bottom: 0;
+  right: -0.3rem;
+}
+
+.seller-username,
+.seller-balance {
+  color: #fff;
+}
+
+.seller-balance span {
+  color: #999;
+}
