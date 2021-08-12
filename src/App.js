@@ -23,7 +23,7 @@ constructor(props){
     tokenUrls: [],
     contractDetails:{
       account: null,
-      contractAddress: "0x872b6148615a482fedf4899F2035f933A27050c0",
+      contractAddress: "0x1cF0A1CA7e8487a66212FEDBE0cCFa385E081590",
       contractInstance: null
 
     },
