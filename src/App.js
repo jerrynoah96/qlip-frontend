@@ -23,7 +23,7 @@ constructor(props){
     tokenUrls: [],
     contractDetails:{
       account: null,
-      contractAddress: "0x26af38b47aeccc97438999a45dda88eaf5f11877",
+      contractAddress: "0x872b6148615a482fedf4899F2035f933A27050c0",
       contractInstance: null
 
     },
@@ -62,9 +62,9 @@ SetWeb3=async(web3)=> {
   this.setState({
     show: true
   })
- if(networkId !== "private"){
+ if(networkId !== "kovan"){
    this.setState({
-    modalMessage: "Kindly ensure you're on the binance test network and Reload the page"
+    modalMessage: "Kindly ensure you're on the kovan test network and Reload the page"
    })
 
  }
@@ -145,7 +145,7 @@ FormDetails = async(form_details)=> {
 }
 
 FetchTokens = async () => {
-  const res = await fetch("https://api.covalenthq.com/v1/97/address/0x9dc821bc9B379a002E5bD4A1Edf200c19Bc5F9CA/balances_v2/?nft=true&key=ckey_8af791fd59fb496f8c59a1dac1ahttps://api.covalenthq.com/v1/97/address/0x9dc821bc9B379a002E5bD4A1Edf200c19Bc5F9CA/balances_v2/?nft=true&key=ckey_8af791fd59fb496f8c59a1dac1a");
+  const res = await fetch("https://api.covalenthq.com/v1/42/address/0x9dc821bc9B379a002E5bD4A1Edf200c19Bc5F9CA/balances_v2/?nft=true&key=ckey_8af791fd59fb496f8c59a1dac1a");
   const resJson = await res.json();
  
   const tokensArray = resJson.data.items; 
@@ -189,7 +189,9 @@ FetchTokens = async () => {
   render(){
     let currentDisplayPage;
     if(this.state.currentpage == "landing"){
-        currentDisplayPage= <Landing setPage={this.SetPage}/>
+        currentDisplayPage= <Landing setPage={this.SetPage}
+        web3={this.state.web3}
+        contractDetails={this.state.contractDetails}/>
     }
     if(this.state.currentpage == "choose create"){
       currentDisplayPage= <ChooseCreate 

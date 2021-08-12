@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import landingBG from '../images/home-bg.png';
 import '../styles/landing.css';
 import bushland from "../images/BUSHLAND.png";
@@ -18,6 +18,17 @@ const Landing =(props)=> {
         props.setPage(page);
 
     }
+
+  const getTokenDetails=async()=> {
+        const res =await props.contractDetails.contractInstance.methods.getAllTokenDetails(31).call();
+        console.log(res, 'nft details via ID');
+
+
+    }
+
+  /*  useEffect(()=>{
+        getTokenDetails();
+    },[getTokenDetails]) */
     return(
         <div className="landing">
             <header>

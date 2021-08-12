@@ -114,7 +114,7 @@ MintNft=async(e)=> {
                 })
         
             const mint_reciept = await this.props.contractDetails.contractInstance.methods.mintWithIndex(this.props.contractDetails.account,
-                    URI, this.props.form_details.category).send({
+                    URI).send({
                         from: this.props.contractDetails.account
                     })
     
@@ -133,9 +133,10 @@ MintNft=async(e)=> {
     
        catch(error){
             this.setState({
-                progressText: "Oops, Looks like you can't Mint an NFT yet, kindly contact Admin",
+                progressText: error,
                 loaderUrl: "https://c4.wallpaperflare.com/wallpaper/159/71/731/errors-minimalism-typography-red-wallpaper-preview.jpg"
             })
+          console.log(error, 'error')
     
         } 
 
