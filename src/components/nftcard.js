@@ -1,4 +1,3 @@
-import productImage from "../images/product_img.svg"
 import "../styles/NFTCard.css"
 const NFTCard = ({name, imageSrc, description, price}) => {
    // console.log(props.token_url, 'mehn right from the cards')
