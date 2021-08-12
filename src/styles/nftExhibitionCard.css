@@ -1,0 +1,67 @@
+.nft-picture-container {
+  border: 0.6rem solid #47464b;
+  border-radius: 1rem;
+  width: 22rem;
+}
+
+.nft-picture {
+  width: 100%;
+}
+
+.nft-description {
+  position: relative;
+  padding: 1rem 0;
+  color: #fff9df;
+}
+
+.nft-name {
+  font-family: Beleren2016 Small Caps;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 21px;
+  letter-spacing: 0em;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+}
+
+.info-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nft-decsriptive-text {
+  text-align: center;
+  letter-spacing: 2px;
+  font-size: 0.5rem;
+  padding: 0 2.5rem;
+}
+
+.left-vertical-text,
+.right-vertical-text {
+  position: absolute;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  /* top: 2rem; */
+  font-size: 0.8rem;
+  font-weight: 100;
+  text-align: center;
+}
+
+.left-vertical-text {
+  left: 0;
+}
+
+.right-vertical-text {
+  right: 0;
+  letter-spacing: 0.5rem;
+}
+
+.nft-price {
+  font-size: 1.1rem;
+  text-align: center;
+  margin-top: 2rem;
+  color: #878787;
+}

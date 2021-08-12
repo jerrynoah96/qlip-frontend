@@ -1,83 +1,162 @@
-header{
-    
-    height: 90vh;
-    width: 100vw;
-    position: relative;
-   
-   
+header {
+  height: 90vh;
+  width: 100vw;
+  position: relative;
 }
-.landing-bg{
-    
-    height: 100%;
-    width: 100%;
-    z-index: -1;
+.landing-bg {
+  height: 100%;
+  width: 100%;
+  z-index: -1;
 }
 
+.header-content1 {
+  width: 500px;
+  height: 300px;
 
-.header-content1{
-    width: 500px;
-    height: 300px;
-    
-    position: absolute;
-    bottom: 10%;
-    left: 10%;
-    color: rgba(255, 255, 255);
+  position: absolute;
+  bottom: 10%;
+  left: 10%;
+  color: rgba(255, 255, 255);
 }
-.header-content1 h1{
-    font-size: 3rem;
-    font-weight: bolder;
-    font-family: sans-serif;
+.header-content1 h1 {
+  font-size: 3rem;
+  font-weight: bolder;
+  font-family: sans-serif;
 }
-.header-content1 span{
-    font-family: sans-serif;
-    font-size: 1.2rem;
-    color: rgba(255, 255,255,0.8);
+.header-content1 span {
+  font-family: sans-serif;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
 }
-.btn-box{
-    margin-top: 2rem;
-    width: 450px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.btn-box {
+  margin-top: 2rem;
+  width: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.header-content1 button{
-    border: none;
-    width: 190px;
-    height: 50px;
-    border-radius: 40px;
+.header-content1 button {
+  border: none;
+  width: 190px;
+  height: 50px;
+  border-radius: 40px;
 }
-.create-btn{
-    
-    background: linear-gradient(180deg, #5429E1 0%, #441EBF 100%);
-    color: rgba(255, 255, 255);
+.create-btn {
+  background: linear-gradient(180deg, #5429e1 0%, #441ebf 100%);
+  color: rgba(255, 255, 255);
 }
 
-.header-content2{
-    width: 300px;
-    height: 300px;
-    position: absolute;
-    top: 10%;
-    right: 10%;
-    color: rgba(255, 255,255);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-     border:none;
-     border:1px dashed rgba(171, 151, 255, 1);
-    padding: 2rem;
+.header-content2 {
+  width: 300px;
+  height: 300px;
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  color: rgba(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: none;
+  border: 1px dashed rgba(171, 151, 255, 1);
+  padding: 2rem;
 }
-.header-content2 h2{
-    font-size: 1.4rem;
-}
-
-.nft-detail{
-    color: rgba(255, 255, 255,0.6);
-    font-size: 1rem;
-
-}
-.number-index{
-    color: rgba(255, 255, 255, 0.7);
-    margin-left: 1rem;
+.header-content2 h2 {
+  font-size: 1.4rem;
 }
 
-    
+.nft-detail {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1rem;
+}
+.number-index {
+  color: rgba(255, 255, 255, 0.7);
+  margin-left: 1rem;
+}
+
+main {
+  background-color: #0e0e12;
+  padding: 5rem;
+}
+
+.sections {
+  margin-bottom: 10rem;
+}
+
+.section-header {
+  color: #fff;
+}
+
+.section-tagline {
+  color: #f3f3f3;
+}
+
+.qlip-nft-header,
+.section-tagline {
+  text-align: center;
+}
+
+.cards-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+}
+
+.marketplace {
+}
+
+.marketplace-nav {
+  width: 100%;
+  margin-bottom: 2rem;
+  margin-top: 5rem;
+}
+
+.marketplace-nav ul {
+  display: flex;
+  justify-content: space-between;
+  overflow-x: scroll;
+  margin: 0;
+  padding: 0;
+}
+
+.marketplace-nav ul::-webkit-scrollbar {
+  display: none;
+}
+
+.marketplace-nav ul li {
+  list-style: none;
+}
+
+.marketplace-nav .active-marketplace-nav {
+  background: #441ebf;
+  color: #fff;
+}
+
+.marketplace-nav ul li button {
+  background: none;
+  color: #b5b5b5;
+  border-radius: 1rem;
+  padding: 0.5rem 1.2rem;
+  white-space: nowrap;
+  border: none;
+}
+
+.nft-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+}
+.load-more-btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.load-more {
+  background: transparent;
+  border: 1px solid #441ebf;
+  color: #fff;
+  padding: 0.8rem 4rem;
+  border-radius: 1.5rem;
+  display: block;
+  text-align: center;
+}
