@@ -11,14 +11,6 @@ import Preview from './create-preview';
 import Modal from 'react-bootstrap/Modal';
 import '../styles/create.css';
 
-
-
-const ipfsClient = require('ipfs-http-client')
-const ipfs = ipfsClient({host: "ipfs.infura.io", port: 5001, protocol:"https"})
-
-const pinataSDK = require('@pinata/sdk');
-const pinata = pinataSDK('583a9e7e2b1ccaea8de3',
- '2ca5978f83ed954ee26ca3f6501ba443caf7e17eff01134623ad3e2fabd9bd9f');
 class Create extends Component {
 
 
@@ -52,9 +44,9 @@ class Create extends Component {
         }
     
        this.handleInput = this.handleInput.bind(this);
-         this.uploadImgToIPFS = this.uploadImgToIPFS.bind(this);
+        // this.uploadImgToIPFS = this.uploadImgToIPFS.bind(this);
      //   this.CaptureDetails = this.CaptureDetails.bind(this);
-       this.MintNft = this.MintNft.bind(this); 
+      // this.MintNft = this.MintNft.bind(this); 
       
     }
 
@@ -105,7 +97,7 @@ class Create extends Component {
                 }
                 
             })
-            console.log(this.state.buffer, 'new buffer');
+            
            
         }
     
@@ -119,99 +111,9 @@ class Create extends Component {
 
    
 
-    uploadImgToIPFS = async (e)=> {
-        
-        console.log('pushing file to IPFS')
-        if(this.state.buffer){
-            try{
-                const result = await ipfs.add(this.state.buffer)
-                const imgIpfsHash = result.cid.string;
-                //console.log('result', result);
-                
-                this.setState({
-                    nftDetails :{
-                        ...this.state.nftDetails,
-                        imgHash: "https://ipfs.infura.io/ipfs/"+imgIpfsHash
+   
 
-                    }
-                })
-
-                 console.log(this.state.imgIpfsHash, 'Img ipfs hash')
-                 console.log(this.state.nftDetails.imgHash, 'ipfs link json')
-                
-            }
-            catch(e){
-                console.log('error', e)
-            }
-        
-        } else{
-            alert('choose a valid file');
-        }
-
-    }
-
-    MintNft=async(e)=> {
-        this.setState({
-            loaderShow: true
-        })
-        e.preventDefault();
-        this.setState({
-            progressText: "pinning your file to IPFS"
-        })
-
-        await this.uploadImgToIPFS();
-        this.setState({
-            nftDetails :{
-                ...this.state.nftDetails,
-                owner: this.props.contractDetails.account
-            }
-        })
-        const res = this.state.nftDetails;
-        
-        const pinataRes = await pinata.pinJSONToIPFS(res);
-          this.setState({
-            loaderUrl: "https://i.pinimg.com/originals/3f/6b/90/3f6b904917f65c3aa8f8e1207323ad88.jpg"
-        })
-
-        const URI = "https://ipfs.infura.io/ipfs/"+pinataRes.IpfsHash
-
-
-    try{
-
-    
-            
-            this.setState({
-                progressText: "Minting NFT",
-                loaderUrl: "https://flevix.com/wp-content/uploads/2021/06/Neon-Loading.gif"
-                })
-        
-            const mint_reciept = await this.props.contractDetails.contractInstance.methods.mintWithIndex(this.props.contractDetails.account,
-                    URI, this.state.nftDetails.category).send({
-                        from: this.props.contractDetails.account
-                    })
-
-                    this.setState({
-                        progressText: "Done"
-                     })
-           // console.log(mint_reciept, 'mint reciept')
-           console.log(mint_reciept.status, 'status')
-           if(mint_reciept.status == true){
-               this.props.setPage("profile");
-            }
-
-         
-    }
-
-       catch(error){
-            this.setState({
-                progressText: "Oops, Looks like you can't Mint an NFT yet, kindly contact Admin",
-                loaderUrl: "https://c4.wallpaperflare.com/wallpaper/159/71/731/errors-minimalism-typography-red-wallpaper-preview.jpg"
-            })
-    
-        } 
-        
-        }
-
+   
 
 
     
@@ -223,9 +125,7 @@ class Create extends Component {
 render(){
     return(
         <div className="create-section">
-        <Modal show={this.state.show} onHide={this.handleClose}>
-        <Modal.Body>Artist Collection selected</Modal.Body>
-      </Modal>
+        
             <div className="preview">
             <Preview userImage={this.state.nftDetails.userImage}
             imageName={this.state.nftDetails.item_name}

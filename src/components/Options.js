@@ -1,21 +1,162 @@
-import React from 'react';
+import React, {Component} from 'react';
 import uploadIcon from '../images/upload-icon.png';
 import signIcon from '../images/sign-icon.png';
+import Modal from 'react-bootstrap/Modal';
 import '../styles/options.css';
 
-const Options=(props)=> {
-    let currentpage = 'create';
-    const setPage=(page)=> {
-        page = currentpage;
-        props.setPage(page);
+
+const ipfsClient = require('ipfs-http-client')
+const ipfs = ipfsClient({host: "ipfs.infura.io", port: 5001, protocol:"https"})
+
+const pinataSDK = require('@pinata/sdk');
+const pinata = pinataSDK('583a9e7e2b1ccaea8de3',
+ '2ca5978f83ed954ee26ca3f6501ba443caf7e17eff01134623ad3e2fabd9bd9f');
+class Options extends Component {
+
+    constructor(props){
+        super(props);
+
+        this.state={
+            show: false,
+            loaderUrl: null,
+            progressText: "Minting NFT, kindly await confirmation",
+            loaderShow: false,
+            currentpage:'profile',
+            imgHash: null
+        }
+        this.uploadImgToIPFS = this.uploadImgToIPFS.bind(this);
+        this.MintNft = this.MintNft.bind(this);
+        this.setPage = this.setPage.bind(this);
+    } 
+ setPage=(page)=> {
+        
+        page =this.state.currentpage;
+       this.props.setPage(page);
+
+}
+uploadImgToIPFS = async (e)=> {
+        
+   
+    if(this.props.form_details.buffer){
+        try{
+            const result = await ipfs.add(this.props.form_details.buffer)
+            const imgIpfsHash = result.cid.string;
+            //console.log('result', result);
+            
+            this.setState({  
+                    imgHash: "https://ipfs.infura.io/ipfs/"+imgIpfsHash
+            })
+
+            
+        }
+        catch(e){
+            console.log('error', e)
+        }
+    
+    } else{
+        alert('choose a valid file');
+    }
+
+}
+
+handleClose=()=> {
+    this.setState({
+        show: false
+    })
+}
+
+MintNft=async(e)=> {
+    if(this.props.web3 == null){
+        alert("please connect wallet")
+    }
+    else{
+        this.setState({
+            show: true
+        })
+    
+        e.preventDefault();
+        this.setState({
+            progressText: "pinning your file to IPFS",
+            loaderUrl: "https://cdn.dribbble.com/users/419257/screenshots/1724076/scanningwoohoo.gif"
+        })
+    
+        await this.uploadImgToIPFS();
+    
+        const owner =  this.props.contractDetails.account;
+        const imgHash = this.state.imgHash;
+        const tokendetails = {
+                ...this.props.form_details,
+                owner,
+                imgHash
+    
+            }
+    
+            console.log(tokendetails, 'closer by');
+        
+        const pinataRes = await pinata.pinJSONToIPFS(tokendetails);
+          this.setState({
+            progressText: "Finalizing File and details upload to IPFS"
+        })
+    
+        const URI = "https://ipfs.infura.io/ipfs/"+pinataRes.IpfsHash;
+        console.log(URI, 'url for uri')
+    
+    
+    
+    
+    
+    try{
+            
+            this.setState({
+                progressText: "Minting NFT, kindly await confirmation",
+                loaderUrl: "https://i.gifer.com/ZZ5H.gif"
+                
+                })
+        
+            const mint_reciept = await this.props.contractDetails.contractInstance.methods.mintWithIndex(this.props.contractDetails.account,
+                    URI, this.props.form_details.category).send({
+                        from: this.props.contractDetails.account
+                    })
+    
+                    this.setState({
+                        progressText: "Done",
+                        loaderUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flat_tick_icon.svg/480px-Flat_tick_icon.svg.png"
+                     })
+           // console.log(mint_reciept, 'mint reciept')
+           console.log(mint_reciept, 'mint reciept')
+           if(mint_reciept.status == true){
+               this.setPage();
+            }
+    
+         
+    }
+    
+       catch(error){
+            this.setState({
+                progressText: "Oops, Looks like you can't Mint an NFT yet, kindly contact Admin",
+                loaderUrl: "https://c4.wallpaperflare.com/wallpaper/159/71/731/errors-minimalism-typography-red-wallpaper-preview.jpg"
+            })
+    
+        } 
 
     }
-    console.log(props.form_details, 'oh my')
+   
+    
+    }
 
+
+
+render(){
 
 
     return(
         <div className="options">
+    <Modal show={this.state.show} onHide={this.handleClose}>
+        <Modal.Body>
+            <span>{this.state.progressText}</span>
+            <img src={this.state.loaderUrl}/>
+        </Modal.Body>
+      </Modal>
             <div className="option-header">
                 <div className="header-content">
                 <h1>QLIP MINTSTORE</h1>
@@ -34,7 +175,7 @@ const Options=(props)=> {
                     </div>
                     <div
                     className="button"
-                    onClick={setPage}>Start</div>
+                    onClick={this.MintNft}>Start</div>
 
                 </div>
 
@@ -63,7 +204,7 @@ const Options=(props)=> {
             </div>
         </div>
     )
-
+    }
 }
 
 export default Options;

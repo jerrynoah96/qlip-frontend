@@ -205,7 +205,9 @@ FetchTokens = async () => {
 if(this.state.currentpage == "options"){
   currentDisplayPage= <Options
   setPage={this.SetPage}
-  form_details={this.state.form_details}/>
+  form_details={this.state.form_details}
+  contractDetails={this.state.contractDetails}
+  web3={this.state.web3}/>
 }
 
 if(this.state.currentpage == "profile"){
