@@ -55,7 +55,7 @@ const NavBar = (props) => {
       accounts = await web3.eth.getAccounts();
       const networkId =await web3.eth.net.getNetworkType();
       props.setWeb3(web3);
-      if(networkId !== "kovan"){
+      if(networkId !== "private"){
         btnText= "Connect Wallet"  
       }
       else{
@@ -96,7 +96,12 @@ return (
             <Nav.Link className="nav-link" to="about" smooth={true} duration={1000}>Explore</Nav.Link>
             <Nav.Link className="nav-link" to="tokenEcons" smooth={true} duration={1000}
             onClick={()=> {
-              props.setPage("profile")
+              if(web3 == null){
+                alert('unidentified address, please connect your wallet')
+              }else{
+                props.setPage("profile")
+              }
+             
             }}>My Profile</Nav.Link>
             <Nav.Link className="nav-link" to="roadmap" smooth={true} duration={1000}>CLIP NFTs</Nav.Link>
             <Nav.Link className="nav-link" to="team" smooth={true} duration={1000} >Community</Nav.Link>

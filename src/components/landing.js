@@ -83,7 +83,7 @@ const Landing =(props)=> {
                     <NFTExhibitionCard key = "2" name = "BUSHLAND" imageSrc = {bushland} price = "20,000" rightText = "1/1" leftText = "EMERALD"
                     description = "Explore Bushland - the shattered remains of the once beautiful african homeworld, San." />
 
-                    <NFTExhibitionCard key = "2" name = "OSHUN" imageSrc = {oshunNft} price = "100,000" rightText = "1/1" leftText = "RUBY"
+                    <NFTExhibitionCard key = "3" name = "OSHUN" imageSrc = {oshunNft} price = "100,000" rightText = "1/1" leftText = "RUBY"
                     description = "The Yoruba river diety who rules divinity, feminity, fertility, beauty and love." />
                     </div>
                 </div>

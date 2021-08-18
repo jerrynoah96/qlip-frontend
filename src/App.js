@@ -23,7 +23,7 @@ constructor(props){
     tokenUrls: [],
     contractDetails:{
       account: null,
-      contractAddress: "0x1cF0A1CA7e8487a66212FEDBE0cCFa385E081590",
+      contractAddress: "0xf36083a08a313c50f7f19d0ae8a90c21ccdb8ccf",
       contractInstance: null
 
     },
@@ -62,9 +62,9 @@ SetWeb3=async(web3)=> {
   this.setState({
     show: true
   })
- if(networkId !== "kovan"){
+ if(networkId !== "private"){
    this.setState({
-    modalMessage: "Kindly ensure you're on the kovan test network and Reload the page"
+    modalMessage: "Kindly ensure you're on the bsc test network and Reload the page"
    })
 
  }
@@ -145,22 +145,12 @@ FormDetails = async(form_details)=> {
 }
 
 FetchTokens = async () => {
-  const res = await fetch("https://api.covalenthq.com/v1/42/address/0x9dc821bc9B379a002E5bD4A1Edf200c19Bc5F9CA/balances_v2/?nft=true&key=ckey_8af791fd59fb496f8c59a1dac1a");
+  const res = await fetch("https://adek-cors-anywhere.herokuapp.com/https://api.covalenthq.com/v1/97/address/0x9dc821bc9B379a002E5bD4A1Edf200c19Bc5F9CA/balances_v2/?nft=true&key=ckey_8af791fd59fb496f8c59a1dac1a");
   const resJson = await res.json();
  
   const tokensArray = resJson.data.items; 
-  
-  
-//   tokensArray.map((token)=> {
 
-    
-    
-//    if(token.nft_data !== null){
-//     //  console.log(token, 'with nft data before contract address')
-//    if(token.contract_address === this.state.contractDetails.contractAddress){
-     
-//        (token.nft_data).map((nft)=> {
-//         this.setState({
+  //         this.setState({
 //           tokenUrls: [...this.state.tokenUrls, nft.token_url]
 //         })
 //        })
@@ -171,6 +161,7 @@ FetchTokens = async () => {
 
     const placeHolder = []
     tokensArray.forEach(token => {
+      console.log(token, 'tokens')
       if(token.nft_data !== null && token.contract_address === this.state.contractDetails.contractAddress) {
         token.nft_data.forEach(nft_data => {
           placeHolder.push(nft_data.token_url);

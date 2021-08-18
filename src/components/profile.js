@@ -15,6 +15,7 @@ const Profile = (props) => {
  // const [tokensArray, setTokensArray] = useState([]);
 
  const urlList = props.tokenUrls;
+ console.log(urlList, 'url list')
  
   const [tokenDetails, setTokenDetails]= useState([]);
   const [tokenObjects, setTokenObjects] = useState([])
@@ -64,6 +65,7 @@ const Profile = (props) => {
       // <NFTCard key = {token.imgHash} name = {token.item_name} imageSrc = {token.imgHash} price = {token.price} description = {token.description} />
     )
   })
+  console.log(displayTokens, 'tokens display')
 
   
    
