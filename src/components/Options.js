@@ -136,7 +136,7 @@ MintNft=async(e)=> {
                 progressText: Error.error,
                 loaderUrl: "https://c4.wallpaperflare.com/wallpaper/159/71/731/errors-minimalism-typography-red-wallpaper-preview.jpg"
             })
-          console.log(error.Error, 'error')
+          console.log(error, 'error')
     
         } 
 

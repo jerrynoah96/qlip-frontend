@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React,{useState, useEffect} from "react";
 import landingBG from '../images/home-bg.png';
 import '../styles/landing.css';
 import bushland from "../images/BUSHLAND.png";
@@ -9,8 +9,17 @@ import NFTCard from "./nftcard";
 import productImage from "../images/product_img.svg"
 import sellerPic from "../images/Ranked_Seller.png"
 import TopSellers from "./TopSellers"
+import Exhibit from "./Exhibit";
+import Modal from 'react-bootstrap/Modal';
+import "../styles/NFTCard.css"
+import "../styles/exhibit.css"
+
+
 const Landing =(props)=> {
 
+    const allTokenUrls = props.allTokenUrls;
+    const [tokenObjects, setTokenObjects] = useState([]);
+    const [show, setShow] = useState(false);
 
     let currentpage = 'choose create';
     const setPage=(page)=> {
@@ -18,19 +27,61 @@ const Landing =(props)=> {
         props.setPage(page);
 
     }
+    
 
-  const getTokenDetails=async()=> {
-        const res =await props.contractDetails.contractInstance.methods.getAllTokenDetails(31).call();
-        console.log(res, 'nft details via ID');
+    const fetchTokens =()=>{ 
 
+        const tokenObj = []
+        allTokenUrls.forEach(async url => {
+          const res = await fetch(url);
+          const result = await res.json();
+          tokenObj.push(result)
+          if(tokenObj.length === allTokenUrls.length) setTokenObjects(tokenObj)
+        })
+        console.log(tokenObjects, 'token objects')
+      }
+      
+  const displayTokens = tokenObjects.map((token)=> {
+    return(
+        <div key = {token.owner} className = "nft-card">
+        <div className = "nft-image-container">
+            <img src = {token.imgHash} alt = "nft product" className = "nft-image" />
+        </div>
+        <div className = "nft-details">
+            <h3 className = "nft-name">{token.item_name}</h3>
+            <div className = "detail-1">
+                <h4>{token.price} BNB</h4>
+                <p>1 of 1</p>
+            </div>
+            <div className = "detail-2">
+                <p><span>Highest bid </span></p>
+                <p><span>new bid &#128293;</span></p>
+            </div>
+        </div>
+        <button className = "buy-btn"
+        onClick={()=> {
+            setShow(true)
+        }}>Buy NFT</button>
+    </div>
+      
+    )
+  })
 
-    }
+  const handleClose=()=>{
+      setShow(false);
+  }
 
-  /*  useEffect(()=>{
-        getTokenDetails();
-    },[getTokenDetails]) */
+      useEffect( ()=> {
+        fetchTokens();
+      },[])
     return(
         <div className="landing">
+
+<Modal show={show} onHide={handleClose}>
+        <Modal.Body>
+            <Exhibit />
+        </Modal.Body>
+      </Modal>
             <header>
             <img src={landingBG} className="landing-bg"/>
 
@@ -119,15 +170,7 @@ const Landing =(props)=> {
                         </ul>
                     </nav>
                     <div className = "nft-container">
-                        <NFTCard key = "1" name = "African Mask" imageSrc = {productImage} price = "20,000" />
-                        <NFTCard key = "2" name = "African Mask" imageSrc = {productImage} price = "20,000" />
-                        <NFTCard key = "3" name = "African Mask" imageSrc = {productImage} price = "20,000" />
-                        <NFTCard key = "4" name = "African Mask" imageSrc = {productImage} price = "20,000" />
-                        <NFTCard key = "5" name = "African Mask" imageSrc = {productImage} price = "20,000" />
-                        <NFTCard key = "6" name = "African Mask" imageSrc = {productImage} price = "20,000" />
-                        <NFTCard key = "7" name = "African Mask" imageSrc = {productImage} price = "20,000" />
-                        <NFTCard key = "8" name = "African Mask" imageSrc = {productImage} price = "20,000" />
-                        <NFTCard key = "9" name = "African Mask" imageSrc = {productImage} price = "20,000" />
+                        {displayTokens}
                     </div>
                     <div className = "load-more-btn-container">
                         <button className = "load-more">Load More</button>

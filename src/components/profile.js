@@ -52,7 +52,7 @@ const Profile = (props) => {
       <div className = "nft-details">
           <h3 className = "nft-name">{token.item_name}</h3>
           <div className = "detail-1">
-              <h4>{token.price} QLIP</h4>
+              <h4>{token.price} BNB</h4>
               <p>1 of 1</p>
           </div>
           <div className = "detail-2">
@@ -60,7 +60,7 @@ const Profile = (props) => {
               <p><span>new bid &#128293;</span></p>
           </div>
       </div>
-      <button className = "buy-btn">Buy NFT</button>
+     
   </div>
       // <NFTCard key = {token.imgHash} name = {token.item_name} imageSrc = {token.imgHash} price = {token.price} description = {token.description} />
     )
