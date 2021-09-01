@@ -13,13 +13,14 @@ import Exhibit from "./Exhibit";
 import Modal from 'react-bootstrap/Modal';
 import "../styles/NFTCard.css"
 import "../styles/exhibit.css"
+import { connectors } from "web3modal";
 
 
 const Landing =(props)=> {
 
     const allTokenUrls = props.allTokenUrls;
     const [tokenObjects, setTokenObjects] = useState([]);
-    const [show, setShow] = useState(false);
+    
 
     let currentpage = 'choose create';
     const setPage=(page)=> {
@@ -32,9 +33,14 @@ const Landing =(props)=> {
     const fetchTokens =()=>{ 
 
         const tokenObj = []
-        allTokenUrls.forEach(async url => {
-          const res = await fetch(url);
+        allTokenUrls.forEach(async urlWithId => {
+          const urlWithoutId = urlWithId[0];
+          const id = urlWithId[1];
+          
+          const res = await fetch(urlWithoutId);
           const result = await res.json();
+          result.token_id = id;
+         
           tokenObj.push(result)
           if(tokenObj.length === allTokenUrls.length) setTokenObjects(tokenObj)
         })
@@ -42,6 +48,7 @@ const Landing =(props)=> {
       }
       
   const displayTokens = tokenObjects.map((token)=> {
+      
     return(
         <div key = {token.owner} className = "nft-card">
         <div className = "nft-image-container">
@@ -60,16 +67,14 @@ const Landing =(props)=> {
         </div>
         <button className = "buy-btn"
         onClick={()=> {
-            setShow(true)
+            props.setExhibit(token)
         }}>Buy NFT</button>
     </div>
       
     )
   })
 
-  const handleClose=()=>{
-      setShow(false);
-  }
+
 
       useEffect( ()=> {
         fetchTokens();
@@ -77,11 +82,7 @@ const Landing =(props)=> {
     return(
         <div className="landing">
 
-<Modal show={show} onHide={handleClose}>
-        <Modal.Body>
-            <Exhibit />
-        </Modal.Body>
-      </Modal>
+
             <header>
             <img src={landingBG} className="landing-bg"/>
 

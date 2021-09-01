@@ -6,7 +6,8 @@ import verifiedIcon from "../images/icons8_verified_account.svg"
 import CheckoutModal from "./CheckoutModal"
 import {useRef, useState} from "react"
 
-const Exhibit = () => {
+
+const Exhibit = (props) => {
     const checkoutModalRef = useRef(null)
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,18 +25,18 @@ const Exhibit = () => {
         <>
             <div className = "exhibit-main-body">
                 <div className = "nft-picture-container">
-                    <img src = {NFT} class = "nft-picture" alt = "nft" />
+                    <img src = {props.tokenDetails.imgHash} class = "nft-picture" alt = "nft" />
                     <div className = "nft-description">
                         <p className = "left-vertical-text">RUBY</p>
                         <p className = "right-vertical-text">1/1</p>
-                        <h1 className = "nft-name">OSHUN</h1>
-                        <p className = "nft-decsriptive-text">The Yoruba river diety who rules divinity, feminity, fertility, beauty and love.</p>
-                        <h2 className = "nft-price">100,000 QLIP</h2>
+                        <h1 className = "nft-name">{props.tokenDetails.item_name}</h1>
+                        <p className = "nft-decsriptive-text">{props.tokenDetails.description}</p>
+                        <h2 className = "nft-price">{props.tokenDetails.price} MATIC</h2>
                     </div>
                 </div>
                 <div className = "nft-info-container">
                     <div className = "first-section">
-                        <h1 className = "name">OSHUN</h1>
+                        <h1 className = "name">{props.tokenDetails.item_name}</h1>
                         <div className = "ownership_availableNumber">
                             <div className = "ownership">
                                 <img src = {profilePic} alt = "profile" className = "profile-picture" />
@@ -46,7 +47,7 @@ const Exhibit = () => {
                         <h2 className = "current-price">Current Price</h2>
                         <div className = "price-container">
                             <img src = {qlipLogo} alt = "qlip" />
-                            <p className = "price">100,000 <span>($27,929)</span></p>
+                            <p className = "price">{props.tokenDetails.price} MATIC <span>($27,929)</span></p>
                         </div>
                         <button class = "buy-btn" onClick = {toggleModal}>Buy Now</button>
                     </div>
@@ -62,21 +63,23 @@ const Exhibit = () => {
                         <div className = "selected-item-content">
                             <div className = "group-one">
                                 <p className = "contractAddress-key">Contract Address</p>
-                                <p className = "contractAddress-value">0x495f947276749ce646f68ac8c248420045cb7b5e</p>
+                                <p className = "contractAddress-value">0xc8A18aeBC386e645573254679AcEB8080F58C9ba</p>
                             </div>
                             <div className = "group-two">
                                 <p className = "tokenId-key">Token ID</p>
-                                <p className = "tokenId-value">282222222222222</p>
+                                <p className = "tokenId-value">{props.tokenDetails.token_id}</p>
                             </div>
                             <div className = "group-three">
                                 <p className = "creator-key">Creator</p>
-                                <p className = "creator-value">Chijamz</p>
+                                <p className = "creator-value">{props.tokenDetails.owner}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <CheckoutModal ref = {checkoutModalRef} closeModal = {toggleModal} />
+            <CheckoutModal ref = {checkoutModalRef} closeModal = {toggleModal} tokenDetails={props.tokenDetails} 
+            contractDetails = {props.contractDetails}
+            web3={props.web3}/>
         </>
     );
 }

@@ -53,9 +53,9 @@ const NavBar = (props) => {
     
     if(!accounts){
       accounts = await web3.eth.getAccounts();
-      const networkId =await web3.eth.net.getNetworkType();
+      const networkId =await web3.eth.getChainId();
       props.setWeb3(web3);
-      if(networkId !== "private"){
+      if(networkId !== 137){
         btnText= "Connect Wallet"  
       }
       else{

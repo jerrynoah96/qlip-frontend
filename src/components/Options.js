@@ -91,7 +91,7 @@ MintNft=async(e)=> {
     
             }
     
-            console.log(tokendetails, 'closer by');
+            console.log(tokendetails, 'token details');
         
         const pinataRes = await pinata.pinJSONToIPFS(tokendetails);
           this.setState({
@@ -113,21 +113,52 @@ MintNft=async(e)=> {
                 
                 })
         
-            const mint_reciept = await this.props.contractDetails.contractInstance.methods.mintWithIndex(this.props.contractDetails.account,
-                    URI, this.props.form_details.category).send({
-                        from: this.props.contractDetails.account
+                const account = await this.props.contractDetails.account;
+                const category = await this.props.form_details.category;
+            
+            const mint_reciept = await this.props.contractDetails.contractInstance.methods.mintWithIndex(account,
+                    URI, category).send({
+                        from: account
                     })
     
+            //get token id from reciept and set to sale
+            const tokenId = await mint_reciept.events.Minted.returnValues.tokenId;
+            const value =await  this.props.form_details.price;
+            const price = await this.props.web3.utils.toWei(value, 'ether')
+            const contractAddress = await this.props.contractDetails.contractAddress;
+            console.log(tokenId, price, contractAddress, 'tokenid and price');
+
+           if(mint_reciept.status == true){
+            this.setState({
+                progressText: "setting your NFT to Sale",
+                loaderUrl: "https://i.gifer.com/ZZ5H.gif"
+                
+                })
+                //call set to sale function
+              const setSaleReciept=  await this.props.contractDetails.contractInstance.methods.setSale(tokenId, price).send({
+                 from: this.props.contractDetails.account
+                })
+
+                this.setState({
+                    progressText: "Finalizing Approval for sale",
+                    loaderUrl: "https://i.gifer.com/ZZ5H.gif"
+                    
+                    })
+                    //once set to sale runs, then call approve 
+                if(setSaleReciept.status == true){
+                    await this.props.contractDetails.contractInstance.methods.approve(
+                        contractAddress, tokenId
+                    ).send({
+                        from: this.props.contractDetails.account
+                    })
+
+                    this.setPage();
+                }
+            }
                     this.setState({
                         progressText: "Done",
                         loaderUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flat_tick_icon.svg/480px-Flat_tick_icon.svg.png"
                      })
-           // console.log(mint_reciept, 'mint reciept')
-           console.log(mint_reciept, 'mint reciept')
-           if(mint_reciept.status == true){
-               this.setPage();
-            }
-    
          
     }
     

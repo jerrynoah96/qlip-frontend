@@ -45,18 +45,18 @@ const Profile = (props) => {
 
   const displayTokens = tokenObjects.map((token)=> {
     return(
-      <div key = {token.owner} className = "nft-card">
+      <div key = {token.token_id} className = "nft-card">
       <div className = "nft-image-container">
           <img src = {token.imgHash} alt = "nft product" className = "nft-image" />
       </div>
       <div className = "nft-details">
           <h3 className = "nft-name">{token.item_name}</h3>
           <div className = "detail-1">
-              <h4>{token.price} BNB</h4>
+              <h4>{token.price} MATIC</h4>
               <p>1 of 1</p>
           </div>
           <div className = "detail-2">
-              <p><span>Highest bid </span>0.001ETH</p>
+              <p><span>Highest bid </span>0.001MATIC</p>
               <p><span>new bid &#128293;</span></p>
           </div>
       </div>

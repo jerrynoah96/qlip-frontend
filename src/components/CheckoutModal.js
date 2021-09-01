@@ -6,6 +6,20 @@ import { forwardRef } from "react";
 const CheckoutModal = forwardRef((props, ref) => {
 
     
+    const payForNFT = async()=> {
+        const value = await props.web3.utils.toWei(props.tokenDetails.price, 'ether')
+        console.log(value, 'price to be paid')
+        const account = await props.contractDetails.account;
+        const id = await props.tokenDetails.token_id;
+        
+        
+        await props.contractDetails.contractInstance.methods.buyTokenOnSale(id).send({
+            from: account,
+            value: value
+        }) 
+    }
+
+    console.log(props.contractDetails, 'contract details in checkout')
     return(
         <div className = "checkout-modal-container" ref = {ref}>
             <div className = "checkout-modal">
@@ -16,11 +30,11 @@ const CheckoutModal = forwardRef((props, ref) => {
                     </div>
                 </div>
                 <div className = "modal-body">
-                    <p className = "about-to-buy">You are about to buy <span>OSHUN</span> from Karla.</p>
+                    <p className = "about-to-buy">You are about to buy <span>{props.tokenDetails.item_name}</span> from Karla.</p>
                     <div className = "price-details-container">
                         <div className = "price-detail">
                             <p>Price</p>
-                            <p>100,000 QLIP</p>
+                            <p>{props.tokenDetails.price} MATIC</p>
                         </div>
                         <div className = "price-detail">
                             <p><span>Your balance</span></p>
@@ -43,7 +57,8 @@ const CheckoutModal = forwardRef((props, ref) => {
                         </div>
                     </div>
                     <div className = "button-group">
-                        <button class = "pay-button">Pay for NFT now</button>
+                        <button class = "pay-button"
+                        onClick={payForNFT}>Pay for NFT now</button>
                         <button class = "cancel-button">Cancel</button>
                     </div>
                 </div>
