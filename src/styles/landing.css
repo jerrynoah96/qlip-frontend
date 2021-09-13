@@ -1,6 +1,7 @@
 header {
   height: 90vh;
-  width: 100vw;
+  width: auto;
+  box-sizing: border-box;
   position: relative;
 }
 .landing-bg {

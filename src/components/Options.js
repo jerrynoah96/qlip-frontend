@@ -115,10 +115,11 @@ MintNft=async(e)=> {
         
                 const account = await this.props.contractDetails.account;
                 const category = await this.props.form_details.category;
-            
+                
+            //mint token
             const mint_reciept = await this.props.contractDetails.contractInstance.methods.mintWithIndex(account,
                     URI, category).send({
-                        from: account
+                        from: account,
                     })
     
             //get token id from reciept and set to sale
@@ -126,33 +127,41 @@ MintNft=async(e)=> {
             const value =await  this.props.form_details.price;
             const price = await this.props.web3.utils.toWei(value, 'ether')
             const contractAddress = await this.props.contractDetails.contractAddress;
+            console.log(contractAddress, 'contract address');
+            
             console.log(tokenId, price, contractAddress, 'tokenid and price');
 
            if(mint_reciept.status == true){
             this.setState({
-                progressText: "setting your NFT to Sale",
+                progressText: "approving your NFT to Sale",
                 loaderUrl: "https://i.gifer.com/ZZ5H.gif"
                 
                 })
-                //call set to sale function
-              const setSaleReciept=  await this.props.contractDetails.contractInstance.methods.setSale(tokenId, price).send({
-                 from: this.props.contractDetails.account
+                //call approve function and approve contract
+              const approveReciept=  await this.props.contractDetails.contractInstance.methods.approve(
+                    contractAddress, tokenId
+                ).send({
+                    from: account,
+                    
                 })
 
                 this.setState({
-                    progressText: "Finalizing Approval for sale",
+                    progressText: "Finalizing your NFT for sale",
                     loaderUrl: "https://i.gifer.com/ZZ5H.gif"
                     
                     })
-                    //once set to sale runs, then call approve 
-                if(setSaleReciept.status == true){
-                    await this.props.contractDetails.contractInstance.methods.approve(
-                        contractAddress, tokenId
-                    ).send({
-                        from: this.props.contractDetails.account
-                    })
+                    //once set to approve runs, then call setToSale 
+                if(approveReciept.status == true){
+                  const setSaleReciept =  await this.props.contractDetails.contractInstance.methods.setSale(tokenId, price, contractAddress).send({
+                        from: account,
+                        
+                       })
 
-                    this.setPage();
+
+                       if(setSaleReciept.status == true){
+                        this.setPage();
+                       }
+                    
                 }
             }
                     this.setState({

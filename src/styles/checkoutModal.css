@@ -8,8 +8,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #e0dede;
+  background-color: #16161e;
   display: none;
+  color: rgba(255, 255, 255);
 }
 
 .checkout-modal {

@@ -1,10 +1,11 @@
-import "../styles/exhibit.css"
+import {useRef, useState} from "react"
 import NFT from "../images/OSHUN_NFT.png"
 import profilePic from "../images/Profile_picture.png"
 import qlipLogo from "../images/Qlip-Logo.svg"
 import verifiedIcon from "../images/icons8_verified_account.svg"
 import CheckoutModal from "./CheckoutModal"
-import {useRef, useState} from "react"
+
+import "../styles/exhibit.css"
 
 
 const Exhibit = (props) => {
@@ -31,7 +32,7 @@ const Exhibit = (props) => {
                         <p className = "right-vertical-text">1/1</p>
                         <h1 className = "nft-name">{props.tokenDetails.item_name}</h1>
                         <p className = "nft-decsriptive-text">{props.tokenDetails.description}</p>
-                        <h2 className = "nft-price">{props.tokenDetails.price} MATIC</h2>
+                        <h2 className = "nft-price">{props.tokenDetails.price} BNB</h2>
                     </div>
                 </div>
                 <div className = "nft-info-container">
@@ -46,8 +47,8 @@ const Exhibit = (props) => {
                         </div>
                         <h2 className = "current-price">Current Price</h2>
                         <div className = "price-container">
-                            <img src = {qlipLogo} alt = "qlip" />
-                            <p className = "price">{props.tokenDetails.price} MATIC <span>($27,929)</span></p>
+                            <img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBNNXA7K21yYyQZxM-iUcGilYqNJp68TcDWaCFepHcLKjA08-UWWOiB65ou1EXlPvDlP4&usqp=CAU" alt = "token logo" />
+                         {' '} <p className = "price">{props.tokenDetails.price} BNB <span></span></p>
                         </div>
                         <button class = "buy-btn" onClick = {toggleModal}>Buy Now</button>
                     </div>
@@ -63,7 +64,7 @@ const Exhibit = (props) => {
                         <div className = "selected-item-content">
                             <div className = "group-one">
                                 <p className = "contractAddress-key">Contract Address</p>
-                                <p className = "contractAddress-value">0xc8A18aeBC386e645573254679AcEB8080F58C9ba</p>
+                                <p className = "contractAddress-value">{props.contractDetails.contractAddress}</p>
                             </div>
                             <div className = "group-two">
                                 <p className = "tokenId-key">Token ID</p>

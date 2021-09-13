@@ -9,7 +9,7 @@ import NFTCard from "./nftcard";
 import axios from "axios";
 import "../styles/profile.css";
 import "../styles/NFTCard.css"
-import Loader from "./Loader";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const Profile = (props) => {
  // const [tokensArray, setTokensArray] = useState([]);
@@ -44,6 +44,7 @@ const Profile = (props) => {
   }
 
   const displayTokens = tokenObjects.map((token)=> {
+    console.log(token, 'my tokens')
     return(
       <div key = {token.token_id} className = "nft-card">
       <div className = "nft-image-container">
@@ -52,11 +53,11 @@ const Profile = (props) => {
       <div className = "nft-details">
           <h3 className = "nft-name">{token.item_name}</h3>
           <div className = "detail-1">
-              <h4>{token.price} MATIC</h4>
+              <h4>{token.price} BNB</h4>
               <p>1 of 1</p>
           </div>
           <div className = "detail-2">
-              <p><span>Highest bid </span>0.001MATIC</p>
+              <p><span>Highest bid </span>0.001 BNB</p>
               <p><span>new bid &#128293;</span></p>
           </div>
       </div>
@@ -122,9 +123,16 @@ const Profile = (props) => {
 
     )
   }) */
+
+  const loader =  <SkeletonTheme color="#202020" highlightColor="#444">
+                        <p>
+                            <Skeleton count={3} height={300} width={200} />
+                        </p>
+                </SkeletonTheme>
   
     useEffect( ()=> {
       fetchTokens();
+      props.fetchUserTokens();
     },[])
 
 
@@ -186,7 +194,7 @@ const Profile = (props) => {
 
                   {!tokenObjects.length && <Loader />} */}
 
-                  {!!tokenObjects.length ? displayTokens : <Loader />}
+                  {!!tokenObjects.length ? displayTokens : loader}
               
              
             </div>

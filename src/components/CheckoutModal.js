@@ -1,27 +1,64 @@
+import { forwardRef, useState, useEffect } from "react";
 import "../styles/checkoutModal.css";
 import closeIcon from "../images/iCon_Close.svg"
 import warningIcon from "../images/icons_Warning_Shield.svg"
-import { forwardRef } from "react";
+import Modal from 'react-bootstrap/Modal';
 
 const CheckoutModal = forwardRef((props, ref) => {
-
+    const [show, setShow] = useState(false);
+    const [progressText, setProgressText] = useState('');
+    const [userBal, setUserBal]= useState('');
+    const [com, setCommission] = useState();
     
+    
+
+    const handleClose = ()=> {
+        setShow(false)
+    }
+
     const payForNFT = async()=> {
-        const value = await props.web3.utils.toWei(props.tokenDetails.price, 'ether')
+        setShow(true);
+        setProgressText("Processing your order");
+        const value = (await props.web3.utils.toWei(props.tokenDetails.price, 'ether'));
+        const commisionFee = 0.05 * value;
+        const contractAddress = await props.contractDetails.contractAddress;
+        console.log(contractAddress, 'contract address on sale');
         console.log(value, 'price to be paid')
         const account = await props.contractDetails.account;
         const id = await props.tokenDetails.token_id;
         
         
-        await props.contractDetails.contractInstance.methods.buyTokenOnSale(id).send({
+     const purchaseReciept = await props.contractDetails.contractInstance.methods.buyTokenOnSale(id,
+            contractAddress,
+            commisionFee).send({
             from: account,
             value: value
-        }) 
+        })
+
+        if(purchaseReciept.status == true){
+            setProgressText("You have successfully bought this NFT");
+        }
+
     }
 
-    console.log(props.contractDetails, 'contract details in checkout')
+    const checkUserBal = async()=> {
+        const bal = await props.web3.eth.getBalance(await props.contractDetails.account)
+        const balance = await props.web3.utils.fromWei(bal);
+        setUserBal(balance)
+    }
+
+    useEffect(() => {
+      checkUserBal()  
+      },[]);
+    
     return(
         <div className = "checkout-modal-container" ref = {ref}>
+    <Modal show={show} onHide={handleClose}>
+        <Modal.Body>
+            <span>{progressText}</span>
+            <img src="https://cdn.dribbble.com/users/419257/screenshots/1724076/scanningwoohoo.gif"/>
+        </Modal.Body>
+      </Modal>
             <div className = "checkout-modal">
                 <div className = "modal-head">
                     <h1>Pay For NFT</h1>
@@ -34,19 +71,19 @@ const CheckoutModal = forwardRef((props, ref) => {
                     <div className = "price-details-container">
                         <div className = "price-detail">
                             <p>Price</p>
-                            <p>{props.tokenDetails.price} MATIC</p>
+                            <p>{props.tokenDetails.price} BNB</p>
                         </div>
                         <div className = "price-detail">
                             <p><span>Your balance</span></p>
-                            <p>100,000 QLIP</p>
+                            <p>{userBal} BNB</p>
                         </div>
                         <div className = "price-detail">
                             <p><span>Service fee</span></p>
-                            <p>10 QLIP</p>
+                            <p>{(props.tokenDetails.price * 0.05).toFixed(5)} BNB</p>
                         </div>
                         <div className = "price-detail">
                             <p><span>You will pay</span></p>
-                            <p>100,000 QLIP</p>
+                            <p>{props.tokenDetails.price} BNB</p>
                         </div>
                     </div>
                     <div className = "warning-alert">

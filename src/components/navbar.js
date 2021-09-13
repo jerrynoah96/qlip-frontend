@@ -4,7 +4,9 @@ import { Navbar, Nav  } from 'react-bootstrap';
 import Web3 from "web3";
 import Web3Modal from "web3modal";
 import Portis from "@portis/web3";
-import WalletConnectProvider from "@walletconnect/web3-provider";
+//import WalletConnectProvider from "@walletconnect/web3-provider";
+import WalletConnectProvider from "@maticnetwork/walletconnect-provider";
+import Matic from "maticjs"
 import Authereum from "authereum";
 import '../styles/nav.css';
 
@@ -29,6 +31,16 @@ const providerOptions = {
   }
   
 };
+//
+/* const maticProvider = new WalletConnectProvider(
+  {
+    host: `https://rpc-mainnet.maticvigil.com/v1/667df0542e7c154bb9f8da50d08feb1d9613c1a8`,
+    callbacks: {
+      onConnect: console.log('connected'),
+      
+    }
+  }
+) */
 
 let provider = null;
 let web3 = null;
@@ -42,7 +54,7 @@ const NavBar = (props) => {
     if (!provider) {
       const web3Modal = new Web3Modal({
         cacheProvider: true, // optional
-        providerOptions // required
+        provider // required
       });
       web3 = await connect(web3Modal);
      // console.log(web3, 'now web3');
@@ -55,7 +67,7 @@ const NavBar = (props) => {
       accounts = await web3.eth.getAccounts();
       const networkId =await web3.eth.getChainId();
       props.setWeb3(web3);
-      if(networkId !== 137){
+      if(networkId !== 97){
         btnText= "Connect Wallet"  
       }
       else{
@@ -68,9 +80,6 @@ const NavBar = (props) => {
   async function connect(web3Modal) {
     provider = await web3Modal.connect();
     return new Web3(provider);
-    
-    
-   
   }
 
   let currentpage = 'landing';

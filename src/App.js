@@ -27,7 +27,7 @@ constructor(props){
     tokenUrls: [],
     contractDetails:{
       account: null,
-      contractAddress: "0xc8A18aeBC386e645573254679AcEB8080F58C9ba",
+      contractAddress: "0x5Ab8C225982282A352c842E20D5443dc8983E58D",
       contractInstance: null
 
     },
@@ -62,8 +62,9 @@ constructor(props){
 }
 
 
-componentDidMount=()=> {
-  this.FetchAllTokens();
+componentDidMount=async ()=> {
+ await this.FetchAllTokens();
+ await this.FetchUserTokens();
 }
 
 SetWeb3=async(web3)=> {
@@ -75,20 +76,15 @@ SetWeb3=async(web3)=> {
   const account = accounts[0];
   const networkId =await this.state.web3.eth.getChainId();
   console.log(networkId, 'network id')
-  this.setState({
-    show: true
-  })
- if(networkId !== 137){
+  
+ if(networkId !== 97){
    this.setState({
-    modalMessage: "Kindly ensure you're on the Matic main network and Reload the page"
+    show: true,
+    modalMessage: "Kindly ensure you're on the Bsc test network and Reload the page"
    })
 
  }
  else{
-   this.setState({
-     modalMessage: `connected address: ` +account.slice(0,5).concat('...').concat(account.slice(13,18)) 
-   })
-
    const contractInstance = new this.state.web3.eth.Contract(contractABI, this.state.contractDetails.contractAddress);
 
   this.setState({
@@ -189,7 +185,9 @@ FormDetails = async(form_details)=> {
 
 
 FetchUserTokens = async () => {
-  const res = await fetch("https://adek-cors-anywhere.herokuapp.com/https://api.covalenthq.com/v1/137/address/"+this.state.account+"/balances_v2/?nft=true&key=ckey_8af791fd59fb496f8c59a1dac1a");
+  const userTUrl = await "https://api.covalenthq.com/v1/97/address/"+this.state.account+"/balances_v2/?nft=true&key=ckey_8af791fd59fb496f8c59a1dac1a";
+  console.log("https://adek-cors-anywhere.herokuapp.com/"+userTUrl, 'api url')
+  const res = await fetch(userTUrl);
   const resJson = await res.json();
  
   const tokensArray = resJson.data.items; 
@@ -207,7 +205,7 @@ FetchUserTokens = async () => {
    // const our_contract_address = "0xD5956aB694ff28FeD0F069e5A8056f1A7c5ECFD6";
    // console.log(our_contract_address, 'ours')
     tokensArray.map(token => {
-      if(token.nft_data !== null && token.contract_address == 0xc8A18aeBC386e645573254679AcEB8080F58C9ba) {
+      if(token.nft_data !== null && token.contract_address == 0x5Ab8C225982282A352c842E20D5443dc8983E58D) {
        console.log(token, 'i think finally')
         token.nft_data.map(nft_data => {
           placeHolder.push(nft_data.token_url);
@@ -227,19 +225,19 @@ FetchUserTokens = async () => {
  FetchAllTokens = async()=> {
   
    //get all tokenIDs using covalent
-  const res = await fetch("https://adek-cors-anywhere.herokuapp.com/https://api.covalenthq.com/v1/137/tokens/0xc8A18aeBC386e645573254679AcEB8080F58C9ba/nft_token_ids/?&key=ckey_8af791fd59fb496f8c59a1dac1a");
+  const res = await fetch("https://adek-cors-anywhere.herokuapp.com/https://api.covalenthq.com/v1/97/tokens/0x5Ab8C225982282A352c842E20D5443dc8983E58D/nft_token_ids/?&key=ckey_8af791fd59fb496f8c59a1dac1a");
   const result =await res.json();
   const allNFTS = result.data.items;
   const allIds = [];
   const allTokenUrls=[];
  await allNFTS.map(async(nft)=>{
-    if(nft.contract_address == 0xc8A18aeBC386e645573254679AcEB8080F58C9ba){
+    if(nft.contract_address == 0x5Ab8C225982282A352c842E20D5443dc8983E58D){
       allIds.push(nft.token_id);
     }
   })
 
   allIds.map(async(tokenId)=> {
-    const res = await fetch("https://adek-cors-anywhere.herokuapp.com/https://api.covalenthq.com/v1/137/tokens/0xc8A18aeBC386e645573254679AcEB8080F58C9ba/nft_metadata/"+tokenId+"/?&key=ckey_8af791fd59fb496f8c59a1dac1a");
+    const res = await fetch("https://adek-cors-anywhere.herokuapp.com/https://api.covalenthq.com/v1/97/tokens/0x5Ab8C225982282A352c842E20D5443dc8983E58D/nft_metadata/"+tokenId+"/?&key=ckey_8af791fd59fb496f8c59a1dac1a");
     const result = await res.json();
     const nftUrl= result.data.items[0].nft_data[0].token_url;
     const nftUrlId = [nftUrl, tokenId]
@@ -263,7 +261,8 @@ FetchUserTokens = async () => {
         web3={this.state.web3}
         contractDetails={this.state.contractDetails}
         allTokenUrls={this.state.allTokenUrls}
-        setExhibit={this.SetExhibit}/>
+        setExhibit={this.SetExhibit}
+        fetchAllTokens={this.FetchAllTokens}/>
     }
     if(this.state.currentpage == "choose create"){
       currentDisplayPage= <ChooseCreate 
@@ -288,7 +287,8 @@ if(this.state.currentpage == "profile"){
   currentDisplayPage= <Profile
   setPage={this.SetPage}
   tokenUrls={this.state.tokenUrls}
-  contractDetails={this.state.contractDetails}/>
+  contractDetails={this.state.contractDetails}
+  fetchUserTokens={this.FetchUserTokens}/>
 }
 
 if(this.state.currentpage == "Exhibit"){

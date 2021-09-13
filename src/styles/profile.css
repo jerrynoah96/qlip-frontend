@@ -12,7 +12,9 @@
   width: 100%;
   height: 100%;
 }
-
+.section-title{
+  color: #fff;
+}
 .profile-main-body .content-section {
   width: 100%;
   padding: 0 1rem;
@@ -25,12 +27,23 @@
   position: relative;
   top: -4rem;
 }
+.css-1qtlriq-SkeletonTheme{
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  justify-content: space-around;
+  
+}
 
 .user-profile-card .user-details-section {
   display: flex;
   flex-direction: column;
   align-items: center;
+  color:  #fff !important;
 }
+
 
 .user-profile-card .user-details-section .profile-picture-container {
   width: 7rem;

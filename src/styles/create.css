@@ -276,3 +276,20 @@ option{
 .modal-open{
     text-align: center;
 }
+
+.price-input{
+    position: relative;
+    padding: 0;
+    margin: 0;
+}
+
+.price-input img{
+    position: absolute;
+    height: 55px;
+    width: 55px;
+    border-radius: 50%;
+    right: 0.5%;
+    top: 50%;
+    transform: translate(0.5%,-50%);
+    
+}

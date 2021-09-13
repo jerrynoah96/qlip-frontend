@@ -37,7 +37,7 @@ class Create extends Component {
                 on_sale: false,
                 instant_sale_price: false,
                 unlock_on_purchase: false,
-                category: ""
+                category: "1"
             }
             
 
@@ -187,11 +187,15 @@ render(){
 
                 <div className="input-box">
                     <label htmlFor="price">PRICE</label>
+                    <div className="price-input">
                     <input type="number" id="price" placeholder="e.g. 100"
                     name="price" 
                     value={this.state.nftDetails.price}
                     onChange={this.handleInput} />
 
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBNNXA7K21yYyQZxM-iUcGilYqNJp68TcDWaCFepHcLKjA08-UWWOiB65ou1EXlPvDlP4&usqp=CAU" alt="token logo"/>
+
+                    </div>
                 </div>
 
     <div className="input-box categories">

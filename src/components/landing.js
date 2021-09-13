@@ -13,6 +13,7 @@ import Exhibit from "./Exhibit";
 import Modal from 'react-bootstrap/Modal';
 import "../styles/NFTCard.css"
 import "../styles/exhibit.css"
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { connectors } from "web3modal";
 
 
@@ -50,7 +51,7 @@ const Landing =(props)=> {
   const displayTokens = tokenObjects.map((token)=> {
       
     return(
-        <div key = {token.owner} className = "nft-card">
+        <div key = {token.token_id} className = "nft-card">
         <div className = "nft-image-container">
             <img src = {token.imgHash} alt = "nft product" className = "nft-image" />
         </div>
@@ -74,9 +75,13 @@ const Landing =(props)=> {
     )
   })
 
+  const loader =  <SkeletonTheme color="#202020" highlightColor="#444">
+                        <p>
+                            <Skeleton count={3} height={500} width={500} />
+                        </p>
+                </SkeletonTheme>
 
-
-      useEffect( ()=> {
+      useEffect( async()=> {
         fetchTokens();
       },[])
     return(
@@ -85,7 +90,6 @@ const Landing =(props)=> {
 
             <header>
             <img src={landingBG} className="landing-bg"/>
-
             <div className="header-content1">
                 <div className="texts">
                     <h1>
@@ -171,7 +175,10 @@ const Landing =(props)=> {
                         </ul>
                     </nav>
                     <div className = "nft-container">
-                        {displayTokens}
+                    
+
+                        {!!tokenObjects.length ? displayTokens : loader}
+                       
                     </div>
                     <div className = "load-more-btn-container">
                         <button className = "load-more">Load More</button>
