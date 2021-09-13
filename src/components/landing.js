@@ -21,6 +21,9 @@ const Landing =(props)=> {
 
     const allTokenUrls = props.allTokenUrls;
     const [tokenObjects, setTokenObjects] = useState([]);
+    const [photography, setPhotoGraphy] = useState([]);
+    const [meme, setMeme] = useState([]);
+    const [art, setArt] = useState([]);
     
 
     let currentpage = 'choose create';
@@ -41,6 +44,7 @@ const Landing =(props)=> {
           const res = await fetch(urlWithoutId);
           const result = await res.json();
           result.token_id = id;
+          console.log(result, 'trying to categorize')
          
           tokenObj.push(result)
           if(tokenObj.length === allTokenUrls.length) setTokenObjects(tokenObj)

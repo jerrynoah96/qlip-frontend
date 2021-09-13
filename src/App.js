@@ -59,6 +59,7 @@ constructor(props){
   }
   this.SetWeb3 = this.SetWeb3.bind(this);
   this.FetchUserTokens = this.FetchUserTokens.bind(this);
+  this.FetchAllTokens = this.FetchAllTokens.bind(this);
 }
 
 
@@ -186,8 +187,8 @@ FormDetails = async(form_details)=> {
 
 FetchUserTokens = async () => {
   const userTUrl = await "https://api.covalenthq.com/v1/97/address/"+this.state.account+"/balances_v2/?nft=true&key=ckey_8af791fd59fb496f8c59a1dac1a";
-  console.log("https://adek-cors-anywhere.herokuapp.com/"+userTUrl, 'api url')
-  const res = await fetch(userTUrl);
+  
+  const res = await fetch("https://adek-cors-anywhere.herokuapp.com/"+userTUrl);
   const resJson = await res.json();
  
   const tokensArray = resJson.data.items; 
