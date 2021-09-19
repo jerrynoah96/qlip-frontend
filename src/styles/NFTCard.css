@@ -4,7 +4,7 @@
   background-color: #141416;
   border: 1px solid #353945;
   border-radius: 0.2rem;
-  margin: 2rem 0;
+  margin: 2rem 1rem;
 }
 
 .nft-card .nft-image-container {
@@ -23,7 +23,7 @@
 .nft-card .nft-details .nft-name {
   font-size: 1.5rem;
   margin-bottom: 2rem;
-  color:rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .nft-card .nft-details .detail-1,
@@ -33,19 +33,19 @@
   align-items: flex-end;
   margin-bottom: 1.5rem;
   font-size: 0.8rem;
-  color:rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .nft-card .nft-details .detail-2 {
   font-weight: 300;
   font-size: 0.7rem;
-  color:rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .nft-card .nft-details .detail-2 span {
   font-size: 0.5rem;
   font-weight: 200;
-  color:rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .nft-card .buy-btn {
@@ -58,7 +58,6 @@
   background-color: #4b23cc;
   color: #fff;
 }
-
 
 @media only screen and (min-width: 768px) {
   .nft-card {

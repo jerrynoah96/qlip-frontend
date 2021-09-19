@@ -13,6 +13,7 @@ import Exhibit from "./Exhibit";
 import Modal from 'react-bootstrap/Modal';
 import "../styles/NFTCard.css"
 import "../styles/exhibit.css"
+import Loader from "./Loader";
 
 
 const Landing =(props)=> {
@@ -27,10 +28,12 @@ const Landing =(props)=> {
         props.setPage(page);
 
     }
+
+    console.log("cccccccccccc: ", props.allTokenUrls)
     
 
     const fetchTokens =()=>{ 
-
+        console.log("ffff: ", allTokenUrls)
         const tokenObj = []
         allTokenUrls.forEach(async url => {
           const res = await fetch(url);
@@ -73,7 +76,7 @@ const Landing =(props)=> {
 
       useEffect( ()=> {
         fetchTokens();
-      },[])
+      }, [props.allTokenUrls])
     return(
         <div className="landing">
 
@@ -170,7 +173,7 @@ const Landing =(props)=> {
                         </ul>
                     </nav>
                     <div className = "nft-container">
-                        {displayTokens}
+                        {displayTokens.length ? displayTokens : <Loader />}
                     </div>
                     <div className = "load-more-btn-container">
                         <button className = "load-more">Load More</button>

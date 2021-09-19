@@ -28,7 +28,6 @@ constructor(props){
       account: null,
       contractAddress: "0xD5956aB694ff28FeD0F069e5A8056f1A7c5ECFD6",
       contractInstance: null
-
     },
     form_details: {
       userImage: null,
@@ -159,7 +158,7 @@ FetchUserTokens = async () => {
  
   const tokensArray = resJson.data.items; 
 
-  //         this.setState({
+//           this.setState({
 //           tokenUrls: [...this.state.tokenUrls, nft.token_url]
 //         })
 //        })
@@ -192,30 +191,42 @@ FetchUserTokens = async () => {
  FetchAllTokens = async()=> {
   
    //get all tokenIDs using covalent
-   const res = await fetch("https://adek-cors-anywhere.herokuapp.com/https://api.covalenthq.com/v1/97/tokens/0xD5956aB694ff28FeD0F069e5A8056f1A7c5ECFD6/nft_token_ids/?&key=ckey_8af791fd59fb496f8c59a1dac1a");
+   const res = await fetch("https://api.covalenthq.com/v1/97/tokens/0xD5956aB694ff28FeD0F069e5A8056f1A7c5ECFD6/nft_token_ids/?&key=ckey_8af791fd59fb496f8c59a1dac1a");
   const result =await res.json();
   const allNFTS = result.data.items;
+  console.log("nnnnnnnnn: ", allNFTS)
   const allIds = [];
-  const allTokenUrls=[];
+  const  allTokenUrls = [];
  await allNFTS.map(async(nft)=>{
-    if(nft.contract_address == 0xD5956aB694ff28FeD0F069e5A8056f1A7c5ECFD6){
+    if(nft.contract_address === "0xd5956ab694ff28fed0f069e5a8056f1a7c5ecfd6"){
      
       
       allIds.push(nft.token_id);
     }
+
     
   })
 
-  allIds.map(async(tokenId)=> {
-    const res = await fetch("https://adek-cors-anywhere.herokuapp.com/https://api.covalenthq.com/v1/97/tokens/0xD5956aB694ff28FeD0F069e5A8056f1A7c5ECFD6/nft_metadata/"+tokenId+"/?&key=ckey_8af791fd59fb496f8c59a1dac1a");
+  console.log("<<<<<<<<<: ", allIds);
+
+  allIds.forEach(async tokenId => {
+    const res = await fetch("https://api.covalenthq.com/v1/97/tokens/0xD5956aB694ff28FeD0F069e5A8056f1A7c5ECFD6/nft_metadata/"+tokenId+"/?&key=ckey_8af791fd59fb496f8c59a1dac1a");
     const result = await res.json();
-    const nftUrl= result.data.items[0].nft_data[0].token_url;
+    const nftUrl = result.data.items[0].nft_data[0].token_url;
+
+    
     allTokenUrls.push(nftUrl);
+
+    if(allTokenUrls.length === allIds.length) {
+
+      this.setState({
+        allTokenUrls
+      })
+    }
   })
+
+
   
-  this.setState({
-    allTokenUrls
-  })
   
   
  }
@@ -227,7 +238,8 @@ FetchUserTokens = async () => {
         currentDisplayPage= <Landing setPage={this.SetPage}
         web3={this.state.web3}
         contractDetails={this.state.contractDetails}
-        allTokenUrls={this.state.allTokenUrls}/>
+        allTokenUrls={this.state.allTokenUrls}
+        />
     }
     if(this.state.currentpage == "choose create"){
       currentDisplayPage= <ChooseCreate 
