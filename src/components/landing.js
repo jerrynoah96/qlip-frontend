@@ -1,6 +1,8 @@
 import React,{useState, useEffect} from "react";
-import landingBG from '../images/home-bg.png';
+
+import NavBar from './navbar';
 import '../styles/landing.css';
+import QLIPNFTS from './qlipNFTSection';
 import bushland from "../images/BUSHLAND.png";
 import ruin_of_osun from "../images/RUIN_OF_OSHUN.png"
 import oshunNft from "../images/OSHUN_NFT.png"
@@ -14,53 +16,62 @@ import Modal from 'react-bootstrap/Modal';
 import "../styles/NFTCard.css"
 import "../styles/exhibit.css"
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import classNames from 'classnames';
 import { connectors } from "web3modal";
 
 
 const Landing =(props)=> {
 
-    const allTokenUrls = props.allTokenUrls;
+    const allTokensArray = props.allTokensArray;
     const [tokenObjects, setTokenObjects] = useState([]);
+    const [displayPointer, setDisplayPointer] = useState('all');
     const [photography, setPhotoGraphy] = useState([]);
     const [meme, setMeme] = useState([]);
     const [art, setArt] = useState([]);
     
 
-    let currentpage = 'choose create';
-    const setPage=(page)=> {
-        page = currentpage;
-        props.setPage(page);
-
-    }
+  
     
 
-    const fetchTokens =()=>{ 
-
+    const sortTokens =()=>{ 
         const tokenObj = []
-        allTokenUrls.forEach(async urlWithId => {
-          const urlWithoutId = urlWithId[0];
-          const id = urlWithId[1];
-          
-          const res = await fetch(urlWithoutId);
-          const result = await res.json();
-          result.token_id = id;
-          console.log(result, 'trying to categorize')
+        const photoObj=[]
+        const memeObj = []
+        const artObj = []
+        allTokensArray.map(async token => {
+
+          if(token.category == 1){
+            await  photoObj.push(token)
+              
+          }
+          if(token.category == 2){
+            await artObj.push(token)
+              
+          }
+          if(token.category == 3){
+           await memeObj.push(token)
+         }
+
          
-          tokenObj.push(result)
-          if(tokenObj.length === allTokenUrls.length) setTokenObjects(tokenObj)
+      await tokenObj.push(token)
+       await setPhotoGraphy(photoObj);
+       await  setMeme(memeObj);
+        await setArt(artObj);
+          
+          console.log(artObj, 'art category')
+          if(tokenObj.length === allTokensArray.length) setTokenObjects(tokenObj)
         })
         console.log(tokenObjects, 'token objects')
-      }
+      } 
       
-  const displayTokens = tokenObjects.map((token)=> {
-      
+  const allTokens = allTokensArray.map((token)=> {   
     return(
-        <div key = {token.token_id} className = "nft-card">
+        <div key = {token.id} className = "nft-card">
         <div className = "nft-image-container">
-            <img src = {token.imgHash} alt = "nft product" className = "nft-image" />
+            <img src = {token.imgUrl} alt = "nft product" className = "nft-image" />
         </div>
         <div className = "nft-details">
-            <h3 className = "nft-name">{token.item_name}</h3>
+            <h3 className = "nft-name">{token.name}</h3>
             <div className = "detail-1">
                 <h4>{token.price} BNB</h4>
                 <p>1 of 1</p>
@@ -79,74 +90,130 @@ const Landing =(props)=> {
     )
   })
 
+
+  const artTokens = art.map((token)=> {
+      
+    return(
+        <div key = {token.id} className = "nft-card">
+        <div className = "nft-image-container">
+            <img src = {token.imgUrl} alt = "nft product" className = "nft-image" />
+        </div>
+        <div className = "nft-details">
+            <h3 className = "nft-name">{token.name}</h3>
+            <div className = "detail-1">
+                <h4>{token.price} BNB</h4>
+                <p>1 of 1</p>
+            </div>
+            <div className = "detail-2">
+                <p><span>Highest bid </span></p>
+                <p><span>new bid &#128293;</span></p>
+            </div>
+        </div>
+        <button className = "buy-btn"
+        onClick={()=> {
+            props.setExhibit(token)
+        }}>Buy NFT</button>
+    </div>
+      
+    )
+  })
+
+  const photographyTokens = photography.map((token)=> {
+      
+    return(
+        <div key = {token.id} className = "nft-card">
+        <div className = "nft-image-container">
+            <img src = {token.imgUrl} alt = "nft product" className = "nft-image" />
+        </div>
+        <div className = "nft-details">
+            <h3 className = "nft-name">{token.name}</h3>
+            <div className = "detail-1">
+                <h4>{token.price} BNB</h4>
+                <p>1 of 1</p>
+            </div>
+            <div className = "detail-2">
+                <p><span>Highest bid </span></p>
+                <p><span>new bid &#128293;</span></p>
+            </div>
+        </div>
+        <button className = "buy-btn"
+        onClick={()=> {
+            props.setExhibit(token)
+        }}>Buy NFT</button>
+    </div>
+      
+    )
+  })
+  const memeTokens = meme.map((token)=> {
+      
+    return(
+        <div key = {token.id} className = "nft-card">
+        <div className = "nft-image-container">
+            <img src = {token.imgUrl} alt = "nft product" className = "nft-image" />
+        </div>
+        <div className = "nft-details">
+            <h3 className = "nft-name">{token.name}</h3>
+            <div className = "detail-1">
+                <h4>{token.price} BNB</h4>
+                <p>1 of 1</p>
+            </div>
+            <div className = "detail-2">
+                <p><span>Highest bid </span></p>
+                <p><span>new bid &#128293;</span></p>
+            </div>
+        </div>
+        <button className = "buy-btn"
+        onClick={()=> {
+            props.setExhibit(token)
+        }}>Buy NFT</button>
+    </div>
+      
+    )
+  })
+
+  let currentDisplay;
+  if(displayPointer == 'all'){
+      currentDisplay = allTokens
+  }
+  if(displayPointer == 'art'){
+      currentDisplay = artTokens
+  }
+  if(displayPointer == 'photography'){
+    currentDisplay = photographyTokens
+}
+if(displayPointer == 'meme'){
+    currentDisplay = memeTokens
+}
+
+const allBtn = classNames('nav-link',{
+    'active-marketplace-nav': currentDisplay == allTokens
+  })
+  const artBtn = classNames('nav-link',{
+    'active-marketplace-nav': currentDisplay == artTokens
+  })
+
+  const memeBtn = classNames('nav-link',{
+    'active-marketplace-nav': currentDisplay == memeTokens
+  })
+
+  const photoBtn = classNames('nav-link',{
+    'active-marketplace-nav': currentDisplay == photographyTokens
+  })
+
   const loader =  <SkeletonTheme color="#202020" highlightColor="#444">
                         <p>
-                            <Skeleton count={3} height={500} width={500} />
+                            <Skeleton count={3} height={500} width={400} />
                         </p>
                 </SkeletonTheme>
 
       useEffect( async()=> {
-        fetchTokens();
+        await sortTokens();
       },[])
     return(
-        <div className="landing">
-
-
-            <header>
-            <img src={landingBG} className="landing-bg"/>
-            <div className="header-content1">
-                <div className="texts">
-                    <h1>
-                        NFT Marketplace for African Creators
-                    </h1>
-                    <span>
-                    Create, explore and trade in the first-ever African owned  NFT Markeplace.
-                    </span>
-                </div>
-                <div className="btn-box">
-                    <button className="create-btn"
-                    onClick={setPage}>
-                        Create
-                    </button>
-
-                    <button className="explore-btn"
-                    type="button" disabled>
-                        Explore
-                    </button>
-
-                </div>
-
-            </div>
-
-            <div className="header-content2">
-                <h2>
-                    Ancient Underwater ruin of Oshun
-                </h2>
-                <span className="nft-detail">
-                Oshun is considered one of the most powerful of all orishas, her temple is filled with treasures and water rune magic.
-                </span>
-                <span>
-                    20,000 QLIP <span className="number-index"> 1 of 1</span>
-                </span>
-
-            </div>
-
-            </header>
+        <div className="landing" id="landing">
+           
             <main>
-                <div className = "sections exclusive-qlip-nfts">
-                    <h1 className = "section-header qlip-nft-header">Exclusive QLIP NFTs</h1>
-                    <p className = "section-tagline">African is home to a large varieties of races, some native to its lands and some hailing from other realms</p>
-                    <div className = "cards-container">
-                    <NFTExhibitionCard key = "1" name = "RUIN OF OSUN" imageSrc = {ruin_of_osun} price = "40,000" rightText = "1/1" leftText = "SAPPHIRE"
-                    description = "Oahun is considered one of the most powerful of all orisha, her temple is filled with treasure and water rune magic." />
-
-                    <NFTExhibitionCard key = "2" name = "BUSHLAND" imageSrc = {bushland} price = "20,000" rightText = "1/1" leftText = "EMERALD"
-                    description = "Explore Bushland - the shattered remains of the once beautiful african homeworld, San." />
-
-                    <NFTExhibitionCard key = "3" name = "OSHUN" imageSrc = {oshunNft} price = "100,000" rightText = "1/1" leftText = "RUBY"
-                    description = "The Yoruba river diety who rules divinity, feminity, fertility, beauty and love." />
-                    </div>
-                </div>
+                
 
                 <div className = "sections top-sellers">
                     <h1 className = "section-header">Top Sellers</h1>
@@ -166,10 +233,25 @@ const Landing =(props)=> {
                     <h1 className = "section-header">Marketplace</h1>
                     <nav className = "marketplace-nav">
                         <ul>
-                            <li><button className = "nav-link active-marketplace-nav">All items</button></li>
-                            <li><button className = "nav-link">Art</button></li>
-                            <li><button className = "nav-link">Meme</button></li>
-                            <li><button className = "nav-link">Photography</button></li>
+                            <li><button className = {allBtn}
+                            onClick={()=> {
+                                setDisplayPointer('all')
+                            }}>All items</button></li>
+
+                            <li><button className = {artBtn}
+                            onClick={()=> {
+                                setDisplayPointer('art')
+                            }}>Art</button></li>
+
+                            <li><button className = {memeBtn}
+                            onClick={()=> {
+                                setDisplayPointer('meme')
+                            }}>Meme</button></li>
+
+                            <li><button className = {photoBtn}
+                            onClick={()=> {
+                                setDisplayPointer('photography')
+                            }}>Photography</button></li>
                             <li><button className = "nav-link">Music</button></li>
                             <li><button className = "nav-link">Video</button></li>
                             <li><button className = "nav-link">3D</button></li>
@@ -181,7 +263,7 @@ const Landing =(props)=> {
                     <div className = "nft-container">
                     
 
-                        {!!tokenObjects.length ? displayTokens : loader}
+                        {!!allTokensArray.length ? currentDisplay : loader}
                        
                     </div>
                     <div className = "load-more-btn-container">

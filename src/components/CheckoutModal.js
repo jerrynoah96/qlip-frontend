@@ -17,6 +17,11 @@ const CheckoutModal = forwardRef((props, ref) => {
     }
 
     const payForNFT = async()=> {
+        if(props.web3 == null){
+            alert('please connect your wallet to purchase an nft');
+        }
+        else{
+
         setShow(true);
         setProgressText("Processing your order");
         const value = (await props.web3.utils.toWei(props.tokenDetails.price, 'ether'));
@@ -38,6 +43,8 @@ const CheckoutModal = forwardRef((props, ref) => {
         if(purchaseReciept.status == true){
             setProgressText("You have successfully bought this NFT");
         }
+
+    }
 
     }
 

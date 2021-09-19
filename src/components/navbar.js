@@ -8,6 +8,7 @@ import Portis from "@portis/web3";
 import WalletConnectProvider from "@maticnetwork/walletconnect-provider";
 import Matic from "maticjs"
 import Authereum from "authereum";
+import { Link } from 'react-scroll';
 import '../styles/nav.css';
 
 
@@ -102,7 +103,11 @@ return (
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="ml-auto nav-links">
-            <Nav.Link className="nav-link" to="about" smooth={true} duration={1000}>Explore</Nav.Link>
+            <Nav.Link className="nav-link" to="landing" smooth={true} duration={1000}
+             onClick={()=> {
+              props.setPage('landing')
+            }}
+            >Explore</Nav.Link>
             <Nav.Link className="nav-link" to="tokenEcons" smooth={true} duration={1000}
             onClick={()=> {
               if(web3 == null){
@@ -112,9 +117,13 @@ return (
               }
              
             }}>My Profile</Nav.Link>
-            <Nav.Link className="nav-link" to="roadmap" smooth={true} duration={1000}>CLIP NFTs</Nav.Link>
-            <Nav.Link className="nav-link" to="team" smooth={true} duration={1000} >Community</Nav.Link>
-            <Nav.Link className="nav-link" to="contact" smooth={true} duration={1000}>Mint Store</Nav.Link>
+            <Link className="nav-link" to="qlip-nfts" smooth={true} duration={1000}
+              >QLIP NFTs</Link>
+            <Link className="nav-link" to="community" smooth={true} duration={1000} >Community</Link>
+            <Nav.Link className="nav-link" to="contact" smooth={true} duration={1000}
+            onClick={()=> {
+              props.setPage('choose create')
+            }}>Mint Store</Nav.Link>
             <Nav.Link className="nav-link launch-link" href="#" onClick={() => showWeb3Modal()}>{btnText}</Nav.Link>   
         </Nav>
         </Navbar.Collapse>

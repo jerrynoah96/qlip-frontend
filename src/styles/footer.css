@@ -67,6 +67,10 @@
     font-size: 1rem;
     font-family: sans-serif;
 }
+.footer a:hover{
+    color: rgba(255, 255, 255);
+    text-decoration: none;
+}
 
 .column2{
     position: absolute;

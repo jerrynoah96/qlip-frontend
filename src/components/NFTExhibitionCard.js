@@ -6,12 +6,12 @@ const NFTExhibitionCard = ({imageSrc, name, description, price, rightText, leftT
             <div className = "nft-description">
                 <h1 className = "nft-name">{name}</h1>
                 <div className = "info-container">
-                    <p className = "left-vertical-text">{leftText}</p>
+                   
                     <p className = "nft-decsriptive-text">{description}</p>
-                    <p className = "right-vertical-text">{rightText}</p>
+                    
                 </div>
                 
-                <h2 className = "nft-price">{price} QLIP</h2>
+                <h2 className = "nft-price">{price} BNB</h2>
             </div>
         </div>
     );

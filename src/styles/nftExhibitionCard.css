@@ -1,7 +1,8 @@
 .nft-picture-container {
   border: 0.6rem solid #47464b;
   border-radius: 1rem;
-  width: 22rem;
+  width: 23rem;
+  
 }
 
 .nft-picture {
@@ -64,4 +65,8 @@
   text-align: center;
   margin-top: 2rem;
   color: #878787;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0%);
 }

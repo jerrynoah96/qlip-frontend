@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import Web3 from "web3";
 import NavBar from './components/navbar';
+import Header from './components/header';
 import ChooseCreate from './components/chooseCreate';
 import Create from './components/create';
+import QLIPNFTS from './components/qlipNFTSection';
 import Options from './components/Options';
 import Profile from './components/profile';
 import contractABI from '../src/contractAbi.json';
@@ -20,14 +22,16 @@ constructor(props){
   this.state={
     account:"",
     web3: null,
+    contractInit: null,
+    instantWeb3: null,
     show: false,
     modalMessage: null,
     currentpage: "landing",
-    allTokenUrls:[],
+    allTokensArray:[],
     tokenUrls: [],
     contractDetails:{
       account: null,
-      contractAddress: "0x5Ab8C225982282A352c842E20D5443dc8983E58D",
+      contractAddress: "0x7fb9a355552EdA17927Ce5c402Ac10F93693C8fE",
       contractInstance: null
 
     },
@@ -63,9 +67,19 @@ constructor(props){
 }
 
 
-componentDidMount=async ()=> {
- await this.FetchAllTokens();
- await this.FetchUserTokens();
+componentDidMount = async ()=> {
+  const instantWeb3 = new Web3('https://data-seed-prebsc-1-s1.binance.org:8545/');
+ await this.setState({
+    instantWeb3
+  })
+  //instatiate contract
+  const contractInit = new instantWeb3.eth.Contract(contractABI, this.state.contractDetails.contractAddress);
+ await this.setState({
+    contractInit
+  })
+
+  this.FetchAllTokens();
+ 
 }
 
 SetWeb3=async(web3)=> {
@@ -102,7 +116,9 @@ SetWeb3=async(web3)=> {
 console.log(this.state.contractDetails,
   this.state.contractDetails.contractInstance, 'contract details in state');
 
+  
  await this.FetchUserTokens();
+ 
  
 
 }
@@ -120,11 +136,11 @@ handleClose=()=> {
 }
 
 SetExhibit=async (token_details)=> {
-  const imgHash = token_details.imgHash;
+  const imgHash = token_details.imgUrl;
   const price = token_details.price;
-  const item_name = token_details.item_name;
+  const item_name = token_details.name;
   const owner = token_details.owner;
-  const token_id = token_details.token_id;
+  const token_id = token_details.id;
   const description = token_details.description;
  await this.setState({
     currentpage: "Exhibit",
@@ -186,12 +202,24 @@ FormDetails = async(form_details)=> {
 
 
 FetchUserTokens = async () => {
-  const userTUrl = await "https://api.covalenthq.com/v1/97/address/"+this.state.account+"/balances_v2/?nft=true&key=ckey_8af791fd59fb496f8c59a1dac1a";
-  
-  const res = await fetch("https://adek-cors-anywhere.herokuapp.com/"+userTUrl);
+  const account = await this.state.account;
+  console.log(account, 'account of user')
+/*  
+  const res = await fetch("https://api.covalenthq.com/v1/97/address/"+this.state.account+"/balances_v2/?nft=true&key=ckey_8af791fd59fb496f8c59a1dac1a",
+{
+  method: "GET",
+  headers: {
+    'Content-Type': 'application/json',
+    "X-Requested-With": "XMLHttpRequest"}
+  }
+)
+  //const userTUrl = await "https://api.covalenthq.com/v1/97/address/"+this.state.account+"/balances_v2/?nft=true&key=ckey_8af791fd59fb496f8c59a1dac1a";
+  //console.log(userTUrl, 'userTUrl')
+ // const res = await fetch("https://adek-cors-anywhere.herokuapp.com/"+userTUrl);
   const resJson = await res.json();
- 
+ console.log(resJson, 'on profile, after removing adek-url')
   const tokensArray = resJson.data.items; 
+  console.log(tokensArray, 'in fetching user token')
 
   //         this.setState({
 //           tokenUrls: [...this.state.tokenUrls, nft.token_url]
@@ -220,18 +248,58 @@ FetchUserTokens = async () => {
     this.setState({
       tokenUrls: placeHolder
     })
-    console.log(this.state.tokenUrls, 'placeholder from state')
- }
+    console.log(this.state.tokenUrls, 'placeholder from state') */
+    let tokenUrls = [];
+  const userNFts =  await this.state.contractDetails.contractInstance.methods.getNftByAddress(account).call()
+  userNFts.map(async nftid => {
+    let tokenData = {};
+    const tokenDetails = await this.state.contractDetails.contractInstance.methods.getAllTokenDetails(nftid).call();
+    const token_state = await this.state.contractDetails.contractInstance.methods.getNFTState(nftid).call();
+    const nft_amount = await this.state.contractDetails.contractInstance.methods.getSalePrice(nftid).call();
+    const nftAmount = await this.state.web3.utils.fromWei(nft_amount);
+    // fetch token uri details
+    const result = await fetch(tokenDetails.tokenURI_);
+    const res = await result.json();
+    console.log(res, 'uri for user nfts')
+
+    tokenData.imgUrl = res.imgHash;
+    tokenData.tokenState = token_state;
+    tokenData.price = nftAmount;
+    tokenData.owner = tokenDetails.ownerAddress;
+    tokenData.category = tokenDetails._category;
+    tokenData.id = tokenDetails._id;
+    tokenData.name = res.item_name;
+
+  await tokenUrls.push(tokenData);
+
+    console.log(tokenData, 'tokenData object')
+    
+  })
+  this.setState({
+    tokenUrls
+  })
+    console.log(tokenUrls, 'profile token urls from state')
+}
 
  FetchAllTokens = async()=> {
-  
+ /* const allTUrl= await fetch("https://api.covalenthq.com/v1/97/tokens/0x5Ab8C225982282A352c842E20D5443dc8983E58D/nft_token_ids/?&key=ckey_8af791fd59fb496f8c59a1dac1a",
+{
+  method: "GET",
+  headers: {
+    'Content-Type': 'application/json',
+    "X-Requested-With": "XMLHttpRequest"}
+  }
+)
+const result = await allTUrl.json();
+
+
    //get all tokenIDs using covalent
-  const res = await fetch("https://adek-cors-anywhere.herokuapp.com/https://api.covalenthq.com/v1/97/tokens/0x5Ab8C225982282A352c842E20D5443dc8983E58D/nft_token_ids/?&key=ckey_8af791fd59fb496f8c59a1dac1a");
-  const result =await res.json();
+ // const res = await fetch("https://adek-cors-anywhere.herokuapp.com/https://api.covalenthq.com/v1/97/tokens/0x5Ab8C225982282A352c842E20D5443dc8983E58D/nft_token_ids/?&key=ckey_8af791fd59fb496f8c59a1dac1a");
+ // const result =await res.json();
   const allNFTS = result.data.items;
   const allIds = [];
   const allTokenUrls=[];
- await allNFTS.map(async(nft)=>{
+  await allNFTS.map(async(nft)=>{
     if(nft.contract_address == 0x5Ab8C225982282A352c842E20D5443dc8983E58D){
       allIds.push(nft.token_id);
     }
@@ -249,7 +317,44 @@ FetchUserTokens = async () => {
   
   this.setState({
     allTokenUrls
+  }) */
+
+  const allTokens = await this.state.contractInit.methods.getAllTokens().call();
+  console.log(allTokens, 'all tokens')
+  let allTokensArray = [];
+  allTokens.map(async (token)=> {
+    let tokenInfo = {};
+    console.log(token, 'each token id');
+    // fetch name, description and imgHash from the token URI
+    const result = await fetch(token.tokenURI_);
+    const res = await result.json();
+    
+    // get token state from  nfts
+    const tokenState = await this.state.contractInit.methods.getNFTState(token._id).call();
+    const nft_amount = await this.state.contractInit.methods.getSalePrice(token._id).call();
+    const nftAmount = await this.state.instantWeb3.utils.fromWei(nft_amount);
+    tokenInfo.owner = token.ownerAddress;
+    tokenInfo.tokenURI = token.tokenURI_;
+    tokenInfo.category = token._category;
+    tokenInfo.id = token._id;
+    tokenInfo.tokenState = tokenState;
+    tokenInfo.price = nftAmount;
+    tokenInfo.imgUrl = res.imgHash;
+    tokenInfo.name = res.item_name;
+    tokenInfo.description = res.description;
+
+    if(tokenInfo.tokenState == 1){
+      allTokensArray.push(tokenInfo)
+    }
+    console.log(tokenInfo, 'token info')
+
+    
+    
   })
+  this.setState({
+    allTokensArray
+  })
+console.log(allTokensArray, 'all tokens array from state')
   
   
  }
@@ -258,12 +363,19 @@ FetchUserTokens = async () => {
   render(){
     let currentDisplayPage;
     if(this.state.currentpage == "landing"){
-        currentDisplayPage= <Landing setPage={this.SetPage}
+        currentDisplayPage=
+        <>
+        <Header setPage={this.SetPage} />
+        <QLIPNFTS />
+        <Landing 
         web3={this.state.web3}
         contractDetails={this.state.contractDetails}
-        allTokenUrls={this.state.allTokenUrls}
+        allTokensArray={this.state.allTokensArray}
         setExhibit={this.SetExhibit}
         fetchAllTokens={this.FetchAllTokens}/>
+        
+        
+        </>
     }
     if(this.state.currentpage == "choose create"){
       currentDisplayPage= <ChooseCreate 
@@ -281,12 +393,14 @@ if(this.state.currentpage == "options"){
   setPage={this.SetPage}
   form_details={this.state.form_details}
   contractDetails={this.state.contractDetails}
-  web3={this.state.web3}/>
+  web3={this.state.web3}
+  fetchUserTokens={this.FetchUserTokens}/>
 }
 
 if(this.state.currentpage == "profile"){
   currentDisplayPage= <Profile
   setPage={this.SetPage}
+  web3 = {this.state.web3}
   tokenUrls={this.state.tokenUrls}
   contractDetails={this.state.contractDetails}
   fetchUserTokens={this.FetchUserTokens}/>
@@ -307,7 +421,7 @@ if(this.state.currentpage == "Exhibit"){
 
       
         <NavBar setWeb3={this.SetWeb3} setPage={this.SetPage}
-        />
+        /> 
         {currentDisplayPage}
       
         <Footer />

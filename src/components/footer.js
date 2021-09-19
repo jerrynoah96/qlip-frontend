@@ -7,7 +7,7 @@ import '../styles/footer.css';
 const Footer = ()=> {
 
     return(
-       <footer className="footer">
+       <footer className="footer" id="community">
            <div className="private-key-notify-bar">
                <div className="private-key-notify">
                <img  src={lock} alt="lock"/>

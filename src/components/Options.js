@@ -159,9 +159,9 @@ MintNft=async(e)=> {
 
 
                        if(setSaleReciept.status == true){
+                        await this.props.fetchUserTokens();
                         this.setPage();
                        }
-                    
                 }
             }
                     this.setState({

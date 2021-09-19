@@ -162,6 +162,9 @@
   width: 100%;
   display: block;
 }
+.nft-card{
+  width: 400px;
+}
 
 @media only screen and (min-width: 768px) {
   .profile-main-body .content-section {
