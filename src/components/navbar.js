@@ -103,7 +103,7 @@ return (
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="ml-auto nav-links">
-            <Nav.Link className="nav-link" to="landing" smooth={true} duration={1000}
+            <Nav.Link className="nav-link" to="qlip-nfts" smooth={true} duration={1000}
              onClick={()=> {
               props.setPage('landing')
             }}

@@ -12,7 +12,9 @@ import Footer from './components/footer';
 import Landing from './components/landing';
 import Modal from 'react-bootstrap/Modal';
 import Exhibit from './components/Exhibit';
+import SetSale from './components/setSale';
 import './App.css';
+
 
 
 class App extends Component  {
@@ -59,6 +61,10 @@ constructor(props){
       owner: "",
       token_id: "",
       description: ""
+    },
+    setSaleToken: {
+      name: '',
+      id: ''
     }
   }
   this.SetWeb3 = this.SetWeb3.bind(this);
@@ -78,7 +84,7 @@ componentDidMount = async ()=> {
     contractInit
   })
 
-  this.FetchAllTokens();
+await this.FetchAllTokens();
  
 }
 
@@ -135,6 +141,20 @@ handleClose=()=> {
   })
 }
 
+SetSalePage = async(nft)=> {
+  const nft_name = nft.name;
+  const nft_id = nft.id;
+
+  
+await this.setState({
+    currentpage: "set sale",
+  setSaleToken: {
+      ...this.state.setSaleToken,
+      name: nft_name,
+      id: nft_id
+    }
+  })
+}
 SetExhibit=async (token_details)=> {
   const imgHash = token_details.imgUrl;
   const price = token_details.price;
@@ -154,10 +174,6 @@ SetExhibit=async (token_details)=> {
       description
     }
   })
-
-  console.log(token_details, 'set exhibit works')
-
-  
 }
 
 FormDetails = async(form_details)=> {
@@ -196,59 +212,14 @@ FormDetails = async(form_details)=> {
     }
   })
   
-  console.log(this.state.form_details, 'form details')
+  
 }
 
 
 
 FetchUserTokens = async () => {
   const account = await this.state.account;
-  console.log(account, 'account of user')
-/*  
-  const res = await fetch("https://api.covalenthq.com/v1/97/address/"+this.state.account+"/balances_v2/?nft=true&key=ckey_8af791fd59fb496f8c59a1dac1a",
-{
-  method: "GET",
-  headers: {
-    'Content-Type': 'application/json',
-    "X-Requested-With": "XMLHttpRequest"}
-  }
-)
-  //const userTUrl = await "https://api.covalenthq.com/v1/97/address/"+this.state.account+"/balances_v2/?nft=true&key=ckey_8af791fd59fb496f8c59a1dac1a";
-  //console.log(userTUrl, 'userTUrl')
- // const res = await fetch("https://adek-cors-anywhere.herokuapp.com/"+userTUrl);
-  const resJson = await res.json();
- console.log(resJson, 'on profile, after removing adek-url')
-  const tokensArray = resJson.data.items; 
-  console.log(tokensArray, 'in fetching user token')
-
-  //         this.setState({
-//           tokenUrls: [...this.state.tokenUrls, nft.token_url]
-//         })
-//        })
-//      }
-//    }
-//  }) 
-
-
-    const placeHolder = []
-   // const our_contract_address = "0xD5956aB694ff28FeD0F069e5A8056f1A7c5ECFD6";
-   // console.log(our_contract_address, 'ours')
-    tokensArray.map(token => {
-      if(token.nft_data !== null && token.contract_address == 0x5Ab8C225982282A352c842E20D5443dc8983E58D) {
-       console.log(token, 'i think finally')
-        token.nft_data.map(nft_data => {
-          placeHolder.push(nft_data.token_url);
-        })
-      }
-      console.log(placeHolder, 'placeholder')
-
-        
-    })
-
-    this.setState({
-      tokenUrls: placeHolder
-    })
-    console.log(this.state.tokenUrls, 'placeholder from state') */
+ 
     let tokenUrls = [];
   const userNFts =  await this.state.contractDetails.contractInstance.methods.getNftByAddress(account).call()
   userNFts.map(async nftid => {
@@ -260,7 +231,7 @@ FetchUserTokens = async () => {
     // fetch token uri details
     const result = await fetch(tokenDetails.tokenURI_);
     const res = await result.json();
-    console.log(res, 'uri for user nfts')
+    
 
     tokenData.imgUrl = res.imgHash;
     tokenData.tokenState = token_state;
@@ -272,59 +243,21 @@ FetchUserTokens = async () => {
 
   await tokenUrls.push(tokenData);
 
-    console.log(tokenData, 'tokenData object')
+    this.setState({
+      tokenUrls
+    })
     
   })
-  this.setState({
-    tokenUrls
-  })
-    console.log(tokenUrls, 'profile token urls from state')
+ 
 }
 
  FetchAllTokens = async()=> {
- /* const allTUrl= await fetch("https://api.covalenthq.com/v1/97/tokens/0x5Ab8C225982282A352c842E20D5443dc8983E58D/nft_token_ids/?&key=ckey_8af791fd59fb496f8c59a1dac1a",
-{
-  method: "GET",
-  headers: {
-    'Content-Type': 'application/json',
-    "X-Requested-With": "XMLHttpRequest"}
-  }
-)
-const result = await allTUrl.json();
-
-
-   //get all tokenIDs using covalent
- // const res = await fetch("https://adek-cors-anywhere.herokuapp.com/https://api.covalenthq.com/v1/97/tokens/0x5Ab8C225982282A352c842E20D5443dc8983E58D/nft_token_ids/?&key=ckey_8af791fd59fb496f8c59a1dac1a");
- // const result =await res.json();
-  const allNFTS = result.data.items;
-  const allIds = [];
-  const allTokenUrls=[];
-  await allNFTS.map(async(nft)=>{
-    if(nft.contract_address == 0x5Ab8C225982282A352c842E20D5443dc8983E58D){
-      allIds.push(nft.token_id);
-    }
-  })
-
-  allIds.map(async(tokenId)=> {
-    const res = await fetch("https://adek-cors-anywhere.herokuapp.com/https://api.covalenthq.com/v1/97/tokens/0x5Ab8C225982282A352c842E20D5443dc8983E58D/nft_metadata/"+tokenId+"/?&key=ckey_8af791fd59fb496f8c59a1dac1a");
-    const result = await res.json();
-    const nftUrl= result.data.items[0].nft_data[0].token_url;
-    const nftUrlId = [nftUrl, tokenId]
-    
-    allTokenUrls.push(nftUrlId);
-    
-  })
-  
-  this.setState({
-    allTokenUrls
-  }) */
-
   const allTokens = await this.state.contractInit.methods.getAllTokens().call();
-  console.log(allTokens, 'all tokens')
+  
   let allTokensArray = [];
   allTokens.map(async (token)=> {
     let tokenInfo = {};
-    console.log(token, 'each token id');
+    
     // fetch name, description and imgHash from the token URI
     const result = await fetch(token.tokenURI_);
     const res = await result.json();
@@ -344,19 +277,16 @@ const result = await allTUrl.json();
     tokenInfo.description = res.description;
 
     if(tokenInfo.tokenState == 1){
-      allTokensArray.push(tokenInfo)
+     allTokensArray.push(tokenInfo)
     }
-    console.log(tokenInfo, 'token info')
+    
+    this.setState({
+      allTokensArray
+    })
+    
+    
+  })
 
-    
-    
-  })
-  this.setState({
-    allTokensArray
-  })
-console.log(allTokensArray, 'all tokens array from state')
-  
-  
  }
   
 
@@ -373,8 +303,7 @@ console.log(allTokensArray, 'all tokens array from state')
         allTokensArray={this.state.allTokensArray}
         setExhibit={this.SetExhibit}
         fetchAllTokens={this.FetchAllTokens}/>
-        
-        
+    
         </>
     }
     if(this.state.currentpage == "choose create"){
@@ -401,6 +330,7 @@ if(this.state.currentpage == "profile"){
   currentDisplayPage= <Profile
   setPage={this.SetPage}
   web3 = {this.state.web3}
+  setSale = {this.SetSalePage}
   tokenUrls={this.state.tokenUrls}
   contractDetails={this.state.contractDetails}
   fetchUserTokens={this.FetchUserTokens}/>
@@ -410,9 +340,18 @@ if(this.state.currentpage == "Exhibit"){
   currentDisplayPage= <Exhibit
   setPage={this.SetPage}
   tokenDetails={this.state.token_details}
+  setSalePage = {this.SetSalePage}
   contractDetails={this.state.contractDetails}
   web3={this.state.web3}/>
 }
+if(this.state.currentpage == "set sale"){
+  currentDisplayPage= <SetSale
+  setPage={this.SetPage}
+  contractDetails={this.state.contractDetails}
+  tokenInfo={this.state.setSaleToken}
+  web3={this.state.web3}/>
+} 
+
     return (
       <div className="App">
         <Modal show={this.state.show} onHide={this.handleClose}>

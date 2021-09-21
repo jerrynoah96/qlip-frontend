@@ -15,6 +15,7 @@ import Exhibit from "./Exhibit";
 import Modal from 'react-bootstrap/Modal';
 import "../styles/NFTCard.css"
 import "../styles/exhibit.css"
+import { Link } from 'react-scroll';
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import classNames from 'classnames';
 import { connectors } from "web3modal";
@@ -29,10 +30,6 @@ const Landing =(props)=> {
     const [meme, setMeme] = useState([]);
     const [art, setArt] = useState([]);
     
-
-  
-    
-
     const sortTokens =()=>{ 
         const tokenObj = []
         const photoObj=[]
@@ -208,7 +205,7 @@ const allBtn = classNames('nav-link',{
 
       useEffect( async()=> {
         await sortTokens();
-      },[])
+      },[props.allTokensArray])
     return(
         <div className="landing" id="landing">
            

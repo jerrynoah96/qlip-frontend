@@ -41,7 +41,7 @@ const Exhibit = (props) => {
                         <div className = "ownership_availableNumber">
                             <div className = "ownership">
                                 <img src = {profilePic} alt = "profile" className = "profile-picture" />
-                                <p><span>Owned by Karla </span><img src = {verifiedIcon} className = "verifiedIcon" alt = "verified account icon" /></p>
+                                <p><span>Owned by Anonymous </span><img src = {verifiedIcon} className = "verifiedIcon" alt = "verified account icon" /></p>
                             </div>
                             <p className = "availableNumber"><span>Available: </span>20 in stock</p>
                         </div>

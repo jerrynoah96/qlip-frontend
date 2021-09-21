@@ -1,6 +1,10 @@
 .App {
 
   box-sizing: border-box !important;
-  overflow-x: hidden;
+  overflow-x: hidden !important;
+  width: auto;
+  overflow: hidden;
+
+  
  
 }

@@ -1,4 +1,5 @@
 import { forwardRef, useState, useEffect } from "react";
+import BigNumber from "bignumber.js";
 import "../styles/checkoutModal.css";
 import closeIcon from "../images/iCon_Close.svg"
 import warningIcon from "../images/icons_Warning_Shield.svg"
@@ -24,21 +25,28 @@ const CheckoutModal = forwardRef((props, ref) => {
 
         setShow(true);
         setProgressText("Processing your order");
-        const value = (await props.web3.utils.toWei(props.tokenDetails.price, 'ether'));
-        const commisionFee = 0.05 * value;
+        const valueInWei = (await props.web3.utils.toWei(props.tokenDetails.price));
+        
+        
+        const amountToPay = await props.tokenDetails.price;
         const contractAddress = await props.contractDetails.contractAddress;
-        console.log(contractAddress, 'contract address on sale');
-        console.log(value, 'price to be paid')
+        
         const account = await props.contractDetails.account;
         const id = await props.tokenDetails.token_id;
+        const amountToBePaid = await props.contractDetails.contractInstance.methods.getSalePrice(id).call();
+        const commisionFee1 = 0.05 * valueInWei;
+        const commisionFee = new BigNumber(commisionFee1);
+
+        console.log(contractAddress, amountToPay, id, valueInWei, commisionFee, 'contract address on sale');
+       
         
         
      const purchaseReciept = await props.contractDetails.contractInstance.methods.buyTokenOnSale(id,
             contractAddress,
             commisionFee).send({
             from: account,
-            value: value
-        })
+            value: amountToBePaid
+        });
 
         if(purchaseReciept.status == true){
             setProgressText("You have successfully bought this NFT");
@@ -58,6 +66,7 @@ const CheckoutModal = forwardRef((props, ref) => {
       checkUserBal()  
       },[]);
     
+
     return(
         <div className = "checkout-modal-container" ref = {ref}>
     <Modal show={show} onHide={handleClose}>

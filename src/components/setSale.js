@@ -1,10 +1,10 @@
 import { forwardRef, useState, useEffect } from "react";
-import "../styles/checkoutModal.css";
+import "../styles/setSale.css";
 import closeIcon from "../images/iCon_Close.svg"
 import warningIcon from "../images/icons_Warning_Shield.svg"
 import Modal from 'react-bootstrap/Modal';
 
-const SetSale = forwardRef((props, ref) => {
+const SetSale = forwardRef((props) => {
     const [show, setShow] = useState(false);
     const [progressText, setProgressText] = useState('');
     const [newAmount, setUserAmount]= useState();
@@ -41,7 +41,7 @@ const SetSale = forwardRef((props, ref) => {
        })
 
        if(setSaleReciept.status == true){
-         alert('You have set '+{tokenName}+' for sale, You can go to the markeplace to see the new exhibit');
+        setProgressText('You have set '+{tokenName}+' for sale, You can go to the markeplace to see the new exhibit');
        }
       } 
 
@@ -56,7 +56,7 @@ const SetSale = forwardRef((props, ref) => {
       },[]);
     
     return(
-        <div className = "checkout-modal-container" ref = {ref}>
+        <div className = "checkout-modal-container for-set-sale" >
     <Modal show={show} onHide={handleClose}>
         <Modal.Body>
             <span>{progressText}</span>

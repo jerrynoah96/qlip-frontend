@@ -1,5 +1,6 @@
 
 import landingBG from '../images/landingBackground.jpg';
+import { Link } from 'react-scroll';
 import '../styles/landing.css';
 
 const Header = (props) => {
@@ -28,8 +29,11 @@ const Header = (props) => {
                 </button>
 
                 <button className="explore-btn"
-                type="button" disabled>
-                    Explore
+                type="button" >
+
+<Link className="nav-link" to="qlip-nfts" smooth={true} duration={1000}
+              >Explore</Link>
+                    
                 </button>
 
             </div>

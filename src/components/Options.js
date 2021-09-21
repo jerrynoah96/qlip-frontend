@@ -9,8 +9,8 @@ const ipfsClient = require('ipfs-http-client')
 const ipfs = ipfsClient({host: "ipfs.infura.io", port: 5001, protocol:"https"})
 
 const pinataSDK = require('@pinata/sdk');
-const pinata = pinataSDK('583a9e7e2b1ccaea8de3',
- '2ca5978f83ed954ee26ca3f6501ba443caf7e17eff01134623ad3e2fabd9bd9f');
+const pinata = pinataSDK('77ebc300c6e200256298',
+ 'a8b5385b19fbe560d758abc7dd7ecce3c57309441f2b08ca6d2a3fbd69a4f594');
 class Options extends Component {
 
     constructor(props){

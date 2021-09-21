@@ -11,6 +11,7 @@ import SetSale from "./setSale";
 import axios from "axios";
 import "../styles/profile.css";
 import "../styles/NFTCard.css"
+import classNames from 'classnames';
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const Profile = (props) => {
@@ -24,45 +25,42 @@ const [isModalOpen, setIsModalOpen] = useState(false);
   const [tokenDetails, setTokenDetails]= useState([]);
   const [tokenObjects, setTokenObjects] = useState([]);
   const [tokenInfo, setTokenInfo] = useState();
-
-  const toggleModal = async (info) => {
-    if(isModalOpen) {
-      setSaleRef.current.style.display = "none"
-        setIsModalOpen(false)
-    } else {
-      setSaleRef.current.style.display = "flex"
-       await setTokenInfo(info);
-        setIsModalOpen(true)
-    }
-}
+  const [allOnsale, setOnSaleTokenDisplay]= useState([]);
+  const [notforSale, setNotForSaleDisplay]= useState([]);
+  const [displayPointer, setDisplayPointer] = useState('all');
+  const [address, setAddress] = useState(props.contractDetails.account);
 
 
-
-  // let tokenObjects = [];
-/*const fetchTokens =()=>{ 
-
-    //   urlList.map(async(url)=>{
-    //   const res = await fetch(url);
-    //   const result = await res.json();
-    //   tokenObjects.push(result);
-    // } )
-    
-    const tokenObjectsPlaceholder = [];
-    const tokenObj = []
-    
-     urlList.map(async url => {
-      const res = await fetch(url);
-      const result = await res.json();
-      tokenObj.push(result)
-      if(tokenObj.length === urlList.length) setTokenObjects(tokenObj)
-    })
-    
+  const sortTokens =()=>{ 
+    const onSale = []
+    const notOnSale=[]
    
-  } */
+    urlList.map(async token => {
+      // get token state
+      const tokenState = await props.contractDetails.contractInstance.methods.getNFTState(token.id).call();
+      if(tokenState == 2){
+        await  notOnSale.push(token)
+          
+      }
+      if(tokenState == 1){
+        await onSale.push(token)   
+      }
+      
+
+     
+  
+   await setOnSaleTokenDisplay(onSale);
+   await  setNotForSaleDisplay(notOnSale);
+
+    })
+    console.log(tokenObjects, 'token objects')
+  } 
+
+
 
   const displayTokens = urlList.map((token)=> {
     
-    console.log(token, 'my tokens')
+    console.log(token.id, 'tokens id in profile');
     return(
       <div key = {token.id} className = "nft-card">
       <div className = "nft-image-container">
@@ -79,71 +77,74 @@ const [isModalOpen, setIsModalOpen] = useState(false);
               <p><span>new bid &#128293;</span></p>
           </div>
       </div>
-      { token.tokenState == 1 ? <button className = "buy-btn"
+      { token.tokenState == 2 ? <button className = "buy-btn"
        onClick={()=> {
-        toggleModal(token)
+        props.setSale(token)
        }}>Set To Sale</button> : ''}
   </div>
       // <NFTCard key = {token.imgHash} name = {token.item_name} imageSrc = {token.imgHash} price = {token.price} description = {token.description} />
     )
   })
-  console.log(displayTokens, 'tokens display')
+ 
 
-  
-   
-
+  const tokensOnSale = allOnsale.map((token)=> {
     
     
- /*   const fetchTokenDetails =()=>{
-      const tokenArray =  [];
-
-    tokenUrls.map((tokenUrl)=> {
-      var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-      };
-      
-      fetch(tokenUrl, requestOptions)
-        .then(response => response.json())
-        .then(result => {
-         
-          tokenArray.push(result);
-        })
-        .catch(error => console.log('error', error));
-     // const res = await fetch(tokenUrl);
-     // const resJson = res.json();
-     // console.log(resJson, 'json for each')
-    })
-
-    setTokenDetails(tokenArray);
-   
-   
-  } */
-
-/*
- const  finalTokenOutput = tokenDetails.map((token)=> {
-     console.log(token, 'token')
     return(
-      <div className = "nft-card">
+      <div key = {token.id} className = "nft-card">
       <div className = "nft-image-container">
-          <img src = {token.imgHash} alt = "nft product" className = "nft-image" />
+          <img src = {token.imgUrl} alt = "nft product" className = "nft-image" />
       </div>
       <div className = "nft-details">
-          <h3 className = "nft-name">{token.token_name}</h3>
+          <h3 className = "nft-name">{token.item_name}</h3>
           <div className = "detail-1">
-              <h4>{token.price} QLIP</h4>
+              <h4>{token.price} BNB</h4>
               <p>1 of 1</p>
           </div>
           <div className = "detail-2">
-              <p><span>Highest bid </span>0.001ETH</p>
+              <p><span>Highest bid </span>0.001 BNB</p>
               <p><span>new bid &#128293;</span></p>
           </div>
       </div>
-      <button className = "buy-btn">Buy NFT</button>
+      { token.tokenState == 2 ? <button className = "buy-btn"
+       onClick={()=> {
+        props.setSale(token)
+       }}>Set To Sale</button> : ''}
   </div>
-
+      // <NFTCard key = {token.imgHash} name = {token.item_name} imageSrc = {token.imgHash} price = {token.price} description = {token.description} />
     )
-  }) */
+  })
+
+
+  
+  const tokensNotOnSale = notforSale.map((token)=> {
+    
+    
+    return(
+      <div key = {token.id} className = "nft-card">
+      <div className = "nft-image-container">
+          <img src = {token.imgUrl} alt = "nft product" className = "nft-image" />
+      </div>
+      <div className = "nft-details">
+          <h3 className = "nft-name">{token.item_name}</h3>
+          <div className = "detail-1">
+              <h4>{token.price} BNB</h4>
+              <p>1 of 1</p>
+          </div>
+          <div className = "detail-2">
+              <p><span>Highest bid </span>0.001 BNB</p>
+              <p><span>new bid &#128293;</span></p>
+          </div>
+      </div>
+      { token.tokenState == 2 ? <button className = "buy-btn"
+       onClick={()=> {
+        props.setSale(token)
+       }}>Set To Sale</button> : ''}
+  </div>
+      // <NFTCard key = {token.imgHash} name = {token.item_name} imageSrc = {token.imgHash} price = {token.price} description = {token.description} />
+    )
+  })
+   
 
   const loader =  <SkeletonTheme color="#202020" highlightColor="#444">
                         <p>
@@ -151,11 +152,35 @@ const [isModalOpen, setIsModalOpen] = useState(false);
                         </p>
                 </SkeletonTheme>
   
-    useEffect( ()=> {
-     // fetchTokens();
+    useEffect( async()=> {
+     await sortTokens();
       
     },[])
 
+    let currentDisplay;
+    if(displayPointer == 'all'){
+      currentDisplay = displayTokens
+    }
+
+    if(displayPointer == 'on sale'){
+      currentDisplay = tokensOnSale
+    }
+
+    if(displayPointer == 'tokens not on sale'){
+      currentDisplay = tokensNotOnSale
+    }
+
+    const allBtn = classNames('',{
+      'active-nft-nav': currentDisplay == displayTokens
+    })
+   
+    const onSaleBtn = classNames('',{
+      'active-nft-nav': currentDisplay == tokensOnSale
+    })
+  
+    const notOnSaleBtn = classNames('',{
+      'active-nft-nav': currentDisplay == tokensNotOnSale
+    })
 
 
     return(
@@ -172,7 +197,7 @@ const [isModalOpen, setIsModalOpen] = useState(false);
               </div>
               <div className = "user-details">
                 <h2>Anonymous <img src = {verifiedIcon} className = "verified-icon" alt = "verified icon" /></h2>
-                <p>0x495f947245...cb7b5eby</p>
+                <p className = "address">{address.slice(0,7).concat('...').concat(address.slice(11,18)) }</p>
               </div>
               <div className = "user-about-section">
                 <p>A 2D hyper-realist artist with 10 years experience designing portrait for influential celebrities and goverment officials</p>
@@ -198,9 +223,21 @@ const [isModalOpen, setIsModalOpen] = useState(false);
             <h1 className = "section-title">NFTs</h1>
             <div className = "nft-nav">
               <ul>
-                <li><button className = "active-nft-nav">All</button></li>
-                <li><button>On sale</button></li>
-                <li><button>Created</button></li>
+                <li><button className = {allBtn}
+                 onClick={()=> {
+                  setDisplayPointer('all')
+              }}>All</button></li>
+
+                <li><button className={onSaleBtn}
+                 onClick={()=> {
+                  setDisplayPointer('on sale')
+              }}>On sale</button></li>
+
+                <li><button className={notOnSaleBtn}
+                 onClick={()=> {
+                  setDisplayPointer('tokens not on sale')
+              }}>Not on Sale</button></li>
+
                 <li><button>Bought</button></li>
                 <li><button>Following</button></li>
               </ul>
@@ -217,7 +254,7 @@ const [isModalOpen, setIsModalOpen] = useState(false);
                   {!tokenObjects.length && <Loader />} */}
 
                   {!!urlList.length ?
-                   displayTokens
+                   currentDisplay
                     : loader
                   }
               
@@ -226,9 +263,7 @@ const [isModalOpen, setIsModalOpen] = useState(false);
           </div>
         </div>
       </div>
-      <SetSale ref = {setSaleRef} closeModal = {toggleModal} tokenInfo={tokenInfo} 
-            contractDetails = {props.contractDetails}
-            web3={props.web3}/>
+      
       </>
     );
 }
