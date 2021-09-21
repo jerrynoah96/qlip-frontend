@@ -64,7 +64,8 @@ class Create extends Component {
     
       }
 
-     setPage=(page)=> {
+     setPage=(e, page)=> {
+         e.preventDefault();
         page = 'options';
         this.props.setPage(page);
         this.props.setFormDetails(this.state.nftDetails);
@@ -148,7 +149,7 @@ render(){
 
             <div className="create-section-form">
                 
-                <form className="create-form" onSubmit={this.submitForm}>
+                <form className="create-form" onSubmit={this.submitForm} onSubmit={this.setPage}>
                     <div className="form-heading">
                         <h3>Create Single Collectible</h3>
                         <span>Switch to Multiple Collectible 
@@ -172,7 +173,8 @@ render(){
                     <input type="text" id="item_name" placeholder="e.g.Redeemable Botcoin Card with logo"
                     name="item_name" 
                     value={this.state.nftDetails.item_name}
-                    onChange={this.handleInput} />
+                    onChange={this.handleInput}
+                    required />
                     </div> 
 
 
@@ -181,7 +183,8 @@ render(){
                     <input type="text" id="description" placeholder="e.g. After Purchasing, you will be able to recieve the logo"
                     name="description" 
                     value={this.state.nftDetails.description}
-                    onChange={this.handleInput} />
+                    onChange={this.handleInput} 
+                    required/>
 
                 </div>
 
@@ -191,7 +194,8 @@ render(){
                     <input type="number" id="price" placeholder="e.g. 100"
                     name="price" 
                     value={this.state.nftDetails.price}
-                    onChange={this.handleInput} />
+                    onChange={this.handleInput} 
+                    required/>
 
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBNNXA7K21yYyQZxM-iUcGilYqNJp68TcDWaCFepHcLKjA08-UWWOiB65ou1EXlPvDlP4&usqp=CAU" alt="token logo"/>
 
@@ -242,11 +246,11 @@ render(){
                 <div className="small-inputs">
     
                     <div className="input-box">
-                        <label htmlFor="size">SIZE</label>
+                        <label htmlFor="size">SIZE (Optional)</label>
                         <input type="text" id="size" placeholder="e.g. Size"
                         name="size" 
                         value={this.state.nftDetails.size}
-                        onChange={this.handleInput} />
+                        onChange={this.handleInput}/>
 
                     </div>
 
@@ -429,7 +433,7 @@ render(){
 
                 </div> 
                 <div className="submit-btn-box">
-                    <button onClick={this.setPage}>Create Item 
+                    <button >Create Item 
                         <img src={arrow} alt="arrow-icon"/>
                     </button>
                      
