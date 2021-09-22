@@ -1,10 +1,10 @@
-import { forwardRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "../styles/setSale.css";
 import closeIcon from "../images/iCon_Close.svg"
 import warningIcon from "../images/icons_Warning_Shield.svg"
 import Modal from 'react-bootstrap/Modal';
 
-const SetSale = forwardRef((props) => {
+const SetSale = (props) => {
     const [show, setShow] = useState(false);
     const [progressText, setProgressText] = useState('');
     const [newAmount, setUserAmount]= useState();
@@ -16,6 +16,11 @@ const SetSale = forwardRef((props) => {
 
     const handleClose = ()=> {
         setShow(false)
+    }
+
+    const backToProfile =()=> {
+        props.setPage("profile");
+        props.fetchUserTokens();
     }
 
     const handleInput=async (e)=> {
@@ -41,7 +46,7 @@ const SetSale = forwardRef((props) => {
        })
 
        if(setSaleReciept.status == true){
-        setProgressText('You have set '+{tokenName}+' for sale, You can go to the markeplace to see the new exhibit');
+        setProgressText("You have set "+ tokenName +" for sale, You can go to the markeplace to see the new exhibit");
        }
       } 
 
@@ -56,21 +61,23 @@ const SetSale = forwardRef((props) => {
       },[]);
     
     return(
-        <div className = "checkout-modal-container for-set-sale" >
-    <Modal show={show} onHide={handleClose}>
+        <>
+        
+        <div className = "set-sale" >
+        <Modal show={show} onHide={handleClose}>
         <Modal.Body>
             <span>{progressText}</span>
             <img src="https://cdn.dribbble.com/users/419257/screenshots/1724076/scanningwoohoo.gif"/>
         </Modal.Body>
       </Modal>
-            <div className = "checkout-modal">
-                <div className = "modal-head">
+            <div className = "checkout-modal-sell">
+                <div className = "modal-title">
                     <h1>Set NFT To Sale</h1>
-                    <div className = "cancel-icon-contaner" onClick = {props.closeModal}>
+                    <div className = "cancel-icon-contaner" onClick = {backToProfile}>
                         <img src = {closeIcon} className = "" alt = "close" />
                     </div>
                 </div>
-                <form className = "modal-body" onSubmit={setToSale}>
+                <form className = "modal-details">
                     <p className = "about-to-buy">You are about to Put up <span>{selectedToken.name}</span> for Sale.</p>
                     <div className = "price-details-container">
                     <div className="input-box">
@@ -95,13 +102,15 @@ const SetSale = forwardRef((props) => {
                     </div>
                     <div className = "button-group">
                         <button class = "pay-button"
-                        onClick=''>Set NFT To Sale</button>
-                        <button class = "cancel-button">Cancel</button>
+                        onClick={setToSale}>Set NFT To Sale</button>
+                        <button class = "cancel-button"
+                        onClick={backToProfile}>Cancel</button>
                     </div>
                 </form>
             </div>
         </div>
+        </>
     );
-})
+}
 
 export default SetSale;
