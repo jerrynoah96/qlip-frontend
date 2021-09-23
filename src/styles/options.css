@@ -2,7 +2,15 @@
     background: rgba(14, 14, 18, 1);
     
 }
-
+.back-icon{
+    height: 60px;
+    width: 40px;
+    cursor: pointer;
+    transform: rotate(180deg);
+    position: absolute;
+    left: 10%;
+    top: 10%;
+}
 .options .option-header{
     color: rgba(255,255, 255);
     padding-left: 3rem;

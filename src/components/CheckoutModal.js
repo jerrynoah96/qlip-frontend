@@ -34,16 +34,10 @@ const CheckoutModal = forwardRef((props, ref) => {
         const account = await props.contractDetails.account;
         const id = await props.tokenDetails.token_id;
         const amountToBePaid = await props.contractDetails.contractInstance.methods.getSalePrice(id).call();
-        const commisionFee1 = 0.05 * valueInWei;
-        const commisionFee = new BigNumber(commisionFee1);
-
-        console.log(contractAddress, amountToPay, id, valueInWei, commisionFee, 'contract address on sale');
-       
         
         
      const purchaseReciept = await props.contractDetails.contractInstance.methods.buyTokenOnSale(id,
-            contractAddress,
-            commisionFee).send({
+            contractAddress).send({
             from: account,
             value: amountToBePaid
         });
@@ -57,7 +51,7 @@ const CheckoutModal = forwardRef((props, ref) => {
     }
 
     const checkUserBal = async()=> {
-        const bal = await props.web3.eth.getBalance(await props.contractDetails.account)
+        const bal = await props.web3.eth.getBalance(await props.contractDetails.account);
         const balance = await props.web3.utils.fromWei(bal);
         setUserBal(balance)
     }

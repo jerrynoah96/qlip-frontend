@@ -32,7 +32,7 @@ constructor(props){
     tokenUrls: [],
     contractDetails:{
       account: null,
-      contractAddress: "0x7fb9a355552EdA17927Ce5c402Ac10F93693C8fE",
+      contractAddress: "0x714e39D8F55E5C0Adc2f62eb8AFf0e38d3734232",
       contractInstance: null
 
     },
@@ -142,12 +142,12 @@ handleClose=()=> {
   })
 }
 
-SetSalePage = async(nft)=> {
+ResetSale =(nft)=> {
   const nft_name = nft.name;
   const nft_id = nft.id;
 
   
-await this.setState({
+ this.setState({
     currentpage: "set sale",
   setSaleToken: {
       ...this.state.setSaleToken,
@@ -331,7 +331,7 @@ if(this.state.currentpage == "profile"){
   currentDisplayPage= <Profile
   setPage={this.SetPage}
   web3 = {this.state.web3}
-  setSale = {this.SetSalePage}
+  setSalePage = {this.ResetSale}
   tokenUrls={this.state.tokenUrls}
   contractDetails={this.state.contractDetails}
   fetchUserTokens={this.FetchUserTokens}/>
@@ -341,13 +341,13 @@ if(this.state.currentpage == "Exhibit"){
   currentDisplayPage= <Exhibit
   setPage={this.SetPage}
   tokenDetails={this.state.token_details}
-  setSalePage = {this.SetSalePage}
   contractDetails={this.state.contractDetails}
   web3={this.state.web3}/>
 }
 if(this.state.currentpage == "set sale"){
   currentDisplayPage= <SetSale
   setPage={this.SetPage}
+  fetchUserTokens={this.FetchUserTokens}
   contractDetails={this.state.contractDetails}
   tokenInfo={this.state.setSaleToken}
   web3={this.state.web3}/>

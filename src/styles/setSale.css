@@ -1,7 +1,9 @@
-.checkout-modal-container {
+
+
+.set-sale {
   
-    width: 100vw;
-    height: 100vh;
+    width: 100vw !important;
+    height: 100vh !important;
     /* backdrop-filter: blur(8px); */
     top: 0;
     left: 0;
@@ -10,45 +12,50 @@
     align-items: center;
     background-color: #16161e;
     display: flex;
+    
+    
     color: rgba(255, 255, 255);
   }
   
-  .checkout-modal {
+  .checkout-modal-sell {
+    
     background-color: #0e0e12;
     width: 90%;
+    height: 90%;
     max-width: 30rem;
     border-radius: 1rem;
     padding: 2rem;
   }
   
-  .modal-head {
+  .modal-title {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
   }
   
-  .modal-head h1 {
+  .modal-title h1 {
     font-size: 1.6rem;
   }
   
-  .modal-head .cancel-icon-contaner {
+  .modal-title .cancel-icon-contaner {
     padding: 0.5rem;
     border: 0.5px solid rgba(224, 222, 222, 0.2);
     border-radius: 50%;
   }
   
-  .modal-body {
+  .modal-details {
     font-size: 0.9rem;
+    height: 100% !important;
   }
   
-  .modal-body .about-to-buy span {
+  .modal-details .about-to-buy span {
     color: #b49dff;
   }
-  .modal-body .price-details-container {
+  .modal-details .price-details-container {
     margin-top: 2rem;
   }
-  .modal-body .price-detail {
+  .modal-details .price-detail {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -56,11 +63,11 @@
     padding-bottom: 1rem;
   }
   
-  .modal-body .price-detail p span {
+  .modal-details .price-detail p span {
     color: #777e90;
   }
   
-  .modal-body .price-detail:first-of-type {
+  .modal-details .price-detail:first-of-type {
     border-bottom: 0.5px solid rgba(224, 222, 222, 0.2);
   }
   

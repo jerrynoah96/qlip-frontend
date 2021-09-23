@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import uploadIcon from '../images/upload-icon.png';
+import arrow from '../images/arrow.svg';
 import signIcon from '../images/sign-icon.png';
 import Modal from 'react-bootstrap/Modal';
 import '../styles/options.css';
@@ -199,6 +200,11 @@ render(){
         </Modal.Body>
       </Modal>
             <div className="option-header">
+                <img className="back-icon"
+                 src={arrow}
+                 onClick={()=> {
+                    this.props.setPage('create')
+                     }}/>
                 <div className="header-content">
                 <h1>QLIP MINTSTORE</h1>
                 <span>Mint token in 3 easy steps</span>

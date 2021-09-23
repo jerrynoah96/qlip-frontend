@@ -31,7 +31,7 @@ const TopSellers = ({profilePic, name, number, balance}) => {
                     <img src = {verifiedIcon} all = "verified user" className = "verified-icon" />
                 </div>
                 <h5 className = "seller-username">{name}</h5>
-                <p className = "seller-balance">{balance}<span> ETH</span></p>
+                <p className = "seller-balance">{balance}<span> BNB</span></p>
             </div>
         </div>
     );

@@ -79,7 +79,7 @@ const [isModalOpen, setIsModalOpen] = useState(false);
       </div>
       { token.tokenState == 2 ? <button className = "buy-btn"
        onClick={()=> {
-        props.setSale(token)
+        props.setSalePage(token)
        }}>Set To Sale</button> : ''}
   </div>
       // <NFTCard key = {token.imgHash} name = {token.item_name} imageSrc = {token.imgHash} price = {token.price} description = {token.description} />
@@ -108,7 +108,7 @@ const [isModalOpen, setIsModalOpen] = useState(false);
       </div>
       { token.tokenState == 2 ? <button className = "buy-btn"
        onClick={()=> {
-        props.setSale(token)
+        props.setSalePage(token)
        }}>Set To Sale</button> : ''}
   </div>
       // <NFTCard key = {token.imgHash} name = {token.item_name} imageSrc = {token.imgHash} price = {token.price} description = {token.description} />
@@ -138,7 +138,7 @@ const [isModalOpen, setIsModalOpen] = useState(false);
       </div>
       { token.tokenState == 2 ? <button className = "buy-btn"
        onClick={()=> {
-        props.setSale(token)
+        props.setSalePage(token)
        }}>Set To Sale</button> : ''}
   </div>
       // <NFTCard key = {token.imgHash} name = {token.item_name} imageSrc = {token.imgHash} price = {token.price} description = {token.description} />
@@ -250,7 +250,6 @@ const [isModalOpen, setIsModalOpen] = useState(false);
                     <NFTCard key = {token.imgHash} name = {token.item_name} imageSrc = {token.imgHash} price = {token.price} description = {token.description} />
                   )
                 })}
-
                   {!tokenObjects.length && <Loader />} */}
 
                   {!!urlList.length ?
