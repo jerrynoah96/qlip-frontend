@@ -1,81 +1,105 @@
-.choose-create{
-    background: rgba(14, 14, 18, 1);
-    height: 80vh;
-    color: rgba(255, 255, 255); 
-    box-sizing: border-box !important;
+.choose-create {
+  background: rgba(14, 14, 18, 1);
+  color: rgba(255, 255, 255);
+  padding: 2rem 0;
+  padding-bottom: 5rem;
+}
+
+.choose-create-container {
+  width: 45rem;
+  margin: 0 auto;
+  padding-top: 2rem;
+}
+
+.choose-create-container .choose-create-heading {
+  text-align: center;
+  margin-bottom: 4rem;
+  color: rgba(255, 255, 255, 1);
+}
+
+.choose-create-container .choose-create-heading h1 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.choose-create-container .choose-create-heading p {
+  font-size: 1rem;
+  font-weight: 100;
+  color: #bec2ca;
+}
+
+.choose-create-container .choose-create-heading p span {
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255);
+}
+
+.create-options {
+  display: flex;
+  justify-content: space-between;
+}
+
+.create-option {
+  width: 18rem;
+  border: 1.24921px solid #16161e;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 1.5rem;
+}
+
+.create-option .image-container {
+  background: rgba(22, 22, 30, 0.2);
+  padding: 1.5rem;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+.create-option .option-text {
+  text-align: center;
+}
+
+.create-option .option-text .choice-title {
+  font-size: 1.5rem;
+  margin-bottom: 0;
+}
+.create-option .option-text .choice-desc {
+  font-size: 0.8rem;
+  margin-bottom: 0;
+  color: #bec2ca;
+}
+
+.create-option button {
+  margin-top: 2rem;
+  background-color: #4b23cc;
+  border: none;
+  padding: 0.8rem 1.8rem;
+  color: rgba(255, 255, 255);
+  border-radius: 30px;
+}
+
+.create-multiple button {
+  background-color: inherit !important;
+  border: thin solid rgba(255, 255, 255);
+}
+
+@media only screen and (max-width: 767px) {
+  .choose-create-container {
+    width: 80%;
+  }
+
+  .choose-create-container .choose-create-heading {
+    text-align: left;
+  }
+
+  .create-options {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+  }
+
+  .create-option {
+    margin-bottom: 2rem;
+  }
 }
-
-.choose-create h1{
-    font-size: 3rem;
-    font-weight: 700 !important;
-    color: rgba(255, 255, 255, 1);
-}
-
-
-.choose-create-heading{
-    
-    text-align: center;
-    margin-bottom: 4rem;
-
-}
-.choose-describe{
-    color: rgba(255, 255, 255, 0.5);
-    width: 40vw;
-}
-
-.choose-describe p{
-    
-    display: inline !important;
-    color: rgba(255, 255, 255, 1);
-    font-weight: 400;
-}
-
-.create-option{
-    height: 350px;
-    width: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-}
-
-.create-option h2{
-    margin-top: 3rem;
-    color: rgba(255, 255, 255, 1);
-    font-weight: 400;
-    font-size: 1.3rem;
-
-
-}
-.create-option span{
-    color: rgba(255, 255, 255, 0.5);
-    
-}
-
-.create-options{
- 
-    width: 50vw;
-    display: flex;
-    justify-content: center;
-    justify-content: space-between;
-}
-
-.create-option button{
-    margin-top: 2rem;
-    background-color: #4B23CC;
-    border: none;
-    padding: 0.8rem 1.8rem;
-    color: rgba(255, 255, 255);
-    border-radius: 30px;
-}
-
-.create-multiple button{
-    background-color: inherit !important;
-    border: thin solid rgba(255, 255, 255);
-}
-
-
