@@ -245,7 +245,7 @@ const allBtn = classNames('nav-link',{
 
     return(
         <div className="landing" id="landing">
-            <Header setPage={props.SetPage}/>
+            <Header setPage={props.setPage}/>
             <QlipNFTS ExclusiveClipNftsList = {ExclusiveClipNftsList} />
            
             <main>
