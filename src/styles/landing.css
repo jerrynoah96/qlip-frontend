@@ -1,23 +1,20 @@
 header {
   height: 90vh;
-  width: auto;
-  box-sizing: border-box !important;
-  position: relative;
-  
-}
-.landing-bg {
-  height: 100%;
   width: 100%;
-  z-index: -1;
+  box-sizing: border-box;
+  position: relative;
+  background: url("../images/landingBackground.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 8%;
 }
 
 .header-content1 {
-  width: 500px;
+  width: 50%;
   height: 300px;
-
   position: absolute;
   bottom: 10%;
-  left: 10%;
+  left: 8%;
   color: rgba(255, 255, 255);
 }
 .header-content1 h1 {
@@ -42,6 +39,7 @@ header {
   width: 190px;
   height: 50px;
   border-radius: 40px;
+  cursor: pointer;
 }
 .create-btn {
   background: linear-gradient(180deg, #5429e1 0%, #441ebf 100%);
@@ -49,26 +47,24 @@ header {
 }
 
 .header-content2 {
-  width: 300px;
-  height: 300px;
+  width: 25%;
   position: absolute;
   top: 10%;
-  right: 10%;
+  right: 8%;
   color: rgba(255, 255, 255);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border: none;
   border: 1px dashed rgba(171, 151, 255, 1);
   padding: 2rem;
 }
 .header-content2 h2 {
   font-size: 1.4rem;
+  margin-bottom: 2rem;
 }
 
 .nft-detail {
   color: rgba(255, 255, 255, 0.6);
   font-size: 1rem;
+  display: block;
+  margin-bottom: 2rem;
 }
 .number-index {
   color: rgba(255, 255, 255, 0.7);
@@ -100,14 +96,18 @@ main {
 .cards-container {
   display: flex;
   justify-content: space-between;
-  margin-top: 3rem;
+  margin-top: 2rem;
 }
 
 .top-seller-container {
   display: flex;
-  justify-content: space-between;
   margin-top: 3rem;
-  flex-wrap: wrap;
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.top-seller-container::-webkit-scrollbar {
+  display: none;
 }
 
 .marketplace {
@@ -149,11 +149,12 @@ main {
   border: none;
 }
 
-.nft-container {
+.nft-section-container {
   display: flex;
-  justify-content: space-between;
   margin-top: 3rem;
   flex-wrap: wrap;
+  gap: 5%;
+  justify-content: center;
 }
 .load-more-btn-container {
   display: flex;
@@ -168,4 +169,97 @@ main {
   border-radius: 1.5rem;
   display: block;
   text-align: center;
+}
+
+@media only screen and (max-width: 900px) {
+  header {
+    height: 30rem;
+    padding: 5rem 5%;
+  }
+
+  .header-content1 {
+    width: 100%;
+    height: auto;
+    position: static;
+    color: rgba(255, 255, 255);
+    margin: auto;
+  }
+
+  .header-content1 h1 {
+    font-size: 2.8rem;
+  }
+
+  .header-content2 {
+    display: none;
+  }
+
+  main {
+    padding: 3rem;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  .cards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3rem;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  header {
+    height: 25rem;
+    padding: 4rem 5%;
+  }
+
+  .header-content1 h1 {
+    font-size: 2.2rem;
+  }
+
+  .header-content1 span {
+    font-size: 1rem;
+  }
+
+  .btn-box {
+    width: 400px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  header {
+    height: 22rem;
+    padding: 3rem 5%;
+  }
+
+  .header-content1 h1 {
+    font-size: 1.8rem;
+  }
+
+  .btn-box {
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .header-content1 button {
+    width: 40%;
+    height: 40px;
+    border-radius: 40px;
+  }
+
+  .section-header {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .section-tagline {
+    font-size: 0.8rem;
+  }
+
+  .cards-container {
+    margin-top: 0;
+  }
 }

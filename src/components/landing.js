@@ -19,11 +19,17 @@ import { Link } from 'react-scroll';
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import classNames from 'classnames';
 import { connectors } from "web3modal";
+import Header from "./header"
+import QlipNFTS from "./qlipNFTSection"
+import bushland_NFT_img from "../images/BUSHLAND.png";
+import ruin_of_osun_NFT_img from "../images/RUIN_OF_OSHUN.png"
+import oshun_NFT_img from "../images/OSHUN_NFT.png"
 
 
 const Landing =(props)=> {
 
     const allTokensArray = props.allTokensArray;
+    console.log("ttttttt: ", allTokensArray)
     const [tokenObjects, setTokenObjects] = useState([]);
     const [displayPointer, setDisplayPointer] = useState('all');
     const [photography, setPhotoGraphy] = useState([]);
@@ -206,24 +212,52 @@ const allBtn = classNames('nav-link',{
       useEffect( async()=> {
         await sortTokens();
       },[props.allTokensArray])
+
+
+      // data of exclusice clip nft in the exclusice clip nft section of the landing page.
+    //   if this data are to be gotten from the crontract as well, the, this should be an empty array initially untill the data is back
+      const ExclusiveClipNftsList = [
+        {
+            name: "RUIN OF OSUN",
+            image: bushland_NFT_img,
+            price: "20 BNB",
+            rightText: "1/1",
+            leftText: "SAPPHIRE",
+            description: "Oshun is considered one of the most powerful of all orisha, her temple is filled with treasure and water rune magic."
+        },
+        {
+            name: "BUSHLAND",
+            image: ruin_of_osun_NFT_img,
+            price: "50 BNB",
+            rightText: "1/1",
+            leftText: "EMERALD",
+            description: "Explore Bushland - the shattered remains of the once beautiful african homeworld, San."
+        },
+        {
+            name: "OSHUN",
+            image: oshun_NFT_img,
+            price: "60 BNB",
+            rightText: "1/1",
+            leftText: "RUBY",
+            description: "The Yoruba river diety who rules divinity, feminity, fertility, beauty and love."
+        }
+    ]
+
     return(
         <div className="landing" id="landing">
+            <Header setPage={props.SetPage}/>
+            <QlipNFTS ExclusiveClipNftsList = {ExclusiveClipNftsList} />
            
             <main>
-                
-
                 <div className = "sections top-sellers">
                     <h1 className = "section-header">Top Sellers</h1>
                     <div className = "top-seller-container">
-                        <TopSellers key = "1" name = "Karla Gyan" profilePic = {sellerPic} number = "1" balance = "700" />
-                        <TopSellers key = "2" name = "Karla Gyan" profilePic = {sellerPic} number = "2" balance = "500" />
-                        <TopSellers key = "3" name = "Karla Gyan" profilePic = {sellerPic} number = "3" balance = "200" />
-                        <TopSellers key = "4" name = "Karla Gyan" profilePic = {sellerPic} number = "4" balance = "100" />
-                        <TopSellers key = "5" name = "Karla Gyan" profilePic = {sellerPic} number = "5" balance = "100" />
+                        <TopSellers name = "Karla Gyan" profilePic = {sellerPic} number = "1" balance = "700" />
+                        <TopSellers name = "Karla Gyan" profilePic = {sellerPic} number = "2" balance = "500" />
+                        <TopSellers name = "Karla Gyan" profilePic = {sellerPic} number = "3" balance = "200" />
+                        <TopSellers name = "Karla Gyan" profilePic = {sellerPic} number = "4" balance = "100" />
+                        <TopSellers name = "Karla Gyan" profilePic = {sellerPic} number = "5" balance = "100" />
                     </div>
-
-                    {/* 2. 3772ff 3. 0ead6f ... 23262f */}
-                    
                 </div>
 
                 <div className = "sections market-place">
@@ -257,7 +291,7 @@ const allBtn = classNames('nav-link',{
                             <li className = "nav-link">filter by: {"Most Recent"}</li>
                         </ul>
                     </nav>
-                    <div className = "nft-container">
+                    <div className = "nft-section-container">
                     
 
                         {!!allTokensArray.length ? currentDisplay : loader}

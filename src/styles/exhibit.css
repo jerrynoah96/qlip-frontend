@@ -1,36 +1,32 @@
-
 .exhibit-main-body {
   padding: 1rem;
   height: 100%;
   width: 100%;
   background-color: #16161e;
- 
-  
-  
 }
 
-.nft-picture-container {
+/* .nft-picture-container {
   border: 0.6rem solid #908ba2;
   border-radius: 1rem;
   height: 600px;
   width: 500px !important;
   text-align: center;
   padding-top: 1rem;
-}
+} */
 
-.nft-picture {
+/* .nft-picture {
   width: 80%;
   height: 80%;
-}
+} */
 
-.nft-description {
+/* .nft-description {
   position: relative;
   padding: 1rem 3rem;
   color: #8e8975;
   font-size: 1.2rem;
-}
+} */
 
-.nft-name {
+/* .nft-name {
   font-family: Beleren2016 Small Caps;
   font-style: normal;
   font-weight: 700;
@@ -64,9 +60,9 @@
 .right-vertical-text {
   right: 1rem;
   letter-spacing: 0.5rem;
-}
+} */
 
-.nft-price {
+/* .nft-price {
   font-size: 1.1rem;
   text-align: center;
   margin-top: 2rem;
@@ -75,7 +71,7 @@
 
 .nft-info-container {
   margin-top: 2rem;
-}
+} */
 
 .first-section,
 .second-section {
@@ -128,7 +124,7 @@
   width: 1.2rem;
 }
 
-.price-container img{
+.price-container img {
   height: 50px;
   width: 60px;
   border-radius: 50%;
@@ -218,13 +214,13 @@
     align-items: flex-start;
     justify-content: space-between;
   }
-  .nft-picture-container {
+  /* .nft-picture-container {
     width: 48%;
   }
 
   .nft-info-container {
     margin-top: 0;
-  }
+  } */
 
   .first-section {
     padding-top: 2rem;
@@ -235,14 +231,14 @@
   .exhibit-main-body {
     padding: 2rem 10%;
   }
-  .nft-picture-container {
+  /* .nft-picture-container {
     width: 50%;
     margin-right: 3rem;
   }
 
   .nft-info-container {
     width: 50%;
-  }
+  } */
 }
 
 @media only screen and (min-width: 1024px) {

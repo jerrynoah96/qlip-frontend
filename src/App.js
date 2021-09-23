@@ -4,7 +4,6 @@ import NavBar from './components/navbar';
 import Header from './components/header';
 import ChooseCreate from './components/chooseCreate';
 import Create from './components/create';
-import QLIPNFTS from './components/qlipNFTSection';
 import Options from './components/Options';
 import Profile from './components/profile';
 import contractABI from '../src/contractAbi.json';
@@ -85,6 +84,8 @@ componentDidMount = async ()=> {
   })
 
 await this.FetchAllTokens();
+
+console.log("xxxxxxxxxxxx")
  
 }
 
@@ -253,6 +254,7 @@ FetchUserTokens = async () => {
 
  FetchAllTokens = async()=> {
   const allTokens = await this.state.contractInit.methods.getAllTokens().call();
+  console.log("all token: ", allTokens);
   
   let allTokensArray = [];
   allTokens.map(async (token)=> {
@@ -295,9 +297,8 @@ FetchUserTokens = async () => {
     if(this.state.currentpage == "landing"){
         currentDisplayPage=
         <>
-        <Header setPage={this.SetPage} />
-        <QLIPNFTS />
         <Landing 
+        setPage={this.SetPage}
         web3={this.state.web3}
         contractDetails={this.state.contractDetails}
         allTokensArray={this.state.allTokensArray}
