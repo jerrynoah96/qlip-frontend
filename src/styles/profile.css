@@ -24,7 +24,9 @@
   background: #16161e;
   padding: 2rem;
   position: relative;
-  top: -4rem;
+  top: -6rem;
+  width: 18rem;
+  margin: 0 auto;
 }
 .css-1qtlriq-SkeletonTheme {
   display: flex;
@@ -161,23 +163,26 @@
 .nfts-section .nfts-container {
   width: 100%;
   display: block;
+  min-height: 20rem;
   max-height: 35rem;
   overflow-y: scroll;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
 }
-/* .nft-card{
-  width: 400px;
-} */
 
-@media only screen and (min-width: 768px) {
+.nfts-section .nfts-container::-webkit-scrollbar {
+  display: none;
+}
+
+@media only screen and (min-width: 950px) {
   .profile-main-body .content-section {
     display: flex;
     align-items: flex-start;
   }
   .profile-main-body .content-section .user-profile-card {
-    width: 35%;
+    width: 30%;
+    min-width: 16rem;
   }
   .user-profile-card .user-details-section .profile-picture-container {
     width: 5rem;
@@ -206,7 +211,7 @@
   }
 
   .nfts-section {
-    width: 65%;
+    width: 70%;
   }
   .nfts-section .section-title {
     display: block;
@@ -223,9 +228,9 @@
     margin-left: 0;
   }
   .nfts-section .nfts-container {
-    display: flex;
+    /* display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-between; */
   }
 }
 
@@ -235,7 +240,7 @@
   }
   .profile-main-body .content-section .user-profile-card {
     top: -6rem;
-    width: 28%;
+    width: 32%;
     margin-right: 3rem;
   }
 
