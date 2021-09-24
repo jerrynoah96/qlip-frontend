@@ -1,5 +1,3 @@
-
-import landingBG from '../images/landingBackground.jpg';
 import { Link } from 'react-scroll';
 import '../styles/landing.css';
 
@@ -12,40 +10,24 @@ const Header = (props) => {
     }
     return(
         <header>
-        <img src={landingBG} className="landing-bg"/>
         <div className="header-content1">
             <div className="texts">
-                <h1>
-                    NFT Marketplace for African Creators
-                </h1>
-                <span>
-                Create, explore and trade in the first-ever African owned  NFT Markeplace.
-                </span>
+                <h1>NFT Marketplace for African Creators</h1>
+                <span> Create, explore and trade in the first-ever African owned  NFT Markeplace.</span>
             </div>
             <div className="btn-box">
-                <button className="create-btn"
-                onClick={setPage}>
-                    Create
+                <button className="create-btn" onClick={setPage}>Create</button>
+
+                <button className="explore-btn"type="button" >
+                    <Link className="nav-link" to="qlip-nfts" smooth={true} duration={1000}>Explore</Link>  
                 </button>
-
-                <button className="explore-btn"
-                type="button" >
-
-<Link className="nav-link" to="qlip-nfts" smooth={true} duration={1000}
-              >Explore</Link>
-                    
-                </button>
-
             </div>
-
         </div>
 
         <div className="header-content2">
-            <h2>
-                Ancient Underwater ruin of Oshun
-            </h2>
+            <h2>Ancient Underwater ruin of Oshun</h2>
             <span className="nft-detail">
-            Oshun is considered one of the most powerful of all orishas, her temple is filled with treasures and water rune magic.
+                Oshun is considered one of the most powerful of all orishas, her temple is filled with treasures and water rune magic.
             </span>
             <span>
                 20,000 QLIP <span className="number-index"> 1 of 1</span>

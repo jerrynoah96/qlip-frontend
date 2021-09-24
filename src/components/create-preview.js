@@ -29,7 +29,7 @@ const Preview = (props) => {
             <div className="image-details">
                 <span className="img-name">{props.imageName}</span>
                 <span className="description">{props.imagedescription}</span>
-
+                <span className = "price">{props.imageprice && `${props.imageprice} BNB`} </span>
             </div>
 
         </div>

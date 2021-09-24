@@ -128,234 +128,207 @@ render(){
         <div className="create-section">
         
             <div className="preview">
-            <Preview userImage={this.state.nftDetails.userImage}
-            imageName={this.state.nftDetails.item_name}
-            imagedescription={this.state.nftDetails.description}/>
-
+                <Preview userImage={this.state.nftDetails.userImage}
+                imageName={this.state.nftDetails.item_name}
+                imagedescription={this.state.nftDetails.description}
+                imageprice={this.state.nftDetails.price}/>
             </div>
 
 
             { this.state.loaderShow ? <div className="progress-loader" display={this.state.loaderShow}>
-
-        
-     
-
-      
-    
-            <img src={this.state.loaderUrl} />
-            <span>{this.state.progressText}</span>
-            </div>: null }
+                <img src={this.state.loaderUrl} />
+                <span>{this.state.progressText}</span>
+                </div>: null 
+            }
             
 
             <div className="create-section-form">
-                
+
                 <form className="create-form" onSubmit={this.submitForm} onSubmit={this.setPage}>
+
                     <div className="form-heading">
                         <h3>Create Single Collectible</h3>
-                        <span>Switch to Multiple Collectible 
+                        <span>
+                            Switch to Multiple Collectible 
                             <img src={switchLogo} alt="switchlogo"/>
                         </span>
-
-                    </div>
-                <div className="upload-file-box">
-                    <h2>Upload File in Any Format</h2>
-                    <span>PNG, GIF, JPG, WMV, MP4, MP3, OBJ, 3DS</span>
-
-                    <input type="file" id="actual-btn" hidden onChange={this.captureImg}/>
-                    <label for="actual-btn">Browse Files</label>
-
-                </div>
-                <div className="item-details-input">
-                    <h2>Item Details</h2>
-
-                    <div className="input-box">
-                    <label htmlFor="item-name">ITEM NAME</label>
-                    <input type="text" id="item_name" placeholder="e.g.Redeemable Botcoin Card with logo"
-                    name="item_name" 
-                    value={this.state.nftDetails.item_name}
-                    onChange={this.handleInput}
-                    required />
-                    </div> 
-
-
-                <div className="input-box">
-                    <label htmlFor="description">DESCRIPTION</label>
-                    <input type="text" id="description" placeholder="e.g. After Purchasing, you will be able to recieve the logo"
-                    name="description" 
-                    value={this.state.nftDetails.description}
-                    onChange={this.handleInput} 
-                    required/>
-
-                </div>
-
-                <div className="input-box">
-                    <label htmlFor="price">PRICE</label>
-                    <div className="price-input">
-                    <input type="number" id="price" placeholder="e.g. 100"
-                    name="price" 
-                    value={this.state.nftDetails.price}
-                    onChange={this.handleInput} 
-                    required/>
-
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBNNXA7K21yYyQZxM-iUcGilYqNJp68TcDWaCFepHcLKjA08-UWWOiB65ou1EXlPvDlP4&usqp=CAU" alt="token logo"/>
-
-                    </div>
-                </div>
-
-    <div className="input-box categories">
-                    {/*
-                        <label htmlFor="royalty">ROYALTIES</label>
-                        <input type="text" id="royalty" placeholder="e.g. 10%"
-                        name="royalty" 
-                        value={this.state.nftDetails.royalty}
-                        onChange={this.handleInput} />
-                         */}
-        <label htmlFor="category">
-            CATEGORIES
-          <select defaultValue={this.state.nftDetails.category} id="category" name="category" onChange={this.handleInput} className="input-box royalties">            
-            <option value="1">Photography</option>
-            <option value="2">Art</option>
-            <option value="3">Meme</option>
-          </select>
-        
-        </label>
-        
-     </div>
-
-     <div className="input-box royalties">
-                    {/*
-                        <label htmlFor="royalty">ROYALTIES</label>
-                        <input type="text" id="royalty" placeholder="e.g. 10%"
-                        name="royalty" 
-                        value={this.state.nftDetails.royalty}
-                        onChange={this.handleInput} />
-                         */}
-
-        <label htmlFor="royalty">
-            ROYALTIES
-          <select defaultValue={this.state.nftDetails.royalty} id="royalty" name="royalty" onChange={this.handleInput} className="input-box royalties">            
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="30">30</option>
-            <option value="40">40</option>
-          </select>
-          <span>Suggested: 0%, 10%, 20%, 30%. Maximum is 50%</span>
-        </label>
-        
-     </div>
-                <div className="small-inputs">
-    
-                    <div className="input-box">
-                        <label htmlFor="size">SIZE (Optional)</label>
-                        <input type="text" id="size" placeholder="e.g. Size"
-                        name="size" 
-                        value={this.state.nftDetails.size}
-                        onChange={this.handleInput}/>
-
                     </div>
 
-                    <div className="input-box">
-                        <label htmlFor="properties">PROPERTIES(Optional)</label>
-                        <input type="text" id="property" placeholder="e.g. Height, Width"
-                        name="property" 
-                        value={this.state.nftDetails.property}
-                        onChange={this.handleInput} />
+                    <div className="upload-file-box">
+                        <h2>Upload File in Any Format</h2>
+                        <span>PNG, GIF, JPG, WMV, MP4, MP3, OBJ, 3DS</span>
 
+                        <input type="file" id="actual-btn" hidden onChange={this.captureImg}/>
+                        <label for="actual-btn">Browse Files</label>
                     </div>
+                    
+                    <div className="item-details-input">
+                        <h2>Item Details</h2>
+
+                        <div className="input-box">
+                            <label htmlFor="item-name">Item Name</label>
+                            <input type="text" id="item_name" placeholder="e.g.Redeemable Bitcoin Card with logo"
+                                name="item_name" 
+                                value={this.state.nftDetails.item_name}
+                                onChange={this.handleInput}
+                                required
+                            />
+                        </div> 
 
 
-                </div>
-                <div className="toggle-options">
-                    <div className="toggle-option">
-                        <div className="texts">
-                            <span>
-                                Put on sale
-                            </span>
-                            <p>
-                                You'll recieve bids on this item
-                            </p>
+                        <div className="input-box">
+                            <label htmlFor="description">DESCRIPTION</label>
+                            <input type="text" id="description" placeholder="e.g. After Purchasing, you will be able to recieve the logo"
+                                name="description" 
+                                value={this.state.nftDetails.description}
+                                onChange={this.handleInput} 
+                                required
+                            />
 
                         </div>
 
-                        <div className="green-toggle">
-                        <ToggleButton
-                            selected={this.state.nftDetails.on_sale}
-                            toggleSelected= {()=> {
-                                this.setState({
-                                    nftDetails :{
-                                        ...this.state.nftDetails,
-                                        on_sale: !this.state.nftDetails.on_sale
-                
-                                    }
-                                })
-
-                            }}
-                        />
-
+                        <div className="input-box">
+                            <label htmlFor="price">PRICE</label>
+                            <div className="price-input">
+                                <input type="number" id="price" placeholder="e.g. 100"
+                                    name="price" 
+                                    value={this.state.nftDetails.price}
+                                    onChange={this.handleInput} 
+                                    required
+                                />
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBNNXA7K21yYyQZxM-iUcGilYqNJp68TcDWaCFepHcLKjA08-UWWOiB65ou1EXlPvDlP4&usqp=CAU" alt="token logo"/>
+                            </div>
                         </div>
 
-                    </div>
-
-                    <div className="toggle-option">
-                        <div className="texts">
-                            <span>
-                                Instant sale price
-                            </span>
-                            <p>
-                                Enter the price for which the item will be instantly sold
-                            </p>
-
+                        <div className="input-box categories">
+                                        {/*
+                                            <label htmlFor="royalty">ROYALTIES</label>
+                                            <input type="text" id="royalty" placeholder="e.g. 10%"
+                                            name="royalty" 
+                                            value={this.state.nftDetails.royalty}
+                                            onChange={this.handleInput} />
+                                            */}
+                            <label htmlFor="category">
+                                CATEGORIES
+                            <select defaultValue={this.state.nftDetails.category} id="category" name="category" onChange={this.handleInput} className="input-box royalties">            
+                                <option value="1">Photography</option>
+                                <option value="2">Art</option>
+                                <option value="3">Meme</option>
+                            </select>
+                            
+                            </label>
+                            
                         </div>
 
-                        <div className="green-toggle">
-                        <ToggleButton
-                            selected={this.state.nftDetails.instant_sale_price}
-                            toggleSelected={()=> {
-                                this.setState({
-                                    nftDetails :{
-                                        ...this.state.nftDetails,
-                                        instant_sale_price: !this.state.nftDetails.instant_sale_price
-                
-                                    }
-                                })
+                        <div className="input-box royalties">
+                                        {/*
+                                            <label htmlFor="royalty">ROYALTIES</label>
+                                            <input type="text" id="royalty" placeholder="e.g. 10%"
+                                            name="royalty" 
+                                            value={this.state.nftDetails.royalty}
+                                            onChange={this.handleInput} />
+                                            */}
 
-                            }}
-                        />
-
+                            <label htmlFor="royalty">
+                                ROYALTIES
+                            <select defaultValue={this.state.nftDetails.royalty} id="royalty" name="royalty" onChange={this.handleInput} className="input-box royalties">            
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                            </select>
+                            <span>Suggested: 0%, 10%, 20%, 30%. Maximum is 50%</span>
+                            </label>
+                            
                         </div>
+                        <div className="small-inputs">
+            
+                            <div className="input-box">
+                                <label htmlFor="size">SIZE (Optional)</label>
+                                <input type="text" id="size" placeholder="e.g. Size"
+                                name="size" 
+                                value={this.state.nftDetails.size}
+                                onChange={this.handleInput}/>
 
-                    </div>
+                            </div>
 
-                    <div className="toggle-option">
-                        <div className="texts">
-                            <span> 
-                                Unlock once purchased
-                            </span>
-                            <p>
-                                Content will be unlocked after successful transaction 
-                            </p>
-
+                            <div className="input-box">
+                                <label htmlFor="properties">PROPERTIES(Optional)</label>
+                                <input type="text" id="property" placeholder="e.g. Height, Width"
+                                name="property" 
+                                value={this.state.nftDetails.property}
+                                onChange={this.handleInput} />
+                            </div>
                         </div>
+                        <div className="toggle-options">
+                            <div className="toggle-option">
+                                <div className="texts">
+                                    <span>Put on sale</span>
+                                    <p>You'll recieve bids on this item</p>
+                                </div>
 
-                        <div className="green-toggle">
-                        <ToggleButton
-                            selected={this.state.nftDetails.unlock_on_purchase}
-                            toggleSelected={()=> {
-                                this.setState({
-                                    nftDetails :{
-                                        ...this.state.nftDetails,
-                                        unlock_on_purchase: !this.state.nftDetails.unlock_on_purchase
-                
-                                    }
-                                })
-                            }}
-                        />
+                                <div className="green-toggle">
+                                    <ToggleButton
+                                        selected={this.state.nftDetails.on_sale}
+                                        toggleSelected= {()=> {
+                                            this.setState({
+                                                nftDetails :{
+                                                    ...this.state.nftDetails,
+                                                    on_sale: !this.state.nftDetails.on_sale
+                            
+                                                }
+                                            })
 
+                                        }}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="toggle-option">
+                                <div className="texts">
+                                    <span>Instant sale price</span>
+                                    <p>Enter the price for which the item will be instantly sold</p>
+                                </div>
+
+                                <div className="green-toggle">
+                                    <ToggleButton
+                                        selected={this.state.nftDetails.instant_sale_price}
+                                        toggleSelected={()=> {
+                                            this.setState({
+                                                nftDetails :{
+                                                    ...this.state.nftDetails,
+                                                    instant_sale_price: !this.state.nftDetails.instant_sale_price
+                            
+                                                }
+                                            })
+
+                                        }}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="toggle-option">
+                                <div className="texts">
+                                    <span>Unlock once purchased</span>
+                                    <p>Content will be unlocked after successful transaction</p>
+                                </div>
+
+                                <div className="green-toggle">
+                                    <ToggleButton
+                                        selected={this.state.nftDetails.unlock_on_purchase}
+                                        toggleSelected={()=> {
+                                            this.setState({
+                                                nftDetails :{
+                                                    ...this.state.nftDetails,
+                                                    unlock_on_purchase: !this.state.nftDetails.unlock_on_purchase
+                            
+                                                }
+                                            })
+                                        }}
+                                    />
+                                </div>
+                            </div>
                         </div>
-
-                    </div>
-
-                </div>
               {
               /*  
                 <div className="collection-choice">
@@ -426,31 +399,23 @@ render(){
                 </div>
                 */
                     }
-                
-                    
-            
-               
 
-                </div> 
-                <div className="submit-btn-box">
-                    <button >Create Item 
-                        <img src={arrow} alt="arrow-icon"/>
-                    </button>
-                     
-
-                    <div className="auto-save">
-                        <span>
-                        Auto Saving
-                        </span>
-                        <img src={autoSaveIcon} alt="auto-save"/>
                     </div>
 
-                </div>
+                    <div className="submit-btn-box">
+                        <button >Create Item 
+                            <img src={arrow} alt="arrow-icon"/>
+                        </button>
+                        <div className="auto-save">
+                            <span>
+                            Auto Saving
+                            </span>
+                            <img src={autoSaveIcon} alt="auto-save"/>
+                        </div>
+                    </div>
             
-
-            </form>
+                </form>
             
-
             </div>
             
 
