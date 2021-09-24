@@ -249,6 +249,7 @@ FetchUserTokens = async () => {
     })
     
   })
+  console.log(tokenUrls, 'user nfts')
  
 }
 
