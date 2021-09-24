@@ -1,6 +1,6 @@
 .App .profile-main-body {
   width: 100%;
-  background-color: #16161e;
+  background: #0e0e12;
 }
 
 .profile-main-body .cover-photo-container {
@@ -21,7 +21,7 @@
 }
 
 .profile-main-body .content-section .user-profile-card {
-  background-color: #16161e;
+  background: #16161e;
   padding: 2rem;
   position: relative;
   top: -4rem;
@@ -117,6 +117,8 @@
 .nfts-section {
   width: 100%;
   padding: 1rem;
+  border: 1px solid #16161e;
+  margin-top: 2rem;
 }
 
 .nfts-section .section-title {
@@ -132,6 +134,8 @@
   display: flex;
   justify-content: space-between;
   overflow-x: scroll;
+  margin-block-start: 0;
+  padding: 0;
 }
 
 .nft-nav ul::-webkit-scrollbar {
@@ -157,6 +161,11 @@
 .nfts-section .nfts-container {
   width: 100%;
   display: block;
+  max-height: 35rem;
+  overflow-y: scroll;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 /* .nft-card{
   width: 400px;
@@ -208,6 +217,10 @@
   }
   .nft-nav ul li {
     margin: 0 1rem;
+  }
+
+  .nft-nav ul li:first-of-type {
+    margin-left: 0;
   }
   .nfts-section .nfts-container {
     display: flex;

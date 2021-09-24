@@ -68,109 +68,50 @@ const Landing =(props)=> {
       } 
       
   const allTokens = allTokensArray.map((token)=> {   
-    return(
-        <div key = {token.id} className = "nft-card">
-        <div className = "nft-image-container">
-            <img src = {token.imgUrl} alt = "nft product" className = "nft-image" />
-        </div>
-        <div className = "nft-details">
-            <h3 className = "nft-name">{token.name}</h3>
-            <div className = "detail-1">
-                <h4>{token.price} BNB</h4>
-                <p>1 of 1</p>
-            </div>
-            <div className = "detail-2">
-                <p><span>Highest bid </span></p>
-                <p><span>new bid &#128293;</span></p>
-            </div>
-        </div>
-        <button className = "buy-btn"
-        onClick={()=> {
-            props.setExhibit(token)
-        }}>Buy NFT</button>
-    </div>
-      
+    return (
+        <NFTCard
+            key = {token.id}
+            name = {token.name}
+            imageSrc = {token.imgUrl}
+            price = {token.price}
+            onClickBuyHandler = {() => props.setExhibit(token)}
+        />
     )
   })
 
 
   const artTokens = art.map((token)=> {
-      
-    return(
-        <div key = {token.id} className = "nft-card">
-        <div className = "nft-image-container">
-            <img src = {token.imgUrl} alt = "nft product" className = "nft-image" />
-        </div>
-        <div className = "nft-details">
-            <h3 className = "nft-name">{token.name}</h3>
-            <div className = "detail-1">
-                <h4>{token.price} BNB</h4>
-                <p>1 of 1</p>
-            </div>
-            <div className = "detail-2">
-                <p><span>Highest bid </span></p>
-                <p><span>new bid &#128293;</span></p>
-            </div>
-        </div>
-        <button className = "buy-btn"
-        onClick={()=> {
-            props.setExhibit(token)
-        }}>Buy NFT</button>
-    </div>
-      
+    return (
+        <NFTCard
+            key = {token.id}
+            name = {token.name}
+            imageSrc = {token.imgUrl}
+            price = {token.price}
+            onClickBuyHandler = {() => props.setExhibit(token)}
+        />
     )
   })
 
   const photographyTokens = photography.map((token)=> {
-      
-    return(
-        <div key = {token.id} className = "nft-card">
-        <div className = "nft-image-container">
-            <img src = {token.imgUrl} alt = "nft product" className = "nft-image" />
-        </div>
-        <div className = "nft-details">
-            <h3 className = "nft-name">{token.name}</h3>
-            <div className = "detail-1">
-                <h4>{token.price} BNB</h4>
-                <p>1 of 1</p>
-            </div>
-            <div className = "detail-2">
-                <p><span>Highest bid </span></p>
-                <p><span>new bid &#128293;</span></p>
-            </div>
-        </div>
-        <button className = "buy-btn"
-        onClick={()=> {
-            props.setExhibit(token)
-        }}>Buy NFT</button>
-    </div>
-      
+    return (
+        <NFTCard
+            key = {token.id}
+            name = {token.name}
+            imageSrc = {token.imgUrl}
+            price = {token.price}
+            onClickBuyHandler = {() => props.setExhibit(token)}
+        />
     )
   })
   const memeTokens = meme.map((token)=> {
-      
-    return(
-        <div key = {token.id} className = "nft-card">
-        <div className = "nft-image-container">
-            <img src = {token.imgUrl} alt = "nft product" className = "nft-image" />
-        </div>
-        <div className = "nft-details">
-            <h3 className = "nft-name">{token.name}</h3>
-            <div className = "detail-1">
-                <h4>{token.price} BNB</h4>
-                <p>1 of 1</p>
-            </div>
-            <div className = "detail-2">
-                <p><span>Highest bid </span></p>
-                <p><span>new bid &#128293;</span></p>
-            </div>
-        </div>
-        <button className = "buy-btn"
-        onClick={()=> {
-            props.setExhibit(token)
-        }}>Buy NFT</button>
-    </div>
-      
+    return (
+        <NFTCard
+            key = {token.id}
+            name = {token.name}
+            imageSrc = {token.imgUrl}
+            price = {token.price}
+            onClickBuyHandler = {() => props.setExhibit(token)}
+        />
     )
   })
 

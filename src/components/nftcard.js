@@ -1,5 +1,5 @@
 import "../styles/NFTCard.css"
-const NFTCard = ({name, imageSrc, description, price}) => {
+const NFTCard = ({name, imageSrc, price, onClickBuyHandler}) => {
    // console.log(props.token_url, 'mehn right from the cards')
     return(
         <div className = "nft-card">
@@ -13,11 +13,11 @@ const NFTCard = ({name, imageSrc, description, price}) => {
                     <p>1 of 1</p>
                 </div>
                 <div className = "detail-2">
-                    <p><span>Highest bid </span>0.001ETH</p>
+                    <p><span>Highest bid </span>----</p>
                     <p><span>new bid &#128293;</span></p>
                 </div>
             </div>
-            <button className = "buy-btn">Buy NFT</button>
+            <button className = "buy-btn" onClick = {onClickBuyHandler}>Buy NFT</button>
         </div>
     );
 }
