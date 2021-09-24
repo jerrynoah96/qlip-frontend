@@ -1,295 +1,293 @@
-.create-section{
-    background: rgba(14, 14, 18, 1);
-    color: rgba(255, 255, 255);
-    padding-bottom: 4rem;
+.create-section {
+  background: rgba(14, 14, 18, 1);
+  color: rgba(255, 255, 255);
+  padding-bottom: 4rem;
 }
 
-.create-section-form{
-    width: 60vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
+.create-section-form {
+  width: 60%;
+  padding: 5%;
 }
-.create-form{
-    margin-top: 2rem;
+.create-form {
+  margin-top: 2rem;
+}
+
+.upload-file-box {
+  width: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #16161e;
+  border-radius: 4px;
+  padding: 1rem 0;
+}
+
+.upload-file-box h2 {
+  font-size: 1.2rem;
+  font-family: sans-serif;
+  font-weight: 400;
+  text-align: center;
+}
+
+.upload-file-box span {
+  display: block;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: sans-serif;
+  font-size: 0.9rem;
 }
 
 .upload-file-box label {
-    color: white;
-    width: 200px;
-    padding: 0.7rem !important;
-    font-family: sans-serif;
-    font-size: 1rem;
-    border-radius: 40px;
-    cursor: pointer;
-    margin-top: 1rem;
-     border: 1px solid #5127DA; 
-  }
-
-  .upload-file-box{
-      width: auto;
-      height: 150px;
-     text-align: center;
-     margin-top: 2rem;
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     justify-content: space-between;
-     margin-top: 4rem !important;
-     margin-bottom: 1.5rem;
-     
-  }
-
-  .upload-file-box h2{
-      width: 100% !important;
-      display: block;
-      font-size: 1.2rem;
-      font-family: sans-serif;
-      font-weight: 400;
-      
-      text-align: center;
-  }
-
-  .upload-file-box span{
-      display: block;
-      color: rgba(255, 255, 255, 0.6);
-      font-family: sans-serif;
-      font-size: 0.9rem;
-     
-  }
-
-  .item-details-input h2{
-      font-size: 1.3rem;
-      font-family: sans-serif;
-      margin-bottom: 1rem;
-  }
-  .input-box{
-      margin-bottom: 1rem;
-  }
-
-  .royalties{
-      width: 600px !important;
-  }
-  .royalties label{
-      display: flex;
-      flex-direction: column;
-
-  }
-  .royalties span{
-      font-size: 0.8rem;
-      font-weight: lighter;
-      margin-top: -1rem;
-  }
-  .input-box label{
-      display: block;
-      font-size: 0.8rem;
-      color: rgba(30, 16, 16, 0.7);
-      margin-bottom: 0.5rem;
-      
-  }
-  .input-box input{
-      width: 600px;
-      height: 60px !important;
-      border: thin solid rgba(255, 255, 255, 0.1);
-      background-color: inherit;
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 0.8rem;
-      height: 40px;
-      border-radius: 5px;
-  }
-  .input-box input::placeholder{
-      font-size: 0.8rem;
-  }
-
-  input:focus{
-      outline: none;
-  }
-  .input-box label{
-      color: rgba(255, 255, 255, 0.8);
-      display: flex;
-      flex-direction: column;
-  }
-  .input-box select{
-    width: 100px;
-    height: 60px !important;
-    border: thin solid rgba(255, 255, 255, 0.1);
-    background-color: inherit;
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 0.8rem;
-    height: 40px;
-    border-radius: 5px;
-}
-option{
-    background-color: inherit !important;
-    color: rgba(0,0,0);
+  color: white;
+  width: 200px;
+  padding: 0.7rem;
+  font-family: sans-serif;
+  font-size: 1rem;
+  border-radius: 40px;
+  cursor: pointer;
+  margin-top: 1rem;
+  border: 1px solid #5127da;
 }
 
-  .small-inputs{
-      width: 400px;
-      display: flex;
-      justify-content: space-between;
-  }
-  .small-inputs .input-box input{
-    width: 180px;
+.item-details-input h2 {
+  font-size: 1.3rem;
+  font-family: sans-serif;
+  margin-bottom: 1rem;
 }
-.toggle-option{
-    width: 600px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    
-}
-.toggle-option .texts p{
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 0.8rem;
-
+.input-box {
+  margin-bottom: 1rem;
 }
 
-.toggle-option .texts span{
-    color: rgba(255, 255, 255, 1);
-    font-size: 1.3rem;
-
+.royalties select {
+  width: 100%;
+  padding: 1.5rem 0.8rem;
+}
+.royalties label {
+  display: flex;
+  flex-direction: column;
+}
+.royalties span {
+  font-size: 0.8rem;
+  font-weight: lighter;
+  margin-top: -1rem;
+}
+.input-box label {
+  display: block;
+  font-size: 0.8rem;
+  color: rgba(30, 16, 16, 0.7);
+  margin-bottom: 0.5rem;
+}
+.input-box input {
+  border: thin solid rgba(255, 255, 255, 0.1);
+  background-color: inherit;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.8rem;
+  height: 40px;
+  border-radius: 5px;
+  padding: 1.5rem 0.8rem;
+}
+.input-box input::placeholder {
+  font-size: 0.8rem;
 }
 
-.collection-choice span{
-    color: rgba(255, 255, 255, 1);
-    font-size: 1.2rem !important;
-    
+input:focus {
+  outline: none;
+}
+.input-box label {
+  color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  flex-direction: column;
+}
+.input-box select {
+  border: thin solid rgba(255, 255, 255, 0.1);
+  background-color: inherit;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.8rem;
+  height: 40px;
+  border-radius: 5px;
+  padding: 1.5rem 0.8rem;
+}
+option {
+  background-color: inherit;
+  color: rgba(0, 0, 0);
 }
 
-.collection-choice p{
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 0.8rem;
-    
+.small-inputs {
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
 }
-.collection-choice{
-    width: 500px;
-    margin-bottom: 2rem;
-    
+.small-inputs .input-box input {
+  width: 180px;
+}
+.toggle-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.toggle-option .texts p {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.8rem;
 }
 
-.collection-choice .boxes{
-    width: 600px;
-    display: flex;
-    justify-content: space-between;
-
+.toggle-option .texts span {
+  color: rgba(255, 255, 255, 1);
+  font-size: 1.3rem;
 }
-.boxes .box{
-    width: 130px;
-    height: 140px;
-    
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    background: rgba(20, 20, 22, 1);
-    padding: 0 0.3rem;
-    cursor: pointer;
+
+.collection-choice span {
+  color: rgba(255, 255, 255, 1);
+  font-size: 1.2rem;
+}
+
+.collection-choice p {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.8rem;
+}
+.collection-choice {
+  width: 500px;
+  margin-bottom: 2rem;
+}
+
+.collection-choice .boxes {
+  width: 600px;
+  display: flex;
+  justify-content: space-between;
+}
+.boxes .box {
+  width: 130px;
+  height: 140px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  background: rgba(20, 20, 22, 1);
+  padding: 0 0.3rem;
+  cursor: pointer;
 }
 .music-collection,
-.video-collection{
-    cursor: progress !important;
+.video-collection {
+  cursor: progress;
 }
-.boxes .box span{
-    font-size: 1rem;
-    
+.boxes .box span {
+  font-size: 1rem;
 }
-.boxes .box img{
-    height: 35px;
-    width: 35px;
-    border-radius: 50%;
-    margin-bottom: 0.5rem;
-    
+.boxes .box img {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  margin-bottom: 0.5rem;
 }
 
-.submit-btn-box{
-    width: 500px;
-    display: flex;
-    justify-content: space-between;
+.submit-btn-box {
+  display: flex;
+  justify-content: space-between;
 }
 
-.submit-btn-box button{
-    background: rgba(75, 35, 204, 1);
-    color: rgba(255, 255, 255);
-    border: none;
-    width: 170px;
-    padding: 1rem 1.5rem;
-    border-radius: 30px;
-    display: flex;
-    justify-content: space-between;
-    
-    align-items: center;
-    font-size: 1.1rem;
+.submit-btn-box button {
+  background: rgba(75, 35, 204, 1);
+  color: rgba(255, 255, 255);
+  border: none;
+  width: 170px;
+  padding: 1rem 1.5rem;
+  border-radius: 30px;
+  display: flex;
+  justify-content: space-between;
+
+  align-items: center;
+  font-size: 1.1rem;
 }
 
-.submit-btn-box button img{
-    height: 0.5rem;
+.submit-btn-box button img {
+  height: 0.5rem;
 }
 
-.submit-btn-box .auto-save{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 160px;
-   
-    padding: 1rem 1.5rem;
-
+.submit-btn-box .auto-save {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 160px;
+  padding: 1rem 1.5rem;
+  padding-right: 0;
 }
 
-.preview{
-    position: absolute;
-    right: 10%;
-    top: 20%;
-    
+.preview {
+  position: fixed;
+  right: 5%;
+  top: 10rem;
+  z-index: 2;
 }
 
-.progress-loader{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 33;
-    display: flex;
-    flex-direction: column;
-    font-size: 1.3rem;
-    font-family: sans-serif;
-    font-style: italic;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0,0,0, 0.7);
-    height: 100%;
+.progress-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 33;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.3rem;
+  font-family: sans-serif;
+  font-style: italic;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  font-weight: bolder;
+}
+.progress-loader img {
+  height: 250px;
+  width: 300px;
+  background-color: black;
+  margin-bottom: 1rem;
+}
+
+.modal-open {
+  text-align: center;
+}
+
+.price-input {
+  position: relative;
+  padding: 0;
+  margin: 0;
+}
+
+.price-input img {
+  position: absolute;
+  height: 55px;
+  width: 55px;
+  border-radius: 50%;
+  right: 0.5%;
+  top: 50%;
+  transform: translate(0.5%, -50%);
+}
+
+@media only screen and (max-width: 1023px) {
+  .preview {
+    display: none;
+  }
+
+  .create-section-form {
     width: 100%;
-    position: fixed;
-    font-weight: bolder;
-}
-.progress-loader img{
-    height: 250px;
-    width: 300px;
-    background-color: black !important;
-    margin-bottom: 1rem;
+    padding: 10%;
+  }
 }
 
+@media only screen and (max-width: 500px) {
+  .small-inputs {
+    width: 100%;
+    row-gap: 1rem;
+  }
 
-.modal-open{
-    text-align: center;
-}
-
-.price-input{
-    position: relative;
-    padding: 0;
-    margin: 0;
-}
-
-.price-input img{
-    position: absolute;
-    height: 55px;
-    width: 55px;
-    border-radius: 50%;
-    right: 0.5%;
-    top: 50%;
-    transform: translate(0.5%,-50%);
-    
+  .small-inputs .input-box input {
+    width: 90%;
+  }
 }

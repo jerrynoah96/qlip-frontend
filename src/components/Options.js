@@ -193,12 +193,12 @@ render(){
 
     return(
         <div className="options">
-    <Modal show={this.state.show} onHide={this.handleClose}>
-        <Modal.Body>
-            <span>{this.state.progressText}</span>
-            <img src={this.state.loaderUrl}/>
-        </Modal.Body>
-      </Modal>
+            <Modal show={this.state.show} onHide={this.handleClose}>
+                <Modal.Body>
+                    <span>{this.state.progressText}</span>
+                    <img src={this.state.loaderUrl}/>
+                </Modal.Body>
+            </Modal>
             <div className="option-header">
                 <img className="back-icon"
                  src={arrow}
@@ -209,43 +209,43 @@ render(){
                 <h1>QLIP MINTSTORE</h1>
                 <span>Mint token in 3 easy steps</span>
 
-                </div>
+            </div>
                 
 
             </div>
             <div className="options-main">
                 <div className="option">
-                    <img src={uploadIcon} alt="upload"/>
+                    <div className = "option-icon-container">
+                        <img src={uploadIcon} alt="upload"/>
+                    </div> 
                     <div className="inner-text">
                         <h2>Upload Files and Mint Token</h2>
                         <span>call contract method</span>
                     </div>
-                    <div
-                    className="button"
-                    onClick={this.MintNft}>Start</div>
+                    <button className="button" onClick={this.MintNft}>Start</button>
 
                 </div>
 
                 <div className="option">
-                    <img src={signIcon} alt="upload"/>
+                    <div className = "option-icon-container">
+                        <img src={signIcon} alt="upload"/>
+                    </div>
                     <div className="inner-text">
                         <h2>Sign Sell Order</h2>
                         <span>Sign sell order using your wallet</span>
                     </div>
-                    <div
-                    className="button">Start</div>
-
+                    <button className="button">Start</button>
                 </div>
 
                 <div className="option">
-                    <img src={uploadIcon} alt="upload"/>
+                    <div className = "option-icon-container">
+                        <img src={uploadIcon} alt="upload"/>
+                    </div>
                     <div className="inner-text">
                         <h2>Sign Lock Order</h2>
                         <span>Sign lock order using your wallet</span>
                     </div>
-                    <div
-                    className="button">Start</div>
-
+                    <button className="button">Start</button>
                 </div>
 
             </div>

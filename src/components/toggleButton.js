@@ -11,8 +11,21 @@ export class ToggleButton extends Component {
 
   render() {
     const { selected, toggleSelected } = this.props;
+    let customeStyle;
+    switch (selected) {
+      case true:
+        customeStyle = {backgroundColor: "white"}
+        break;
+      case false:
+        customeStyle = {backgroundColor: ""}
+      break;
+    
+      default:
+        break;
+    }
     return (
-      <div className="toggle-container" onClick={toggleSelected}>
+          
+      <div className="toggle-container" onClick={toggleSelected} style = {customeStyle}>
         <div className={`dialog-button ${selected ? "" : "disabled"}`}>
           
         </div>
