@@ -15,6 +15,7 @@ import "../styles/profile.css";
 import "../styles/NFTCard.css"
 import classNames from 'classnames';
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import Loader from "./Loader"
 
 const Profile = (props) => {
  // const [tokensArray, setTokensArray] = useState([]);
@@ -102,7 +103,9 @@ const [isModalOpen, setIsModalOpen] = useState(false);
  
 
   const tokensOnSale = allOnsale.map((token)=> {
+
     
+
     
     return(
       <div key = {token.id} className = "nft-card">
@@ -162,7 +165,7 @@ const [isModalOpen, setIsModalOpen] = useState(false);
 
   const loader =  <SkeletonTheme color="#202020" highlightColor="#444">
                         <p>
-                            <Skeleton count={3} height={300} width={200} />
+                            <Skeleton count={30} height={300} width={200} />
                         </p>
                 </SkeletonTheme>
   
@@ -247,7 +250,7 @@ const [isModalOpen, setIsModalOpen] = useState(false);
                 </div>
               </div>
             </div>
-            {/*<button className = "follow-button">Follow Anonymous</button>*/}
+            {/* <button className = "follow-button">Follow Anonymous</button> */}
           </div>
           <div className = "nfts-section">
             <h1 className = "section-title">NFTs</h1>
@@ -274,20 +277,20 @@ const [isModalOpen, setIsModalOpen] = useState(false);
             </div>
             <div className = "nfts-container">
 
-              {/* {!!tokenObjects.length && 
+              {!!tokenObjects.length && 
               tokenObjects.map(token => {
                 return(
-                    <NFTCard key = {token.imgHash} name = {token.item_name} imageSrc = {token.imgHash} price = {token.price} description = {token.description} />
+                    <NFTCard key = {token.imgHash} name = {token.item_name} imageSrc = {token.imgUrl} price = {token.price} description = {token.description} />
                   )
                 })}
-                  {!tokenObjects.length && <Loader />} */}
 
-                  {!!urlList.length ?
+
+                  {!tokenObjects.length && <Loader />}
+
+                  {/* {!!urlList.length ?
                    currentDisplay
                     : loader
-                  }
-              
-             
+                  } */}
             </div>
           </div>
         </div>

@@ -2,7 +2,7 @@ import * as React from "react";
 import "../styles/loader.css"
 
 // <!-- By Sam Herbert (@sherb), for everyone. More @ http://goo.gl/7AJzbL -->
-function Loader({ color = "black", ...rest }) {
+function Loader({ color = "white", ...rest }) {
   return (
       <div className = "loader-container">
           <svg
