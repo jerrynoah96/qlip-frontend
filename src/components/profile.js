@@ -61,7 +61,7 @@ const [isModalOpen, setIsModalOpen] = useState(false);
   } 
 
 
-    const handleCoverPhoto=(e)=> { 
+  const handleCoverPhoto=(e)=> { 
      const selectedPhoto = URL.createObjectURL(e.target.files[0]);
       setCoverPhoto(selectedPhoto)
     }
@@ -70,7 +70,7 @@ const [isModalOpen, setIsModalOpen] = useState(false);
       const selectedAvatar = URL.createObjectURL(e.target.files[0]);
        setUserAvatar(selectedAvatar);
        console.log('avatar selection')
-     }
+    }
 
   const displayTokens = urlList.map((token)=> {
     
@@ -205,10 +205,10 @@ const [isModalOpen, setIsModalOpen] = useState(false);
         <div className = "cover-photo-container">
           <img src = {coverPhoto} alt = "header"className = "cover-photo-image" />
           <div className="cover-photo-edit">
-          <input type="file" id="select-img" hidden onChange={handleCoverPhoto}/>
-          <label for="select-img">Edit cover photo</label>
+            <input type="file" id="select-img" hidden onChange={handleCoverPhoto}/>
+            <label for="select-img">Edit cover photo</label>
               
-          <img src={LineImg} alt="edit-icon" className="edit-icon"/>
+            <img src={LineImg} alt="edit-icon" className="edit-icon"/>
           </div>
         </div>
         <div className = "content-section">

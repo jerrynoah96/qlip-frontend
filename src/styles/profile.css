@@ -82,15 +82,20 @@
   right: 1% !important;
   border-radius: 50% !important;
   padding: 0.2rem;
-  cursor: pointer !important;
-  
 }
+
 #avatar-input{
   height: 100%;
   width: 100%;
   z-index: 999 !important;
 }
 
+.pen-icon-container label{
+  cursor: pointer !important;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
 
 .user-details-section .user-details h2,
 .user-details-section .user-details p {
@@ -276,3 +281,5 @@
     line-height: 1.5;
   }
 }
+
+
