@@ -1,5 +1,7 @@
 import React,{useRef, useState, useEffect} from "react";
-import headerImg from "../images/Header_Image.png"
+import headerImg from "../images/Header_Image.png";
+import LineImg from "../images/Line.svg";
+import penIcon from "../images/penIcon.svg";
 import productImage from "../images/product_img.svg"
 // import imagePlaceholderIcon from "./assets/Icon_Image.svg"
 import profilePic from "../images/Profile_picture.png"
@@ -30,6 +32,8 @@ const [isModalOpen, setIsModalOpen] = useState(false);
   const [notforSale, setNotForSaleDisplay]= useState([]);
   const [displayPointer, setDisplayPointer] = useState('all');
   const [address, setAddress] = useState(props.contractDetails.account);
+  const [coverPhoto, setCoverPhoto] = useState();
+  const [userAvatar, setUserAvatar] = useState();
 
 
   const sortTokens =()=>{ 
@@ -58,6 +62,16 @@ const [isModalOpen, setIsModalOpen] = useState(false);
   } 
 
 
+    const handleCoverPhoto=(e)=> { 
+     const selectedPhoto = URL.createObjectURL(e.target.files[0]);
+      setCoverPhoto(selectedPhoto)
+    }
+
+    const handleUserAvatar=(e)=> { 
+      const selectedAvatar = URL.createObjectURL(e.target.files[0]);
+       setUserAvatar(selectedAvatar);
+       console.log('avatar selection')
+     }
 
   const displayTokens = urlList.map((token)=> {
     
@@ -89,8 +103,6 @@ const [isModalOpen, setIsModalOpen] = useState(false);
  
 
   const tokensOnSale = allOnsale.map((token)=> {
-    
-    // just for test
 
     
 
@@ -119,163 +131,6 @@ const [isModalOpen, setIsModalOpen] = useState(false);
       // <NFTCard key = {token.imgHash} name = {token.item_name} imageSrc = {token.imgHash} price = {token.price} description = {token.description} />
     )
   })
-
-  const obj1 = [
-    {
-      category: "2",
-      description: "Pokemon NFT",
-      id: "26475625",
-      imgUrl: "https://ipfs.infura.io/ipfs/QmVpmzPDg5h55mDpQqqiLY2yUwiE9QB5HM38wkqAWdsXT8",
-      name: "PIKACHO",
-      owner: "0xCEB1EeA2Cf1F05B88efDccf161236a929D54c007",
-      price: "10",
-      tokenState: "1",
-      tokenURI: "https://ipfs.infura.io/ipfs/QmbeLRC183Rgvtn4owWySVjXtGjMQrQg8Jay2w2wcktYkv",
-    },
-    {
-      category: "2",
-      description: "Pokemon NFT",
-      id: "264756725",
-      imgUrl: "https://ipfs.infura.io/ipfs/QmVpmzPDg5h55mDpQqqiLY2yUwiE9QB5HM38wkqAWdsXT8",
-      name: "PIKACHO",
-      owner: "0xCEB1EeA2Cf1F05B88efDccf161236a929D54c007",
-      price: "10",
-      tokenState: "1",
-      tokenURI: "https://ipfs.infura.io/ipfs/QmbeLRC183Rgvtn4owWySVjXtGjMQrQg8Jay2w2wcktYkv",
-    },
-    {
-      category: "2",
-      description: "Pokemon NFT",
-      id: "53656225",
-      imgUrl: "https://ipfs.infura.io/ipfs/QmVpmzPDg5h55mDpQqqiLY2yUwiE9QB5HM38wkqAWdsXT8",
-      name: "PIKACHO",
-      owner: "0xCEB1EeA2Cf1F05B88efDccf161236a929D54c007",
-      price: "10",
-      tokenState: "1",
-      tokenURI: "https://ipfs.infura.io/ipfs/QmbeLRC183Rgvtn4owWySVjXtGjMQrQg8Jay2w2wcktYkv",
-    },
-    {
-      category: "2",
-      description: "Pokemon NFT",
-      id: "22526535",
-      imgUrl: "https://ipfs.infura.io/ipfs/QmVpmzPDg5h55mDpQqqiLY2yUwiE9QB5HM38wkqAWdsXT8",
-      name: "PIKACHO",
-      owner: "0xCEB1EeA2Cf1F05B88efDccf161236a929D54c007",
-      price: "10",
-      tokenState: "1",
-      tokenURI: "https://ipfs.infura.io/ipfs/QmbeLRC183Rgvtn4owWySVjXtGjMQrQg8Jay2w2wcktYkv",
-    },
-    {
-      category: "2",
-      description: "Pokemon NFT",
-      id: "2212445",
-      imgUrl: "https://ipfs.infura.io/ipfs/QmVpmzPDg5h55mDpQqqiLY2yUwiE9QB5HM38wkqAWdsXT8",
-      name: "PIKACHO",
-      owner: "0xCEB1EeA2Cf1F05B88efDccf161236a929D54c007",
-      price: "10",
-      tokenState: "1",
-      tokenURI: "https://ipfs.infura.io/ipfs/QmbeLRC183Rgvtn4owWySVjXtGjMQrQg8Jay2w2wcktYkv",
-    },
-    {
-      category: "2",
-      description: "Pokemon NFT",
-      id: "2341425",
-      imgUrl: "https://ipfs.infura.io/ipfs/QmVpmzPDg5h55mDpQqqiLY2yUwiE9QB5HM38wkqAWdsXT8",
-      name: "PIKACHO",
-      owner: "0xCEB1EeA2Cf1F05B88efDccf161236a929D54c007",
-      price: "10",
-      tokenState: "1",
-      tokenURI: "https://ipfs.infura.io/ipfs/QmbeLRC183Rgvtn4owWySVjXtGjMQrQg8Jay2w2wcktYkv",
-    },
-    {
-      category: "2",
-      description: "Pokemon NFT",
-      id: "225255",
-      imgUrl: "https://ipfs.infura.io/ipfs/QmVpmzPDg5h55mDpQqqiLY2yUwiE9QB5HM38wkqAWdsXT8",
-      name: "PIKACHO",
-      owner: "0xCEB1EeA2Cf1F05B88efDccf161236a929D54c007",
-      price: "10",
-      tokenState: "1",
-      tokenURI: "https://ipfs.infura.io/ipfs/QmbeLRC183Rgvtn4owWySVjXtGjMQrQg8Jay2w2wcktYkv",
-    },
-    {
-      category: "2",
-      description: "Pokemon NFT",
-      id: "2255",
-      imgUrl: "https://ipfs.infura.io/ipfs/QmVpmzPDg5h55mDpQqqiLY2yUwiE9QB5HM38wkqAWdsXT8",
-      name: "PIKACHO",
-      owner: "0xCEB1EeA2Cf1F05B88efDccf161236a929D54c007",
-      price: "10",
-      tokenState: "1",
-      tokenURI: "https://ipfs.infura.io/ipfs/QmbeLRC183Rgvtn4owWySVjXtGjMQrQg8Jay2w2wcktYkv",
-    },
-    {
-      category: "2",
-      description: "Pokemon NFT",
-      id: "22655",
-      imgUrl: "https://ipfs.infura.io/ipfs/QmVpmzPDg5h55mDpQqqiLY2yUwiE9QB5HM38wkqAWdsXT8",
-      name: "PIKACHO",
-      owner: "0xCEB1EeA2Cf1F05B88efDccf161236a929D54c007",
-      price: "10",
-      tokenState: "1",
-      tokenURI: "https://ipfs.infura.io/ipfs/QmbeLRC183Rgvtn4owWySVjXtGjMQrQg8Jay2w2wcktYkv",
-    },
-    {
-      category: "2",
-      description: "Pokemon NFT",
-      id: "229",
-      imgUrl: "https://ipfs.infura.io/ipfs/QmVpmzPDg5h55mDpQqqiLY2yUwiE9QB5HM38wkqAWdsXT8",
-      name: "PIKACHO",
-      owner: "0xCEB1EeA2Cf1F05B88efDccf161236a929D54c007",
-      price: "10",
-      tokenState: "1",
-      tokenURI: "https://ipfs.infura.io/ipfs/QmbeLRC183Rgvtn4owWySVjXtGjMQrQg8Jay2w2wcktYkv",
-    },
-    {
-      category: "2",
-      description: "Pokemon NFT",
-      id: "225",
-      imgUrl: "https://ipfs.infura.io/ipfs/QmVpmzPDg5h55mDpQqqiLY2yUwiE9QB5HM38wkqAWdsXT8",
-      name: "PIKACHO",
-      owner: "0xCEB1EeA2Cf1F05B88efDccf161236a929D54c007",
-      price: "10",
-      tokenState: "1",
-      tokenURI: "https://ipfs.infura.io/ipfs/QmbeLRC183Rgvtn4owWySVjXtGjMQrQg8Jay2w2wcktYkv",
-    },
-    {
-      category: "2",
-      description: "Pokemon NFT",
-      id: "245",
-      imgUrl: "https://ipfs.infura.io/ipfs/QmVpmzPDg5h55mDpQqqiLY2yUwiE9QB5HM38wkqAWdsXT8",
-      name: "PIKACHO",
-      owner: "0xCEB1EeA2Cf1F05B88efDccf161236a929D54c007",
-      price: "10",
-      tokenState: "1",
-      tokenURI: "https://ipfs.infura.io/ipfs/QmbeLRC183Rgvtn4owWySVjXtGjMQrQg8Jay2w2wcktYkv",
-    },
-    {
-      category: "2",
-      description: "Pokemon NFT",
-      id: "202",
-      imgUrl: "https://ipfs.infura.io/ipfs/QmVpmzPDg5h55mDpQqqiLY2yUwiE9QB5HM38wkqAWdsXT8",
-      name: "PIKACHO",
-      owner: "0xCEB1EeA2Cf1F05B88efDccf161236a929D54c007",
-      price: "10",
-      tokenState: "1",
-      tokenURI: "https://ipfs.infura.io/ipfs/QmbeLRC183Rgvtn4owWySVjXtGjMQrQg8Jay2w2wcktYkv",
-    },
-    {
-      category: "2",
-      description: "Pokemon NFT",
-      id: "213",
-      imgUrl: "https://ipfs.infura.io/ipfs/QmVpmzPDg5h55mDpQqqiLY2yUwiE9QB5HM38wkqAWdsXT8",
-      name: "PIKACHO",
-      owner: "0xCEB1EeA2Cf1F05B88efDccf161236a929D54c007",
-      price: "10",
-      tokenState: "1",
-      tokenURI: "https://ipfs.infura.io/ipfs/QmbeLRC183Rgvtn4owWySVjXtGjMQrQg8Jay2w2wcktYkv",
-    }
-  ]
 
 
   
@@ -316,7 +171,8 @@ const [isModalOpen, setIsModalOpen] = useState(false);
   
     useEffect( async()=> {
      await sortTokens();
-    //  setTokenObjects(obj1);
+     setCoverPhoto(headerImg);
+     setUserAvatar(profilePic);
       
     },[])
 
@@ -350,13 +206,27 @@ const [isModalOpen, setIsModalOpen] = useState(false);
       <>
         <div className = "profile-main-body">
         <div className = "cover-photo-container">
-          <img src = {headerImg} alt = "header"className = "cover-photo-image" />
+          <img src = {coverPhoto} alt = "header"className = "cover-photo-image" />
+          <div className="cover-photo-edit">
+          <input type="file" id="select-img" hidden onChange={handleCoverPhoto}/>
+          <label for="select-img">Edit cover photo</label>
+              
+          <img src={LineImg} alt="edit-icon" className="edit-icon"/>
+          </div>
         </div>
         <div className = "content-section">
           <div className = "user-profile-card">
             <div className = "user-details-section">
               <div className = "profile-picture-container">
-                <img src = {profilePic} alt = "user profile avatar"className = "profile-picture" />
+               <img src = {userAvatar} alt = "user profile avatar" className = "profile-picture" />
+
+                <div className="pen-icon-container">
+                    <input type="file" id="avatar-input" hidden onChange={handleUserAvatar}/>
+                    <label for="avatar-input"></label>
+
+                    <img src={penIcon} alt="edit-icon" className="edit-icon"/>
+                </div>
+                
               </div>
               <div className = "user-details">
                 <h2>Anonymous <img src = {verifiedIcon} className = "verified-icon" alt = "verified icon" /></h2>

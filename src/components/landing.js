@@ -26,55 +26,54 @@ import ruin_of_osun_NFT_img from "../images/RUIN_OF_OSHUN.png"
 import oshun_NFT_img from "../images/OSHUN_NFT.png"
 
 
-const Landing =(props)=> {
+const Landing = props => {
 
     const allTokensArray = props.allTokensArray;
-    console.log("ttttttt: ", allTokensArray)
     const [tokenObjects, setTokenObjects] = useState([]);
     const [displayPointer, setDisplayPointer] = useState('all');
     const [photography, setPhotoGraphy] = useState([]);
     const [meme, setMeme] = useState([]);
     const [art, setArt] = useState([]);
     
-    const sortTokens =()=>{ 
+    const sortTokens = async () =>{ 
         const tokenObj = []
         const photoObj=[]
         const memeObj = []
         const artObj = []
+
         allTokensArray.map(async token => {
 
           if(token.category == 1){
-            await  photoObj.push(token)
+              photoObj.push(token)
               
           }
           if(token.category == 2){
-            await artObj.push(token)
+              artObj.push(token)
               
           }
           if(token.category == 3){
-           await memeObj.push(token)
+              memeObj.push(token)
          }
 
-         
-      await tokenObj.push(token)
-       await setPhotoGraphy(photoObj);
-       await  setMeme(memeObj);
-        await setArt(artObj);
+        tokenObj.push(token);
+        setPhotoGraphy(photoObj);
+        setMeme(memeObj);
+        setArt(artObj);
           
-          console.log(artObj, 'art category')
+        console.log(artObj, 'art category')
           if(tokenObj.length === allTokensArray.length) setTokenObjects(tokenObj)
         })
         console.log(tokenObjects, 'token objects')
-      } 
+    } 
       
   const allTokens = allTokensArray.map((token)=> {   
     return (
         <NFTCard
             key = {token.id}
+            uniqueId = {token.id}
             name = {token.name}
             imageSrc = {token.imgUrl}
             price = {token.price}
-            onClickBuyHandler = {() => props.setExhibit(token)}
         />
     )
   })
@@ -84,10 +83,10 @@ const Landing =(props)=> {
     return (
         <NFTCard
             key = {token.id}
+            uniqueId = {token.id}
             name = {token.name}
             imageSrc = {token.imgUrl}
             price = {token.price}
-            onClickBuyHandler = {() => props.setExhibit(token)}
         />
     )
   })
@@ -96,10 +95,10 @@ const Landing =(props)=> {
     return (
         <NFTCard
             key = {token.id}
+            uniqueId = {token.id}
             name = {token.name}
             imageSrc = {token.imgUrl}
             price = {token.price}
-            onClickBuyHandler = {() => props.setExhibit(token)}
         />
     )
   })
@@ -107,10 +106,10 @@ const Landing =(props)=> {
     return (
         <NFTCard
             key = {token.id}
+            uniqueId = {token.id}
             name = {token.name}
             imageSrc = {token.imgUrl}
             price = {token.price}
-            onClickBuyHandler = {() => props.setExhibit(token)}
         />
     )
   })
@@ -151,12 +150,15 @@ const allBtn = classNames('nav-link',{
                 </SkeletonTheme>
 
       useEffect( async()=> {
+
+        console.log("ccccccc: ", props.allTokensArray)
         await sortTokens();
+
       },[props.allTokensArray])
 
 
       // data of exclusice clip nft in the exclusice clip nft section of the landing page.
-    //   if this data are to be gotten from the crontract as well, the, this should be an empty array initially untill the data is back
+    //   if this data are to be gotten from the crontract as well, then this should be an empty array initially untill the data is back
       const ExclusiveClipNftsList = [
         {
             name: "RUIN OF OSUN",
@@ -186,7 +188,7 @@ const allBtn = classNames('nav-link',{
 
     return(
         <div className="landing" id="landing">
-            <Header setPage={props.setPage}/>
+            <Header/>
             <QlipNFTS ExclusiveClipNftsList = {ExclusiveClipNftsList} />
            
             <main>

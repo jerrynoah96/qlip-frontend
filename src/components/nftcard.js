@@ -1,6 +1,9 @@
 import "../styles/NFTCard.css"
-const NFTCard = ({name, imageSrc, price, onClickBuyHandler}) => {
-   // console.log(props.token_url, 'mehn right from the cards')
+import { useHistory } from "react-router-dom";
+const NFTCard = ({name, imageSrc, price, uniqueId}) => {
+
+    let history = useHistory();
+    
     return(
         <div className = "nft-card">
             <div className = "nft-image-container">
@@ -17,7 +20,7 @@ const NFTCard = ({name, imageSrc, price, onClickBuyHandler}) => {
                     <p><span>new bid &#128293;</span></p>
                 </div>
             </div>
-            <button className = "buy-btn" onClick = {onClickBuyHandler}>Buy NFT</button>
+            <button className = "buy-btn" onClick = {history.push(`/exhibit/${uniqueId}`)}>Buy NFT</button>
         </div>
     );
 }

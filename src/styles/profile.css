@@ -6,10 +6,27 @@
 .profile-main-body .cover-photo-container {
   width: 100%;
   height: 290px;
+  position: relative;
 }
 .profile-main-body .cover-photo-container .cover-photo-image {
   width: 100%;
   height: 100%;
+}
+.cover-photo-edit{
+  position: absolute;
+  bottom: 10%;
+  right: 5%;
+  color: white;
+  border: thin solid rgba(255, 255, 255);
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cover-photo-edit img{
+  margin-left: 1rem;
 }
 .section-title {
   color: #fff;
@@ -46,7 +63,11 @@
 .user-profile-card .user-details-section .profile-picture-container {
   width: 7rem;
   height: 7rem;
+  position: relative !important;
+
 }
+
+
 
 .user-profile-card
   .user-details-section
@@ -54,7 +75,24 @@
   .profile-picture {
   width: 100%;
   height: 100%;
+ 
 }
+.pen-icon-container{
+  background-color: rgba(255, 255, 255) !important;
+  position: absolute !important;
+  top: 60% !important;
+  right: 1% !important;
+  border-radius: 50% !important;
+  padding: 0.2rem;
+  cursor: pointer !important;
+  
+}
+#avatar-input{
+  height: 100%;
+  width: 100%;
+  z-index: 999 !important;
+}
+
 
 .user-details-section .user-details h2,
 .user-details-section .user-details p {
@@ -232,6 +270,7 @@
     flex-wrap: wrap;
     justify-content: space-between; */
   }
+  
 }
 
 @media only screen and (min-width: 992px) {
