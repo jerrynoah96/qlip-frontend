@@ -81,9 +81,6 @@ componentDidMount = async () => {
   this.setState({contractInit}, () => {
     this.FetchAllTokens();
   });
-  
-  
- 
 }
 
 SetWeb3= async web3 => {
@@ -225,6 +222,7 @@ FetchAllTokens = async () => {
 
   const allTokens = await this.state.contractInit.methods.getAllTokens().call();
   let allTokensArray = [];
+  console.log(allTokens, 'all tokens')
 
   allTokens.map(async token => {
 
