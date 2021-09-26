@@ -92,7 +92,7 @@ SetWeb3= async web3 => {
 
   const accounts = await web3.eth.getAccounts();
   const account = accounts[0];
-  const networkId =await this.state.web3.eth.getChainId();
+  const networkId = await this.state.web3.eth.getChainId();
   console.log(networkId, 'network id')
   
  if(networkId !== 97){
@@ -331,10 +331,10 @@ FetchAllTokens = async () => {
             <Modal show={this.state.show} onHide={this.handleClose}>
               <Modal.Body>{this.state.modalMessage}</Modal.Body>
             </Modal>
-    
-            <NavBar setWeb3={this.SetWeb3} setPage={this.SetPage} /> 
             
             <Router>
+              <NavBar setWeb3={this.SetWeb3} setPage={this.SetPage} /> 
+
               <Switch>
                 <Route exact path = "/">
                   <Landing
