@@ -1,3 +1,4 @@
+import {useRef, useState, useEffect} from 'react'
 import { NavLink, useHistory } from 'react-router-dom';
 import logo from '../images/logo.svg';
 import { Navbar, Nav  } from 'react-bootstrap';
@@ -13,6 +14,9 @@ import '../styles/nav.css';
 
 
 const providerOptions = {
+
+ 
+
   portis: {
     package: Portis, // required
     options: {
@@ -49,6 +53,17 @@ let accounts = null;
 let btnText = "Connect Wallet"
 
 const NavBar = (props) => {
+
+  const history = useHistory();
+  const mobileHamburger = useRef(null)
+
+  const [screenSize, setScreenSize] = useState(window.innerWidth)
+
+  useEffect(() => {
+    window.onresize = () => {
+      setScreenSize(window.innerWidth)
+    }
+  },)
 
   async function showWeb3Modal() {
 
@@ -93,41 +108,74 @@ const NavBar = (props) => {
 
  
 return (
-    <Navbar collapseOnSelect expand="lg">
-    <Navbar.Brand href="#home" className="brand"
-    onClick={setPage}>
-    <img src={logo} alt="logo" className="brand-logo"/>{' '}
-        QLIP
-        </Navbar.Brand>
+    // <Navbar collapseOnSelect expand="lg">
+    // <Navbar.Brand href="#home" className="brand"
+    // onClick={setPage}>
+    // <img src={logo} alt="logo" className="brand-logo"/>{' '}
+    //     QLIP
+    //     </Navbar.Brand>
        
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav className="ml-auto nav-links">
-            <Nav.Link className="nav-link" to="qlip-nfts" smooth={true} duration={1000}
-             onClick={()=> {
-              props.setPage('landing')
-            }}
-            >Explore</Nav.Link>
-            <Nav.Link className="nav-link" to="tokenEcons" smooth={true} duration={1000}
-            onClick={()=> {
-              if(web3 == null){
-                alert('unidentified address, please connect your wallet')
-              }else{
-                props.setPage("profile")
-              }
+    //     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+    //     <Navbar.Collapse id="responsive-navbar-nav">
+    //     <Nav className="ml-auto nav-links">
+    //         <Nav.Link className="nav-link" to="qlip-nfts" smooth={true} duration={1000} onClick={()=> { props.setPage('landing')}}>Explore</Nav.Link>
+    //         <Nav.Link className="nav-link" to="tokenEcons" smooth={true} duration={1000}
+    //         onClick={()=> {
+    //           if(web3 == null){
+    //             alert('unidentified address, please connect your wallet')
+    //           }else{
+    //             props.setPage("profile")
+    //           }
              
-            }}>My Profile</Nav.Link>
-            <Link className="nav-link" to="qlip-nfts" smooth={true} duration={1000}
-              >QLIP NFTs</Link>
-            <Link className="nav-link" to="community" smooth={true} duration={1000} >Community</Link>
-            <Nav.Link className="nav-link" to="contact" smooth={true} duration={1000}
-            onClick={()=> {
-              props.setPage('choose create')
-            }}>Mint Store</Nav.Link>
-            <Nav.Link className="nav-link launch-link" href="#" onClick={() => showWeb3Modal()}>{btnText}</Nav.Link>   
-        </Nav>
-        </Navbar.Collapse>
-    </Navbar>
+    //         }}>My Profile</Nav.Link>
+    //         <Link className="nav-link" to="qlip-nfts" smooth={true} duration={1000}
+    //           >QLIP NFTs</Link>
+    //         <Link className="nav-link" to="community" smooth={true} duration={1000} >Community</Link>
+    //         <Nav.Link className="nav-link" to="contact" smooth={true} duration={1000}
+    //         onClick={()=> {
+    //           props.setPage('choose create')
+    //         }}>Mint Store</Nav.Link>
+    //         <Nav.Link className="nav-link launch-link" href="#" onClick={() => showWeb3Modal()}>{btnText}</Nav.Link>   
+    //     </Nav>
+    //     </Navbar.Collapse>
+    // </Navbar>
+
+    <div className = "navbar">
+      <div className = "nav-brand" onClick = {history.push("/")}>
+        <img src={logo} alt="logo" className="brand-logo"/>
+        <span>QLIP</span>
+      </div>
+
+      <nav>
+        <ul className = "nav-link-container">
+          <li className = "nav-link">
+            <NavLink to = "/" >Explore</NavLink>
+          </li>
+
+          <li className = "nav-link">
+            <NavLink to="/profile">My Profile</NavLink>
+          </li>
+
+          <li className = "nav-link">
+            <NavLink to="/">QLIP NFTs</NavLink>
+          </li>
+
+          <li className = "nav-link">
+            <NavLink to="/">Community</NavLink>
+          </li>
+
+          <li className = "nav-link">
+            <NavLink to="/">Mint Store</NavLink>
+          </li>
+
+          <li className = "nav-link">
+            <button className = "connect-btn">{btnText}</button>
+          </li>
+        </ul>
+      </nav>
+
+      {screenSize <= 992 && <i className="fas fa-bars mobile-hamburger"></i> }
+    </div>
 
 )
 
