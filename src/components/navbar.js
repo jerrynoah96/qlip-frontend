@@ -97,15 +97,6 @@ const NavBar = (props) => {
     provider = await web3Modal.connect();
     return new Web3(provider);
   }
-
-  let currentpage = 'landing';
-    const setPage=(page)=> {
-        page = currentpage;
-        props.setPage(page);
-
-    }
-
-
  
 return (
     // <Navbar collapseOnSelect expand="lg">
@@ -169,7 +160,8 @@ return (
           </li>
 
           <li className = "nav-link">
-            <button className = "connect-btn">{btnText}</button>
+            <button className = "connect-btn"
+            onClick={ showWeb3Modal}>{btnText}</button>
           </li>
         </ul>
       </nav>

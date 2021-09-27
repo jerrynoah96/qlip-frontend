@@ -1,4 +1,5 @@
-import { Link } from 'react-scroll';
+//import { Link } from 'react-scroll';
+import { Link, useHistory } from 'react-router-dom';
 import '../styles/landing.css';
 
 const Header = (props) => {
@@ -16,9 +17,9 @@ const Header = (props) => {
                 <span> Create, explore and trade in the first-ever African owned  NFT Markeplace.</span>
             </div>
             <div className="btn-box">
-                <button className="create-btn" onClick={setPage}>Create</button>
+                <Link className="create-btn header-btn" to="/create" >Create</Link>
 
-                <button className="explore-btn"type="button" >
+                <button className="explore-btn header-btn"type="button" >
                     <Link className="nav-link" to="qlip-nfts" smooth={true} duration={1000}>Explore</Link>  
                 </button>
             </div>

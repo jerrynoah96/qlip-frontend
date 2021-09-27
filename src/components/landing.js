@@ -1,5 +1,4 @@
 import React,{useState, useEffect} from "react";
-
 import NavBar from './navbar';
 import '../styles/landing.css';
 import QLIPNFTS from './qlipNFTSection';
@@ -29,6 +28,7 @@ import oshun_NFT_img from "../images/OSHUN_NFT.png"
 const Landing = props => {
 
     const allTokensArray = props.allTokensArray;
+    console.log(allTokensArray, 'all tokens in market')
     const [tokenObjects, setTokenObjects] = useState([]);
     const [displayPointer, setDisplayPointer] = useState('all');
     const [photography, setPhotoGraphy] = useState([]);

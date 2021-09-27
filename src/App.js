@@ -141,7 +141,8 @@ ResetSale =(nft)=> {
   })
 }
 
-FormDetails = async form_details => {
+
+FormDetails = async (form_details) => {
 
   const userImage = form_details.userImage;
   const buffer = form_details.buffer;
@@ -158,7 +159,7 @@ FormDetails = async form_details => {
   const unlock_on_purchase = form_details.unlock_on_purchase;
   const category = form_details.category;
 
-  this.setState({
+await this.setState({
     form_details: {
       ...this.state.form_details,
       userImage,
@@ -177,8 +178,6 @@ FormDetails = async form_details => {
       category
     }
   })
-  
-  
 }
 
 
@@ -222,7 +221,7 @@ FetchAllTokens = async () => {
 
   const allTokens = await this.state.contractInit.methods.getAllTokens().call();
   let allTokensArray = [];
-  console.log(allTokens, 'all tokens')
+  
 
   allTokens.map(async token => {
 
@@ -235,7 +234,7 @@ FetchAllTokens = async () => {
     const tokenState = await this.state.contractInit.methods.getNFTState(token._id).call();
     const nft_amount = await this.state.contractInit.methods.getSalePrice(token._id).call();
     const nftAmount = await this.state.instantWeb3.utils.fromWei(nft_amount);
-    console.log(tokenState, nftAmount)
+    
     tokenInfo.owner = token.ownerAddress;
     tokenInfo.tokenURI = token.tokenURI_;
     tokenInfo.category = token._category;
@@ -251,10 +250,12 @@ FetchAllTokens = async () => {
     }
     
     // only set state when the map has run for all the element of the array
-    if(allTokens.length === allTokensArray.length) this.setState({allTokensArray})
+   // if(allTokens.length === allTokensArray.length)
+     this.setState({allTokensArray})
     
     
   })
+  console.log(this.state.allTokensArray, 'all tokens array from state');
 
 }
 
@@ -348,15 +349,21 @@ FetchAllTokens = async () => {
                 </Route>
     
                 <Route exact path = "/create">
-                  <Create />
+                  <Create 
+                  formDetails={this.FormDetails}/>
                 </Route>
     
                 <Route exact path = "/options">
-                  <Options />
+                  <Options 
+                  web3={this.state.web3}
+                  contractDetails={this.state.contractDetails}
+                  form_details={this.state.form_details}/>
                 </Route>
     
                 <Route exact path = "/profile">
-                  <Profile />
+                  <Profile 
+                  contractDetails={this.state.contractDetails}
+                  tokenUrls={this.state.tokenUrls}/>
                 </Route>
     
                 <Route exact path = "/exhibit/:tokenId">

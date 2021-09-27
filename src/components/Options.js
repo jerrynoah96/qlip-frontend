@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import uploadIcon from '../images/upload-icon.png';
 import arrow from '../images/arrow.svg';
 import signIcon from '../images/sign-icon.png';
@@ -10,8 +11,8 @@ const ipfsClient = require('ipfs-http-client')
 const ipfs = ipfsClient({host: "ipfs.infura.io", port: 5001, protocol:"https"})
 
 const pinataSDK = require('@pinata/sdk');
-const pinata = pinataSDK('77ebc300c6e200256298',
- 'a8b5385b19fbe560d758abc7dd7ecce3c57309441f2b08ca6d2a3fbd69a4f594');
+const pinata = pinataSDK('29b5df03356e2400ff68',
+ 'c2381374c17a87b16191150d09e541545f157b3427a68f94a1e04d488643a2fe');
 class Options extends Component {
 
     constructor(props){
@@ -36,9 +37,11 @@ class Options extends Component {
 
 }
 uploadImgToIPFS = async (e)=> {
+    console.log(this.props.form_details,'from details in options')
         
    
     if(this.props.form_details.buffer){
+        
         try{
             const result = await ipfs.add(this.props.form_details.buffer)
             const imgIpfsHash = result.cid.string;
@@ -200,11 +203,12 @@ render(){
                 </Modal.Body>
             </Modal>
             <div className="option-header">
-                <img className="back-icon"
-                 src={arrow}
-                 onClick={()=> {
-                    this.props.setPage('create')
-                     }}/>
+                <Link to="/create">
+                    <img className="back-icon"
+                    src={arrow}/>
+
+                </Link>
+                
                 <div className="header-content">
                 <h1>QLIP MINTSTORE</h1>
                 <span>Mint token in 3 easy steps</span>

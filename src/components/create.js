@@ -5,11 +5,14 @@ import reelLogo from '../images/reel-collection-logo.svg';
 import artLogo from '../images/art-collection-logo.svg';
 import addIcon from '../images/add-icon.svg';
 import arrow from '../images/arrow.svg';
+import { Link, useHistory, withRouter } from 'react-router-dom';
 import autoSaveIcon from '../images/autosaving.svg';
 import { ToggleButton } from "./toggleButton";
 import Preview from './create-preview';
 import Modal from 'react-bootstrap/Modal';
 import '../styles/create.css';
+
+
 
 class Create extends Component {
 
@@ -50,6 +53,7 @@ class Create extends Component {
       
     }
 
+    
    
       handleInput=(e)=> {
         this.setState({
@@ -64,11 +68,10 @@ class Create extends Component {
     
       }
 
-     setPage=(e, page)=> {
+      //the function that is called upon form submission
+    FormDetails=(e)=> {
          e.preventDefault();
-        page = 'options';
-        this.props.setPage(page);
-        this.props.setFormDetails(this.state.nftDetails);
+        this.props.formDetails(this.state.nftDetails);
 
 
     }
@@ -124,6 +127,8 @@ class Create extends Component {
 
 
 render(){
+    const { location, history } = this.props;
+
     return(
         <div className="create-section">
         
@@ -144,7 +149,7 @@ render(){
 
             <div className="create-section-form">
 
-                <form className="create-form" onSubmit={this.submitForm} onSubmit={this.setPage}>
+                <form className="create-form">
 
                     <div className="form-heading">
                         <h3>Create Single Collectible</h3>
@@ -403,9 +408,15 @@ render(){
                     </div>
 
                     <div className="submit-btn-box">
-                        <button >Create Item 
-                            <img src={arrow} alt="arrow-icon"/>
+                        <button onClick={this.FormDetails} >
+                            <Link to={{
+                                pathname:'/Options'
+                            }} className="create-form-btn" >Create Item 
+                                <img src={arrow} alt="arrow-icon"/>
+                            </Link>
+
                         </button>
+                       
                         <div className="auto-save">
                             <span>
                             Auto Saving
@@ -426,4 +437,4 @@ render(){
     
 
 }
-export default Create;
+export default withRouter (Create);
