@@ -3,6 +3,10 @@ import { useHistory } from "react-router-dom";
 const NFTCard = ({name, imageSrc, price, uniqueId}) => {
 
     let history = useHistory();
+
+    const buy=()=> {
+        history.push(`/exhibit/${uniqueId}`)
+    }
     
     return(
         <div className = "nft-card">
@@ -20,7 +24,7 @@ const NFTCard = ({name, imageSrc, price, uniqueId}) => {
                     <p><span>new bid &#128293;</span></p>
                 </div>
             </div>
-            <button className = "buy-btn" onClick = {history.push(`/exhibit/${uniqueId}`)}>Buy NFT</button>
+            <button className = "buy-btn" onClick = {buy}>Buy NFT</button>
         </div>
     );
 }

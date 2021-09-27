@@ -33,7 +33,7 @@ const Exhibit = (props) => {
     }
 
     useEffect(() => {
-        if(!tokenId) return history.replace("/");
+       // if(!tokenId) return history.replace("/");
 
         const currentNFT = props.allTokensArray.find(token => token.id === tokenId);
 
