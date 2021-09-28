@@ -74,41 +74,43 @@
   font-weight: lighter;
   margin-top: -1rem;
 }
-.input-box label {
+.input-box label{
   display: block;
   font-size: 0.8rem;
   color: rgba(30, 16, 16, 0.7);
   margin-bottom: 0.5rem;
+  
 }
-.input-box input {
+.input-box input{
+  width: 600px;
+  height: 60px !important;
   border: thin solid rgba(255, 255, 255, 0.1);
   background-color: inherit;
   color: rgba(255, 255, 255, 0.5);
   font-size: 0.8rem;
   height: 40px;
   border-radius: 5px;
-  padding: 1.5rem 0.8rem;
 }
-.input-box input::placeholder {
+.input-box input::placeholder{
   font-size: 0.8rem;
 }
 
-input:focus {
+input:focus{
   outline: none;
 }
-.input-box label {
+.input-box label{
   color: rgba(255, 255, 255, 0.8);
   display: flex;
   flex-direction: column;
 }
-.input-box select {
-  border: thin solid rgba(255, 255, 255, 0.1);
-  background-color: inherit;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 0.8rem;
-  height: 40px;
-  border-radius: 5px;
-  padding: 1.5rem 0.8rem;
+.input-box select{
+width: 100%;
+height: 60px !important;
+border: thin solid rgba(255, 255, 255, 0.1);
+background-color: inherit;
+color: rgba(255, 255, 255, 0.5);
+font-size: 0.8rem;
+border-radius: 5px;
 }
 option {
   background-color: inherit;
