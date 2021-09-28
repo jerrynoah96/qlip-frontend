@@ -1,4 +1,5 @@
 import React,{useRef, useState, useEffect} from "react";
+import { useHistory } from "react-router-dom";
 import headerImg from "../images/Header_Image.png";
 import LineImg from "../images/Line.svg";
 import penIcon from "../images/penIcon.svg";
@@ -7,17 +8,18 @@ import productImage from "../images/product_img.svg"
 import profilePic from "../images/Profile_picture.png"
 // import editIcon from "./assets/Edit_icon.svg"
 import verifiedIcon from "../images/icons8_verified_account.svg"
-import NFTCard from "./nftcard";
+import NFTCard from "./profileNFTCard";
 import Modal from 'react-bootstrap/Modal';
 import SetSale from "./setSale";
 import axios from "axios";
 import "../styles/profile.css";
-import "../styles/NFTCard.css"
+import "../styles/NFTCard.css";
 import classNames from 'classnames';
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import Loader from "./Loader"
 
 const Profile = (props) => {
+  let history = useHistory();
  // const [tokensArray, setTokensArray] = useState([]);
 const setSaleRef = useRef(null);
 const [isModalOpen, setIsModalOpen] = useState(false);
@@ -35,6 +37,8 @@ const [isModalOpen, setIsModalOpen] = useState(false);
   const [coverPhoto, setCoverPhoto] = useState();
   const [userAvatar, setUserAvatar] = useState();
 
+
+  
 
   const sortTokens =()=>{ 
     const onSale = []
@@ -58,7 +62,7 @@ const [isModalOpen, setIsModalOpen] = useState(false);
    await  setNotForSaleDisplay(notOnSale);
 
     })
-    console.log(tokenObjects, 'token objects')
+    
   } 
 
 
@@ -70,12 +74,13 @@ const [isModalOpen, setIsModalOpen] = useState(false);
     const handleUserAvatar=(e)=> { 
       const selectedAvatar = URL.createObjectURL(e.target.files[0]);
        setUserAvatar(selectedAvatar);
-       console.log('avatar selection')
+       
     }
 
   const displayTokens = urlList.map((token)=> {
     
     console.log(token.id, 'tokens id in profile');
+
     return(
       <div key = {token.id} className = "nft-card">
       <div className = "nft-image-container">
@@ -94,9 +99,13 @@ const [isModalOpen, setIsModalOpen] = useState(false);
       </div>
       { token.tokenState == 2 ? <button className = "buy-btn"
        onClick={()=> {
-        props.setSalePage(token)
+       props.resetSale(token)
+        history.push(`/set-sale/${token.id}`)
        }}>Set To Sale</button> : ''}
   </div>
+     
+    
+    
       // <NFTCard key = {token.imgHash} name = {token.item_name} imageSrc = {token.imgHash} price = {token.price} description = {token.description} />
     )
   })
@@ -125,7 +134,8 @@ const [isModalOpen, setIsModalOpen] = useState(false);
       </div>
       { token.tokenState == 2 ? <button className = "buy-btn"
        onClick={()=> {
-        props.setSalePage(token)
+        props.resetSale(token)
+        history.push(`/set-sale/${token.id}`)
        }}>Set To Sale</button> : ''}
   </div>
       // <NFTCard key = {token.imgHash} name = {token.item_name} imageSrc = {token.imgHash} price = {token.price} description = {token.description} />
@@ -155,7 +165,8 @@ const [isModalOpen, setIsModalOpen] = useState(false);
       </div>
       { token.tokenState == 2 ? <button className = "buy-btn"
        onClick={()=> {
-        props.setSalePage(token)
+        props. resetSale(token)
+        history.push(`/set-sale/${token.id}`)
        }}>Set To Sale</button> : ''}
   </div>
       // <NFTCard key = {token.imgHash} name = {token.item_name} imageSrc = {token.imgHash} price = {token.price} description = {token.description} />
@@ -277,20 +288,10 @@ const [isModalOpen, setIsModalOpen] = useState(false);
             </div>
             <div className = "nfts-container">
 
-              {!!tokenObjects.length && 
-              tokenObjects.map(token => {
-                return(
-                    <NFTCard key = {token.imgHash} name = {token.item_name} imageSrc = {token.imgUrl} price = {token.price} description = {token.description} />
-                  )
-                })}
-
-
-                  {!tokenObjects.length && <Loader />}
-
-                  {/* {!!urlList.length ?
+               {!!urlList.length ?
                    currentDisplay
                     : loader
-                  } */}
+                  } 
             </div>
           </div>
         </div>

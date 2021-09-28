@@ -1,14 +1,10 @@
-//import { Link } from 'react-scroll';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-scroll';
+import { NavLink, useHistory } from 'react-router-dom';
 import '../styles/landing.css';
 
 const Header = (props) => {
-    let currentpage = 'choose create';
-    const setPage=(page)=> {
-        page = currentpage;
-        props.setPage(page);
-
-    }
+    
+    
     return(
         <header>
         <div className="header-content1">
@@ -17,10 +13,10 @@ const Header = (props) => {
                 <span> Create, explore and trade in the first-ever African owned  NFT Markeplace.</span>
             </div>
             <div className="btn-box">
-                <Link className="create-btn header-btn" to="/create" >Create</Link>
+                <NavLink className="create-btn header-btn" to="/chooseCreate" >Create</NavLink>
 
                 <button className="explore-btn header-btn"type="button" >
-                    <Link className="nav-link" to="qlip-nfts" smooth={true} duration={1000}>Explore</Link>  
+                    <Link className="nav-link explore-btn-link" to="qlip-nfts" smooth={true} duration={1000}>Explore</Link>  
                 </button>
             </div>
         </div>

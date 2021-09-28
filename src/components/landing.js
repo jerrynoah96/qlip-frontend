@@ -163,7 +163,7 @@ const allBtn = classNames('nav-link',{
         {
             name: "RUIN OF OSUN",
             image: bushland_NFT_img,
-            price: "20 BNB",
+            price: "0.1 BNB",
             rightText: "1/1",
             leftText: "SAPPHIRE",
             description: "Oshun is considered one of the most powerful of all orisha, her temple is filled with treasure and water rune magic."
@@ -171,7 +171,7 @@ const allBtn = classNames('nav-link',{
         {
             name: "BUSHLAND",
             image: ruin_of_osun_NFT_img,
-            price: "50 BNB",
+            price: "0.03 BNB",
             rightText: "1/1",
             leftText: "EMERALD",
             description: "Explore Bushland - the shattered remains of the once beautiful african homeworld, San."
@@ -179,7 +179,7 @@ const allBtn = classNames('nav-link',{
         {
             name: "OSHUN",
             image: oshun_NFT_img,
-            price: "60 BNB",
+            price: "0.03 BNB",
             rightText: "1/1",
             leftText: "RUBY",
             description: "The Yoruba river diety who rules divinity, feminity, fertility, beauty and love."

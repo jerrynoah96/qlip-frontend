@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, withRouter } from 'react-router-dom';
 import uploadIcon from '../images/upload-icon.png';
 import arrow from '../images/arrow.svg';
 import signIcon from '../images/sign-icon.png';
@@ -164,7 +164,9 @@ MintNft=async(e)=> {
 
                        if(setSaleReciept.status == true){
                         await this.props.fetchUserTokens();
-                        this.setPage();
+                        const { history } = this.props;
+                        if(history) history.push('/profile');
+                        
                        }
                 }
             }
@@ -192,6 +194,7 @@ MintNft=async(e)=> {
 
 
 render(){
+    const { history } = this.props;
 
 
     return(
@@ -258,4 +261,4 @@ render(){
     }
 }
 
-export default Options;
+export default withRouter (Options);

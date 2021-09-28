@@ -32,7 +32,7 @@ class App extends Component  {
       tokenUrls: [],
       contractDetails:{
         account: null,
-        contractAddress: "0x714e39D8F55E5C0Adc2f62eb8AFf0e38d3734232",
+        contractAddress: "0x178315F9Dc7D0666D8c28F2a23644e34eD44c57D",
         contractInstance: null
       },
       form_details: {
@@ -212,9 +212,11 @@ FetchUserTokens = async () => {
     tokenUrls.push(tokenData);
 
     // only set state when complete
-    if(tokenUrls.length === userNFts.length) this.setState({ tokenUrls })
+    //if(tokenUrls.length === userNFts.length) 
+    this.setState({ tokenUrls })
     
   })
+  console.log(this.state.tokenUrls, 'token urls for users')
 }
 
 FetchAllTokens = async () => {
@@ -255,7 +257,7 @@ FetchAllTokens = async () => {
     
     
   })
-  console.log(this.state.allTokensArray, 'all tokens array from state');
+ 
 
 }
 
@@ -344,7 +346,7 @@ FetchAllTokens = async () => {
                   />
                 </Route>
     
-                <Route exact path = "/chooce-create">
+                <Route exact path = "/chooseCreate">
                   <ChooseCreate />
                 </Route>
     
@@ -357,13 +359,16 @@ FetchAllTokens = async () => {
                   <Options 
                   web3={this.state.web3}
                   contractDetails={this.state.contractDetails}
-                  form_details={this.state.form_details}/>
+                  form_details={this.state.form_details}
+                  fetchUserTokens={this.FetchUserTokens}/>
                 </Route>
     
                 <Route exact path = "/profile">
                   <Profile 
                   contractDetails={this.state.contractDetails}
-                  tokenUrls={this.state.tokenUrls}/>
+                  tokenUrls={this.state.tokenUrls}
+                  fetchUserTokens={this.FetchUserTokens}
+                  resetSale={this.ResetSale}/>
                 </Route>
     
                 <Route exact path = "/exhibit/:tokenId">
@@ -374,8 +379,12 @@ FetchAllTokens = async () => {
                   />
                 </Route>
     
-                <Route exact path = "/set-sale">
-                  <SetSale />
+                <Route exact path = "/set-sale/:tokenId">
+                  <SetSale 
+                  contractDetails = {this.state.contractDetails}
+                  web3={this.state.web3}
+                  fetchUserTokens={this.FetchUserTokens}
+                  selectedToken={this.state.setSaleToken}/>
                 </Route>
               </Switch>
             </Router>

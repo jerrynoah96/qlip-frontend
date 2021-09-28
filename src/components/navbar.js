@@ -55,7 +55,13 @@ let btnText = "Connect Wallet"
 const NavBar = (props) => {
 
   const history = useHistory();
-  const mobileHamburger = useRef(null)
+  const mobileHamburger = useRef(null);
+  const [click, setClick] = useState(false);
+
+
+
+  const handleClick = () => setClick(!click);
+  
 
   const [screenSize, setScreenSize] = useState(window.innerWidth)
 
@@ -131,7 +137,7 @@ return (
     //     </Navbar.Collapse>
     // </Navbar>
 
-    <div className = "navbar">
+ /*   <div className = "navbar">
       <div className = "nav-brand" onClick = {history.push("/")}>
         <img src={logo} alt="logo" className="brand-logo"/>
         <span>QLIP</span>
@@ -167,7 +173,71 @@ return (
       </nav>
 
       {screenSize <= 992 && <i className="fas fa-bars mobile-hamburger"></i> }
-    </div>
+    </div> */
+    <>
+    <nav className="navbar">
+      <div className="nav-container">
+        <NavLink exact to="/" className="nav-logo">
+          <img src={logo} alt="logo" className="brand-logo"/>
+          <span>QLIP</span>
+        </NavLink>
+
+        <ul className={click ? "nav-menu active" : "nav-menu"}>
+          <li className="nav-item">
+          <Link className="nav-link" to="qlip-nfts" smooth={true} duration={1000}
+             >Explore</Link>
+          </li>
+          <li className="nav-item">
+            <NavLink
+              
+              className="nav-links"
+            onClick={()=> {
+                          if(web3 == null){
+                           alert('unidentified address, please connect your wallet')
+                           history.push('/');
+                           }
+                           else{
+                             history.push('/profile')
+                           }
+                           
+                          }}
+                          to="/profile"
+            >
+              My Profile
+            </NavLink>
+          </li>
+          <li className="nav-item">
+              <Link className="nav-link" to="qlip-nfts" smooth={true} duration={1000}
+             >QLIP NFTs</Link>
+          </li>
+          <li className="nav-item">
+          <Link className="nav-link" to="community" smooth={true} duration={1000} >Community</Link>
+          </li>
+
+          <li className="nav-item">
+            <NavLink
+              exact
+              to="/chooseCreate"
+              className="nav-links"
+              
+            >
+             Mint Store
+            </NavLink>
+          </li>
+
+          <li className="nav-item">
+            <button className = "connect-btn"
+            onClick={ showWeb3Modal}>{btnText}</button>
+          
+          </li>
+
+        </ul>
+        <div className="nav-icon" onClick={handleClick}>
+          <i className={click ? "fas fa-times" : "fas fa-bars"}></i>
+        </div>
+      </div>
+    </nav>
+  </>
 
 )
 

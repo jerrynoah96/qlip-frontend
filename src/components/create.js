@@ -5,10 +5,12 @@ import reelLogo from '../images/reel-collection-logo.svg';
 import artLogo from '../images/art-collection-logo.svg';
 import addIcon from '../images/add-icon.svg';
 import arrow from '../images/arrow.svg';
+import closeIcon from "../images/iCon_Close.svg";
 import { Link, useHistory, withRouter } from 'react-router-dom';
 import autoSaveIcon from '../images/autosaving.svg';
 import { ToggleButton } from "./toggleButton";
 import Preview from './create-preview';
+import classNames from 'classnames';
 import Modal from 'react-bootstrap/Modal';
 import '../styles/create.css';
 
@@ -26,6 +28,7 @@ class Create extends Component {
             loaderShow: false,
             loaderUrl: "https://i.pinimg.com/originals/3f/6b/90/3f6b904917f65c3aa8f8e1207323ad88.jpg",
             progressText: "processing request",
+            preview_btn: false,
             nftDetails: {
                 userImage: null,
                 buffer: "",
@@ -71,6 +74,8 @@ class Create extends Component {
       //the function that is called upon form submission
     FormDetails=(e)=> {
          e.preventDefault();
+         const { history } = this.props;
+         if(history) history.push('/Options');
         this.props.formDetails(this.state.nftDetails);
 
 
@@ -127,12 +132,27 @@ class Create extends Component {
 
 
 render(){
-    const { location, history } = this.props;
+    const { history } = this.props;
+    const previewClass = classNames('preview', {
+        'preview-mobile': this.state.preview_btn == true
+    })
 
     return(
+
         <div className="create-section">
         
-            <div className="preview">
+            <div className={previewClass}>
+                
+                <div className = "cancel-icon-contaner"
+                onClick={(e)=> {
+                    e.preventDefault();
+                    this.setState({
+                        
+                        preview_btn: false
+                    })
+                }} >
+                    <img src = {closeIcon} className = "" alt = "close" />
+                </div>
                 <Preview userImage={this.state.nftDetails.userImage}
                 imageName={this.state.nftDetails.item_name}
                 imagedescription={this.state.nftDetails.description}
@@ -149,7 +169,7 @@ render(){
 
             <div className="create-section-form">
 
-                <form className="create-form">
+                <form className="create-form" >
 
                     <div className="form-heading">
                         <h3>Create Single Collectible</h3>
@@ -408,13 +428,21 @@ render(){
                     </div>
 
                     <div className="submit-btn-box">
-                        <button onClick={this.FormDetails} >
-                            <Link to={{
-                                pathname:'/Options'
-                            }} className="create-form-btn" >Create Item 
+                        <button onClick={this.FormDetails} type="submit">
+                            <span className="create-form-btn" >Create Item 
                                 <img src={arrow} alt="arrow-icon"/>
-                            </Link>
+                            </span>
 
+                        </button>
+
+                        <button className="preview-btn"
+                        onClick={(e)=> {
+                            e.preventDefault();
+                            this.setState({
+                                preview_btn: true
+                            })
+                        }}  >
+                            Preview 
                         </button>
                        
                         <div className="auto-save">

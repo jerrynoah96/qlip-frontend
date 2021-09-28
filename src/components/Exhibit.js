@@ -40,13 +40,15 @@ const Exhibit = (props) => {
         if(!currentNFT) return history.replace("/");
         
         setPageData(currentNFT)
+        
 
     }, [])
     return(
+        
         <>
             <div className = "exhibit-main-body">
-                <div className = "nft-picture-container">
-                    <img src = {pageData.imgHash} class = "nft-picture" alt = "nft" />
+                <div className = "nft-picture-container exhibitPic">
+                    <img src = {pageData.imgUrl} class = "nft-picture" alt = "nft" />
                     <div className = "nft-description">
                         <p className = "left-vertical-text">RUBY</p>
                         <p className = "right-vertical-text">1/1</p>

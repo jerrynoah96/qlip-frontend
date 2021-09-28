@@ -64,7 +64,6 @@
 .royalties select {
   width: 100%;
   padding: 1.5rem 0.8rem;
-  
 }
 .royalties label {
   display: flex;
@@ -115,6 +114,7 @@ option {
   background-color: inherit;
   color: rgba(0, 0, 0);
 }
+
 
 .small-inputs {
   width: 400px;
@@ -214,6 +214,12 @@ option {
 .submit-btn-box button img {
   height: 0.5rem;
 }
+.preview-btn{
+display: flex !important;
+justify-content: center !important;
+align-items: center !important;
+display: none !important;
+}
 
 .submit-btn-box .auto-save {
   display: flex;
@@ -276,15 +282,41 @@ option {
   top: 50%;
   transform: translate(0.5%, -50%);
 }
+.cancel-icon-contaner{
+  display: none;
+}
 
 @media only screen and (max-width: 1023px) {
   .preview {
     display: none;
   }
-
+  .preview-btn{
+    display: flex !important;
+  }
   .create-section-form {
     width: 100%;
     padding: 10%;
+  }
+
+  .preview-mobile{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  .cancel-icon-contaner{
+    display: block;
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    cursor: pointer;
   }
 }
 
@@ -296,5 +328,19 @@ option {
 
   .small-inputs .input-box input {
     width: 90%;
+  }
+  .submit-btn-box{
+    width: 90%;
+    display: flex !important;
+    justify-content: space-between !important;
+  }
+  .auto-save{
+    display: none !important;
+  }
+  .submit-btn-box button{
+    width: 120px;
+    padding: 0.7rem 0.7rem;
+    font-size: 0.8rem;
+    
   }
 }

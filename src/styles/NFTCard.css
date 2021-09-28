@@ -1,18 +1,19 @@
 .nft-card {
   width: 30%;
   max-width: 30rem;
-  height: 35rem;
+  height: 35rem !important;
   padding: 1rem 2rem;
   background-color: #141416;
   border: 1px solid #353945;
   border-radius: 0.2rem;
   margin: 2rem 0;
   text-align: center;
+  position: relative;
 }
 
 .nft-card .nft-image-container {
   width: 100%;
-  height: 50%;
+  height: 60%;
   text-align: center;
 }
 
@@ -55,9 +56,13 @@
 
 .nft-card .buy-btn {
   display: block;
-  width: 100%;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 0);
+  width: 80%;
   margin-top: 2rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1rem;
   padding: 0.7rem 0;
   border-radius: 0.5rem;
   background-color: #4b23cc;

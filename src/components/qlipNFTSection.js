@@ -3,8 +3,8 @@ import bushland from "../images/BUSHLAND.png";
 import ruin_of_osun from "../images/RUIN_OF_OSHUN.png"
 import oshunNft from "../images/OSHUN_NFT.png"
 import NFTExhibitionCard from "./NFTExhibitionCard";
-import "../styles/NFTCard.css"
-import "../styles/exhibit.css"
+import "../styles/NFTCard.css";
+import "../styles/exhibit.css";
 
 
 const QlipNFTS = ({ExclusiveClipNftsList}) => {

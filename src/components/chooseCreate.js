@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import singleLogo from '../images/single.svg';
 import multipleLogo from '../images/multiple.svg';
 import '../styles/chooseCreate.css';
@@ -30,7 +31,9 @@ const ChooseCreate = (props)=> {
                             <h2 className="choice-title">Single</h2>
                             <span className="choice-desc"> create a one kind collectible</span>
                         </div>
-                        <button onClick={setPage}>Create Single</button>
+                        <button>
+                        <Link className="create-btn header-btn" to="/create" >Create Single</Link>
+                        </button>
                     </div>
 
                     <div className="create-option create-multiple">

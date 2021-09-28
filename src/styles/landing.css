@@ -165,6 +165,9 @@ main {
   justify-content: center;
   margin-top: 2rem;
 }
+.explore-btn-link{
+  color: rgba(0,0,0) !important;
+}
 .load-more {
   background: transparent;
   border: 1px solid #441ebf;

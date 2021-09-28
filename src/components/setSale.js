@@ -19,7 +19,7 @@ const SetSale = (props) => {
     }
 
     const backToProfile =()=> {
-        props.setPage("profile");
+        
         props.fetchUserTokens();
     }
 

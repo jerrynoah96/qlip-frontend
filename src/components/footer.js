@@ -40,8 +40,6 @@ const Footer = ()=> {
                    <a href="">Telegram</a>
                    <a href="">Youtube</a>
                    <a href="">Medium</a>
-                   
-
                </div>
 
            </div>
