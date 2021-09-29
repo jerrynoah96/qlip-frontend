@@ -33,13 +33,29 @@
 }
 
 .nft-card .nft-details .detail-1,
-.nft-card .nft-details .detail-2 {
-  display: flex;
+.nft-card .nft-details .detail-2,
+.detail-3
+ {
+  display: flex !important;
   justify-content: space-between;
   align-items: flex-end;
+  align-items: center !important;
   margin-bottom: 1.5rem;
   font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.5);
+}
+
+
+
+.detail-3 img{
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.detail-3{
+
+  align-items: center !important;
 }
 
 .nft-card .nft-details .detail-2 {
@@ -114,8 +130,9 @@
 
 @media only screen and (max-width: 600px) {
   .nft-card {
+    padding: 1rem 1rem;
     width: 100%;
-    width: 90vw;
     margin: 1rem 0;
   }
+  
 }

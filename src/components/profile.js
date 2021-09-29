@@ -6,6 +6,7 @@ import penIcon from "../images/penIcon.svg";
 import productImage from "../images/product_img.svg"
 // import imagePlaceholderIcon from "./assets/Icon_Image.svg"
 import profilePic from "../images/Profile_picture.png"
+import shareIcon from "../images/share-icon.png";
 // import editIcon from "./assets/Edit_icon.svg"
 import verifiedIcon from "../images/icons8_verified_account.svg"
 import NFTCard from "./profileNFTCard";
@@ -17,12 +18,15 @@ import "../styles/NFTCard.css";
 import classNames from 'classnames';
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import Loader from "./Loader"
+import { TwitterShareButton, WhatsappShareButton } from "react-share";
+import { TwitterIcon, WhatsappIcon } from "react-share";
 
 const Profile = (props) => {
   let history = useHistory();
  // const [tokensArray, setTokensArray] = useState([]);
 const setSaleRef = useRef(null);
 const [isModalOpen, setIsModalOpen] = useState(false);
+const [show, setShow] = useState(false);
 
  const urlList = props.tokenUrls;
  console.log(urlList, 'url list')
@@ -36,6 +40,9 @@ const [isModalOpen, setIsModalOpen] = useState(false);
   const [address, setAddress] = useState(props.contractDetails.account);
   const [coverPhoto, setCoverPhoto] = useState();
   const [userAvatar, setUserAvatar] = useState();
+  const [shareTokenName, setShareTokenName] = useState();
+  const [shareTokenId, setShareTokenId] = useState();
+  
 
 
   
@@ -71,6 +78,21 @@ const [isModalOpen, setIsModalOpen] = useState(false);
       setCoverPhoto(selectedPhoto)
     }
 
+   const handleClose = ()=> {
+      setShow(false);
+    }
+
+    const shareNFT=(token)=> {
+      const tokenName = token.name;
+      const tokenId = token.id;
+
+      setShow(true);
+      setShareTokenName(tokenName);
+      setShareTokenId(tokenId);
+      
+      console.log(token, 'token to be in useState')
+    }
+
     const handleUserAvatar=(e)=> { 
       const selectedAvatar = URL.createObjectURL(e.target.files[0]);
        setUserAvatar(selectedAvatar);
@@ -96,10 +118,17 @@ const [isModalOpen, setIsModalOpen] = useState(false);
               <p><span>Highest bid </span>0.001 BNB</p>
               <p><span>new bid &#128293;</span></p>
           </div>
+          <div className="detail-3">
+            <p><span>share </span></p>
+            <img onClick={()=> {
+              shareNFT(token)}} 
+            src = {shareIcon} alt = "nft product" className = "share-btn"/>
+          </div>
       </div>
       { token.tokenState == 2 ? <button className = "buy-btn"
-       onClick={()=> {
-       props.resetSale(token)
+       onClick={async ()=> {
+         console.log(token, 'selected token')
+        await props.resetSale(token)
         history.push(`/set-sale/${token.id}`)
        }}>Set To Sale</button> : ''}
   </div>
@@ -131,10 +160,14 @@ const [isModalOpen, setIsModalOpen] = useState(false);
               <p><span>Highest bid </span>0.001 BNB</p>
               <p><span>new bid &#128293;</span></p>
           </div>
+          <div className="detail-3">
+            <p><span>share </span></p>
+            <img src = {shareIcon} alt = "nft product" className = "share-btn"/>
+          </div>
       </div>
       { token.tokenState == 2 ? <button className = "buy-btn"
-       onClick={()=> {
-        props.resetSale(token)
+       onClick={async()=> {
+       await props.resetSale(token)
         history.push(`/set-sale/${token.id}`)
        }}>Set To Sale</button> : ''}
   </div>
@@ -162,10 +195,14 @@ const [isModalOpen, setIsModalOpen] = useState(false);
               <p><span>Highest bid </span>0.001 BNB</p>
               <p><span>new bid &#128293;</span></p>
           </div>
+          <div className="detail-3">
+            <p><span>share </span></p>
+            <img src = {shareIcon} alt = "nft product" className = "share-btn"/>
+          </div>
       </div>
       { token.tokenState == 2 ? <button className = "buy-btn"
-       onClick={()=> {
-        props. resetSale(token)
+       onClick={async()=> {
+       await props.resetSale(token)
         history.push(`/set-sale/${token.id}`)
        }}>Set To Sale</button> : ''}
   </div>
@@ -215,6 +252,26 @@ const [isModalOpen, setIsModalOpen] = useState(false);
 
     return(
       <>
+        <Modal show={show} onHide={handleClose}>
+                <Modal.Body>
+                   <div className="share-icons">
+                      <WhatsappShareButton 
+                      title={"Get "+shareTokenName+" on Qlip"}
+                      url={"https://qlt.netlify.app/exhibit/"+shareTokenId}>
+                     
+                        <WhatsappIcon round={true}>
+
+                        </WhatsappIcon>
+                      </WhatsappShareButton>
+
+                      <TwitterShareButton>
+                        <TwitterIcon round={true}>
+
+                        </TwitterIcon>
+                      </TwitterShareButton>
+                   </div>
+                </Modal.Body>
+            </Modal>
         <div className = "profile-main-body">
         <div className = "cover-photo-container">
           <img src = {coverPhoto} alt = "header"className = "cover-photo-image" />

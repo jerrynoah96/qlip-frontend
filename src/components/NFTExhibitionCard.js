@@ -2,17 +2,15 @@ import "../styles/nftExhibitionCard.css"
 const NFTExhibitionCard = ({imgSrc, name, description, price, rightText, leftText}) => {
     return(
         <div className = "nft-container">
-            <div className = "nft-picture-container">
-                <img src = {imgSrc} className = "nft-picture" alt = "nft" />
+            <div className = "nft-picture-container-card">
+                <img src = {imgSrc} className = "nft-image" alt = "nft" />
             </div>
-            <div className = "nft-description">
+            <div className = "nft-descriptn">
                 <h1 className = "nft-name">{name}</h1>
-                <div className = "info-container">
-                   
-                    <p className = "nft-decsriptive-text">{description}</p>
-                    <span className="left-vertical-text">{leftText}</span>
-                    <span className = "right-vertical-text">{rightText}</span>
-                    
+                <div className = "details-container"> 
+                    <p className = "decsriptive-text">{description}</p>
+                    <span className="left-text">{leftText}</span>
+                    <span className = "right-text">{rightText}</span>
                 </div>
             </div>
             <h2 className = "nft-price">{price}</h2>

@@ -219,6 +219,31 @@
 .nfts-section .nfts-container::-webkit-scrollbar {
   display: none;
 }
+.modal-dialog{
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal-content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal-body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  justify-content: space-between;
+}
+.share-icons{
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
+}
+
 
 @media only screen and (min-width: 950px) {
   .profile-main-body .content-section {

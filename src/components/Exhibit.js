@@ -86,11 +86,11 @@ const Exhibit = (props) => {
                         <div className = "selected-item-content">
                             <div className = "group-one">
                                 <p className = "contractAddress-key">Contract Address</p>
-                                <p className = "contractAddress-value">{pageData.contractAddress}</p>
+                                <p className = "contractAddress-value">{props.contractDetails.contractAddress}</p>
                             </div>
                             <div className = "group-two">
                                 <p className = "tokenId-key">Token ID</p>
-                                <p className = "tokenId-value">{pageData.token_id}</p>
+                                <p className = "tokenId-value">{pageData.id}</p>
                             </div>
                             <div className = "group-three">
                                 <p className = "creator-key">Creator</p>

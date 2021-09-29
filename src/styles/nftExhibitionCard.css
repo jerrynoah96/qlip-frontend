@@ -6,17 +6,17 @@
   margin-bottom: 1rem;
 }
 
-.nft-picture-container {
+.nft-picture-container-card {
   width: 100%;
   height: 60%;
 }
 
-.nft-picture {
+.nft-image {
   width: 100%;
   height: 100%;
 }
 
-.nft-description {
+.nft-descriptn {
   position: relative;
   padding: 1rem 0;
   color: #fff9df;
@@ -33,22 +33,22 @@
   font-size: 1.4rem;
 }
 
-.info-container {
+.details-container {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.nft-decsriptive-text {
+.decsriptive-text {
   text-align: center;
   letter-spacing: 2px;
   font-size: 0.7rem;
   padding: 0 2.5rem;
 }
 
-.left-vertical-text,
-.right-vertical-text {
+.left-text,
+.right-text {
   position: absolute;
   writing-mode: vertical-rl;
   text-orientation: upright;
@@ -57,11 +57,11 @@
   text-align: center;
 }
 
-.left-vertical-text {
+.left-text {
   left: 0.5rem;
 }
 
-.right-vertical-text {
+.right-text {
   right: 0.5rem;
   letter-spacing: 0.5rem;
 }
@@ -82,7 +82,7 @@
     width: 18rem;
   }
 
-  .nft-description {
+  .nft-descriptn {
     padding: 0.5rem 0;
   }
 
@@ -92,12 +92,12 @@
     font-size: 1.2rem;
   }
 
-  .nft-decsriptive-text {
+  .decsriptive-text {
     margin-bottom: 0.8rem;
   }
 
-  .left-vertical-text,
-  .right-vertical-text {
+  .left-text,
+  .right-text {
     font-size: 0.5rem;
   }
 
@@ -112,7 +112,7 @@
     width: 15rem;
   }
 
-  .nft-description {
+  .nft-descriptn {
     padding: 0.2rem 0;
   }
 
@@ -122,12 +122,12 @@
     font-size: 1rem;
   }
 
-  .nft-decsriptive-text {
+  .decsriptive-text {
     margin-bottom: 0.6rem;
   }
 
-  .left-vertical-text,
-  .right-vertical-text {
+  .left-text,
+  .right-text {
     font-size: 0.5rem;
   }
 
@@ -142,7 +142,7 @@
     width: 20rem;
   }
 
-  .nft-description {
+  .nft-descriptn {
     padding: 0.5rem 0;
   }
 
@@ -152,13 +152,13 @@
     font-size: 1.2rem;
   }
 
-  .nft-decsriptive-text {
+  .decsriptive-text {
     font-size: 0.7rem;
     margin-bottom: 2rem;
   }
 
-  .left-vertical-text,
-  .right-vertical-text {
+  .left-text,
+  .right-text {
     font-size: 0.4rem;
   }
 

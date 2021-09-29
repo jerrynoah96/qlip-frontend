@@ -61,7 +61,8 @@ const Landing = props => {
         setArt(artObj);
           
         console.log(artObj, 'art category')
-          if(tokenObj.length === allTokensArray.length) setTokenObjects(tokenObj)
+         // if(tokenObj.length === allTokensArray.length) 
+          setTokenObjects(tokenObj)
         })
         console.log(tokenObjects, 'token objects')
     } 

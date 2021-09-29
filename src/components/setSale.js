@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import "../styles/setSale.css";
 import closeIcon from "../images/iCon_Close.svg"
 import warningIcon from "../images/icons_Warning_Shield.svg"
@@ -9,9 +10,10 @@ const SetSale = (props) => {
     const [progressText, setProgressText] = useState('');
     const [newAmount, setUserAmount]= useState();
     
+    let history = useHistory();
+
+    const selectedToken = props.selectedToken;
     
-    const selectedToken = props.tokenInfo;
-    console.log(props.tokenInfo, 'token to be sold in setsale')
     const tokenName = selectedToken.name;
 
     const handleClose = ()=> {
@@ -21,6 +23,7 @@ const SetSale = (props) => {
     const backToProfile =()=> {
         
         props.fetchUserTokens();
+        history.push('/profile')
     }
 
     const handleInput=async (e)=> {
@@ -46,7 +49,10 @@ const SetSale = (props) => {
        })
 
        if(setSaleReciept.status == true){
-        setProgressText("You have set "+ tokenName +" for sale, You can go to the markeplace to see the new exhibit");
+        await setProgressText("You have set "+ tokenName +" for sale, You can go to the markeplace to see the new exhibit");
+        history.push('/');
+
+        
        }
       } 
 

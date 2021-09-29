@@ -1,4 +1,5 @@
 import { forwardRef, useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import BigNumber from "bignumber.js";
 import "../styles/checkoutModal.css";
 import closeIcon from "../images/iCon_Close.svg"
@@ -10,6 +11,8 @@ const CheckoutModal = forwardRef((props, ref) => {
     const [progressText, setProgressText] = useState('');
     const [userBal, setUserBal]= useState('');
     const [com, setCommission] = useState();
+
+    let history = useHistory();
     
     
 
@@ -25,16 +28,18 @@ const CheckoutModal = forwardRef((props, ref) => {
 
         setShow(true);
         setProgressText("Processing your order");
-        const valueInWei = (await props.web3.utils.toWei(props.tokenDetails.price));
+      //  const valueInWei = (await props.web3.utils.toWei(props.tokenDetails.price));
         
         
-        const amountToPay = await props.tokenDetails.price;
+    //    const amountToPay = await props.tokenDetails.price;
         const contractAddress = await props.contractDetails.contractAddress;
         
         const account = await props.contractDetails.account;
-        const id = await props.tokenDetails.token_id;
+        const id = await props.tokenDetails.id;
+        
         const amountToBePaid = await props.contractDetails.contractInstance.methods.getSalePrice(id).call();
         
+       console.log(account,id, amountToBePaid, 'right?' )
         
      const purchaseReciept = await props.contractDetails.contractInstance.methods.buyTokenOnSale(id,
             contractAddress).send({
@@ -43,7 +48,8 @@ const CheckoutModal = forwardRef((props, ref) => {
         });
 
         if(purchaseReciept.status == true){
-            setProgressText("You have successfully bought this NFT");
+           await setProgressText("You have successfully bought this NFT");
+            if(history) history.push('/profile');
         }
 
     }
@@ -52,6 +58,7 @@ const CheckoutModal = forwardRef((props, ref) => {
 
     const checkUserBal = async()=> {
         const bal = await props.web3.eth.getBalance(await props.contractDetails.account);
+        
         const balance = await props.web3.utils.fromWei(bal);
         setUserBal(balance)
     }

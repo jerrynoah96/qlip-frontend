@@ -128,17 +128,18 @@ handleClose=()=> {
   })
 }
 
-ResetSale =(nft)=> {
-  const nft_name = nft.name;
+ResetSale =async(nft)=> {
+const nft_name = nft.name;
   const nft_id = nft.id;
   
-  this.setState({
+ await this.setState({
     setSaleToken: {
       ...this.state.setSaleToken,
       name: nft_name,
       id: nft_id
     }
   })
+  
 }
 
 

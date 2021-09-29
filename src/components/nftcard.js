@@ -16,7 +16,7 @@ const NFTCard = ({name, imageSrc, price, uniqueId}) => {
             <div className = "nft-details">
                 <h3 className = "nft-name">{name}</h3>
                 <div className = "detail-1">
-                    <h4>{price} QLIP</h4>
+                    <h4>{price} BNB</h4>
                     <p>1 of 1</p>
                 </div>
                 <div className = "detail-2">
