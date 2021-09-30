@@ -35,7 +35,7 @@ const Exhibit = (props) => {
 
         const currentNFT = props.allTokensArray.find(token => token.id === tokenId);
 
-        if(!currentNFT) return history.replace("/");
+      //  if(!currentNFT) return history.replace("/");
         
         setPageData(currentNFT)
         
