@@ -22,34 +22,35 @@
   padding: 2rem;
 }
 
-.modal-head {
+.modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
 }
 
-.modal-head h1 {
+.modal-header h1 {
   font-size: 1.6rem;
 }
 
-.modal-head .cancel-icon-contaner {
+.modal-header .cancel-icon-contaner {
   padding: 0.5rem;
   border: 0.5px solid rgba(224, 222, 222, 0.2);
   border-radius: 50%;
 }
 
-.modal-body {
+.modal-details {
   font-size: 0.9rem;
 }
 
-.modal-body .about-to-buy span {
+.modal-details .about-to-buy span {
   color: #b49dff;
 }
-.modal-body .price-details-container {
+.modal-details .price-details-container {
   margin-top: 2rem;
+  
 }
-.modal-body .price-detail {
+.modal-details .price-detail {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -57,11 +58,11 @@
   padding-bottom: 1rem;
 }
 
-.modal-body .price-detail p span {
+.modal-details .price-detail p span {
   color: #777e90;
 }
 
-.modal-body .price-detail:first-of-type {
+.modal-details .price-detail:first-of-type {
   border-bottom: 0.5px solid rgba(224, 222, 222, 0.2);
 }
 

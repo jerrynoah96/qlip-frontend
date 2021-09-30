@@ -1,19 +1,17 @@
-import {useRef, useState, useEffect} from 'react'
+import {useState} from 'react'
 import { NavLink, useHistory } from 'react-router-dom';
 import logo from '../images/logo.svg';
-import { Navbar, Nav  } from 'react-bootstrap';
 import Web3 from "web3";
 import Web3Modal from "web3modal";
-import Portis from "@portis/web3";
+//import Portis from "@portis/web3";
 //import WalletConnectProvider from "@walletconnect/web3-provider";
-import WalletConnectProvider from "@maticnetwork/walletconnect-provider";
-import Matic from "maticjs"
-import Authereum from "authereum";
+//import WalletConnectProvider from "@maticnetwork/walletconnect-provider";
+//import Authereum from "authereum";
 import { Link } from 'react-scroll';
 import '../styles/nav.css';
 
 
-const providerOptions = {
+/*const providerOptions = {
 
  
 
@@ -37,7 +35,7 @@ const providerOptions = {
   
 };
 //
-/* const maticProvider = new WalletConnectProvider(
+ const maticProvider = new WalletConnectProvider(
   {
     host: `https://rpc-mainnet.maticvigil.com/v1/667df0542e7c154bb9f8da50d08feb1d9613c1a8`,
     callbacks: {
@@ -55,7 +53,6 @@ let btnText = "Connect Wallet"
 const NavBar = (props) => {
 
   const history = useHistory();
-  const mobileHamburger = useRef(null);
   const [click, setClick] = useState(false);
 
 
@@ -63,13 +60,13 @@ const NavBar = (props) => {
   const handleClick = () => setClick(!click);
   
 
-  const [screenSize, setScreenSize] = useState(window.innerWidth)
+/*  const [screenSize, setScreenSize] = useState(window.innerWidth)
 
   useEffect(() => {
     window.onresize = () => {
       setScreenSize(window.innerWidth)
     }
-  },)
+  },) */
 
   async function showWeb3Modal() {
 

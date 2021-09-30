@@ -1,5 +1,5 @@
 import { Link } from 'react-scroll';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 import '../styles/landing.css';
 
 const Header = (props) => {

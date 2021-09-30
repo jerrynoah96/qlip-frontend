@@ -43,12 +43,12 @@ const SetSale = (props) => {
       })
 
       setProgressText('finalizing new Price value');
-      if(approveReciept.status == true){
+      if(approveReciept.status === true){
         const setSaleReciept=  await props.contractDetails.contractInstance.methods.setSale(selectedToken.id, newAmount, props.contractDetails.contractAddress).send({
            from: props.contractDetails.account   
        })
 
-       if(setSaleReciept.status == true){
+       if(setSaleReciept.status === true){
         await setProgressText("You have set "+ tokenName +" for sale, You can go to the markeplace to see the new exhibit");
         history.push('/');
 
@@ -73,7 +73,7 @@ const SetSale = (props) => {
         <Modal show={show} onHide={handleClose}>
         <Modal.Body>
             <span>{progressText}</span>
-            <img src="https://cdn.dribbble.com/users/419257/screenshots/1724076/scanningwoohoo.gif"/>
+            <img src="https://cdn.dribbble.com/users/419257/screenshots/1724076/scanningwoohoo.gif" alt="progress logo"/>
         </Modal.Body>
       </Modal>
             <div className = "checkout-modal-sell">

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Web3 from "web3";
 import NavBar from './components/navbar';
-import Header from './components/header';
 import ChooseCreate from './components/chooseCreate';
 import Create from './components/create';
 import Options from './components/Options';
@@ -14,9 +13,6 @@ import Exhibit from './components/Exhibit';
 import SetSale from './components/setSale';
 import {Route, Switch, BrowserRouter as Router} from "react-router-dom"
 import './App.css';
-
-
-
 
 class App extends Component  {
   constructor(props){
@@ -248,7 +244,7 @@ FetchAllTokens = async () => {
     tokenInfo.name = res.item_name;
     tokenInfo.description = res.description;
      
-    if(tokenInfo.tokenState == 1) {
+    if(tokenInfo.tokenState === '1') {
       allTokensArray.push(tokenInfo)
     }
     

@@ -28,7 +28,7 @@ const TopSellers = ({profilePic, name, number, balance}) => {
             <div className = "seller-profile">
                 <div className = "profile-picture-container">
                     <img src = {profilePic} alt = "seller profile avatar" className = "profile-picture" />
-                    <img src = {verifiedIcon} all = "verified user" className = "verified-icon" />
+                    <img src = {verifiedIcon} alt = "verified user" className = "verified-icon" />
                 </div>
                 <h5 className = "seller-username">{name}</h5>
                 <p className = "seller-balance">{balance}<span> BNB</span></p>

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Link, useHistory, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import uploadIcon from '../images/upload-icon.png';
 import arrow from '../images/arrow.svg';
 import signIcon from '../images/sign-icon.png';
@@ -135,7 +135,7 @@ MintNft=async(e)=> {
             
             console.log(tokenId, price, contractAddress, 'tokenid and price');
 
-           if(mint_reciept.status == true){
+           if(mint_reciept.status === true){
             this.setState({
                 progressText: "approving your NFT to Sale",
                 loaderUrl: "https://i.gifer.com/ZZ5H.gif"
@@ -155,14 +155,14 @@ MintNft=async(e)=> {
                     
                     })
                     //once set to approve runs, then call setToSale 
-                if(approveReciept.status == true){
+                if(approveReciept.status === true){
                   const setSaleReciept =  await this.props.contractDetails.contractInstance.methods.setSale(tokenId, price, contractAddress).send({
                         from: account,
                         
                        })
 
 
-                       if(setSaleReciept.status == true){
+                       if(setSaleReciept.status === true){
                         await this.props.fetchUserTokens();
                         const { history } = this.props;
                         if(history) history.push('/profile');
@@ -194,21 +194,19 @@ MintNft=async(e)=> {
 
 
 render(){
-    const { history } = this.props;
-
-
+    
     return(
         <div className="options">
             <Modal show={this.state.show} onHide={this.handleClose}>
                 <Modal.Body>
                     <span>{this.state.progressText}</span>
-                    <img src={this.state.loaderUrl}/>
+                    <img src={this.state.loaderUrl} alt="loader"/>
                 </Modal.Body>
             </Modal>
             <div className="option-header">
                 <Link to="/create">
                     <img className="back-icon"
-                    src={arrow}/>
+                    src={arrow} alt="loader"/>
 
                 </Link>
                 

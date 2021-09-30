@@ -1,43 +1,33 @@
-import React,{useRef, useState, useEffect} from "react";
+import React,{useState, useEffect} from "react";
 import { useHistory } from "react-router-dom";
 import headerImg from "../images/Header_Image.png";
 import LineImg from "../images/Line.svg";
 import penIcon from "../images/penIcon.svg";
-import productImage from "../images/product_img.svg"
-// import imagePlaceholderIcon from "./assets/Icon_Image.svg"
 import profilePic from "../images/Profile_picture.png"
 import shareIcon from "../images/share-icon.png";
 // import editIcon from "./assets/Edit_icon.svg"
 import verifiedIcon from "../images/icons8_verified_account.svg"
-import NFTCard from "./profileNFTCard";
 import Modal from 'react-bootstrap/Modal';
-import SetSale from "./setSale";
-import axios from "axios";
 import "../styles/profile.css";
 import "../styles/NFTCard.css";
 import classNames from 'classnames';
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import Loader from "./Loader"
 import { TwitterShareButton, WhatsappShareButton } from "react-share";
 import { TwitterIcon, WhatsappIcon } from "react-share";
 
 const Profile = (props) => {
   let history = useHistory();
  // const [tokensArray, setTokensArray] = useState([]);
-const setSaleRef = useRef(null);
-const [isModalOpen, setIsModalOpen] = useState(false);
 const [show, setShow] = useState(false);
 
  const urlList = props.tokenUrls;
  console.log(urlList, 'url list')
  
-  const [tokenDetails, setTokenDetails]= useState([]);
-  const [tokenObjects, setTokenObjects] = useState([]);
-  const [tokenInfo, setTokenInfo] = useState();
+  const [tokenObjects] = useState([]);
   const [allOnsale, setOnSaleTokenDisplay]= useState([]);
   const [notforSale, setNotForSaleDisplay]= useState([]);
   const [displayPointer, setDisplayPointer] = useState('all');
-  const [address, setAddress] = useState(props.contractDetails.account);
+  const [address] = useState(props.contractDetails.account);
   const [coverPhoto, setCoverPhoto] = useState();
   const [userAvatar, setUserAvatar] = useState();
   const [shareTokenName, setShareTokenName] = useState();
@@ -54,11 +44,11 @@ const [show, setShow] = useState(false);
     urlList.map(async token => {
       // get token state
       const tokenState = await props.contractDetails.contractInstance.methods.getNFTState(token.id).call();
-      if(tokenState == 2){
+      if(tokenState === '2'){
         await  notOnSale.push(token)
           
       }
-      if(tokenState == 1){
+      if(tokenState === '1'){
         await onSale.push(token)   
       }
       
@@ -125,7 +115,7 @@ const [show, setShow] = useState(false);
             src = {shareIcon} alt = "nft product" className = "share-btn"/>
           </div>
       </div>
-      { token.tokenState == 2 ? <button className = "buy-btn"
+      { token.tokenState === 2 ? <button className = "buy-btn"
        onClick={async ()=> {
          console.log(token, 'selected token')
         await props.resetSale(token)
@@ -165,7 +155,7 @@ const [show, setShow] = useState(false);
             <img src = {shareIcon} alt = "nft product" className = "share-btn"/>
           </div>
       </div>
-      { token.tokenState == 2 ? <button className = "buy-btn"
+      { token.tokenState === 2 ? <button className = "buy-btn"
        onClick={async()=> {
        await props.resetSale(token)
         history.push(`/set-sale/${token.id}`)
@@ -200,7 +190,7 @@ const [show, setShow] = useState(false);
             <img src = {shareIcon} alt = "nft product" className = "share-btn"/>
           </div>
       </div>
-      { token.tokenState == 2 ? <button className = "buy-btn"
+      { token.tokenState === 2 ? <button className = "buy-btn"
        onClick={async()=> {
        await props.resetSale(token)
         history.push(`/set-sale/${token.id}`)
@@ -225,28 +215,28 @@ const [show, setShow] = useState(false);
     },[])
 
     let currentDisplay;
-    if(displayPointer == 'all'){
+    if(displayPointer === 'all'){
       currentDisplay = displayTokens
     }
 
-    if(displayPointer == 'on sale'){
+    if(displayPointer === 'on sale'){
       currentDisplay = tokensOnSale
     }
 
-    if(displayPointer == 'tokens not on sale'){
+    if(displayPointer === 'tokens not on sale'){
       currentDisplay = tokensNotOnSale
     }
 
     const allBtn = classNames('',{
-      'active-nft-nav': currentDisplay == displayTokens
+      'active-nft-nav': currentDisplay === displayTokens
     })
    
     const onSaleBtn = classNames('',{
-      'active-nft-nav': currentDisplay == tokensOnSale
+      'active-nft-nav': currentDisplay === tokensOnSale
     })
   
     const notOnSaleBtn = classNames('',{
-      'active-nft-nav': currentDisplay == tokensNotOnSale
+      'active-nft-nav': currentDisplay === tokensNotOnSale
     })
 
 

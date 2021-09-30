@@ -1,7 +1,5 @@
 import {useRef, useState, useEffect} from "react"
-import NFT from "../images/OSHUN_NFT.png"
 import profilePic from "../images/Profile_picture.png"
-import qlipLogo from "../images/Qlip-Logo.svg"
 import verifiedIcon from "../images/icons8_verified_account.svg"
 import CheckoutModal from "./CheckoutModal"
 import {useParams} from 'react-router-dom'

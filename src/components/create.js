@@ -1,17 +1,12 @@
 import React, {Component} from 'react';
 import switchLogo from '../images/switch.png';
-import audioLogo from '../images/music-collection-logo.svg';
-import reelLogo from '../images/reel-collection-logo.svg';
-import artLogo from '../images/art-collection-logo.svg';
-import addIcon from '../images/add-icon.svg';
 import arrow from '../images/arrow.svg';
 import closeIcon from "../images/iCon_Close.svg";
-import { Link, useHistory, withRouter } from 'react-router-dom';
+import {withRouter } from 'react-router-dom';
 import autoSaveIcon from '../images/autosaving.svg';
 import { ToggleButton } from "./toggleButton";
 import Preview from './create-preview';
 import classNames from 'classnames';
-import Modal from 'react-bootstrap/Modal';
 import '../styles/create.css';
 
 
@@ -132,9 +127,9 @@ class Create extends Component {
 
 
 render(){
-    const { history } = this.props;
+    
     const previewClass = classNames('preview', {
-        'preview-mobile': this.state.preview_btn == true
+        'preview-mobile': this.state.preview_btn === true
     })
 
     return(
@@ -161,7 +156,7 @@ render(){
 
 
             { this.state.loaderShow ? <div className="progress-loader" display={this.state.loaderShow}>
-                <img src={this.state.loaderUrl} />
+                <img src={this.state.loaderUrl} alt="loader" />
                 <span>{this.state.progressText}</span>
                 </div>: null 
             }

@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import TogglePreviewButton from './previewToggler';
-import mapImg from '../images/map.png';
 import '../styles/create-preview.css';
 
 

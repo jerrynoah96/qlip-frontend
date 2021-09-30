@@ -1,6 +1,7 @@
 import React from 'react';
 import lock from '../images/lock.svg';
 import logo from '../images/logo.svg';
+import { Link } from 'react-scroll';
 import '../styles/footer.css';
 
 
@@ -27,19 +28,29 @@ const Footer = ()=> {
 
                </div>
                <div className="footer-column column1">
-                   <a href="">Mint Store</a>
-                   <a href="">Marketplace</a>
-                   <a href="">Roadmap</a>
-                   <a href="">QLIP Token</a>
-                   <a href="">Whitepaper</a>
+                    <Link
+                    exact
+                    to="/chooseCreate"
+                    className="nav-links"
+                    
+                    >
+                    Mint Store
+                    </Link>
+
+                   <Link className="nav-link" to="qlip-nfts" smooth={true} duration={1000}
+                    >
+                     Markeplace
+                    </Link>
+                   
 
                </div>
 
                <div className="footer-column column2">
-                   <a href="">Twitter</a>
-                   <a href="">Telegram</a>
-                   <a href="">Youtube</a>
-                   <a href="">Medium</a>
+                   <a href="https://twitter.com/Qlip_it?s=09">Twitter</a>
+                   <a href="https://t.me/qlipit">Telegram</a>
+                   <a href="https://youtu.be/Zj58i_j17YA">Youtube</a>
+                   <a href="https://qlipit-io.medium.com/">Medium</a>
+                   <a href="https://discord.gg/bJB5jBqn5n">Discord</a>
                </div>
 
            </div>

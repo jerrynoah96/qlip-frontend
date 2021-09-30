@@ -1,6 +1,5 @@
 import { forwardRef, useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import BigNumber from "bignumber.js";
 import "../styles/checkoutModal.css";
 import closeIcon from "../images/iCon_Close.svg"
 import warningIcon from "../images/icons_Warning_Shield.svg"
@@ -10,7 +9,6 @@ const CheckoutModal = forwardRef((props, ref) => {
     const [show, setShow] = useState(false);
     const [progressText, setProgressText] = useState('');
     const [userBal, setUserBal]= useState('');
-    const [com, setCommission] = useState();
 
     let history = useHistory();
     
@@ -47,7 +45,7 @@ const CheckoutModal = forwardRef((props, ref) => {
             value: amountToBePaid
         });
 
-        if(purchaseReciept.status == true){
+        if(purchaseReciept.status === true){
            await setProgressText("You have successfully bought this NFT");
             if(history) history.push('/profile');
         }
@@ -73,17 +71,18 @@ const CheckoutModal = forwardRef((props, ref) => {
     <Modal show={show} onHide={handleClose}>
         <Modal.Body>
             <span>{progressText}</span>
-            <img src="https://cdn.dribbble.com/users/419257/screenshots/1724076/scanningwoohoo.gif"/>
+            <img src="https://cdn.dribbble.com/users/419257/screenshots/1724076/scanningwoohoo.gif"
+            alt="loader"/>
         </Modal.Body>
       </Modal>
             <div className = "checkout-modal">
-                <div className = "modal-head">
+                <div className = "modal-header">
                     <h1>Pay For NFT</h1>
                     <div className = "cancel-icon-contaner" onClick = {props.closeModal}>
                         <img src = {closeIcon} className = "" alt = "close" />
                     </div>
                 </div>
-                <div className = "modal-body">
+                <div className = "modal-details">
                     <p className = "about-to-buy">You are about to buy <span>{props.tokenDetails.item_name}</span> from Karla.</p>
                     <div className = "price-details-container">
                         <div className = "price-detail">
@@ -113,7 +112,8 @@ const CheckoutModal = forwardRef((props, ref) => {
                     <div className = "button-group">
                         <button class = "pay-button"
                         onClick={payForNFT}>Pay for NFT now</button>
-                        <button class = "cancel-button">Cancel</button>
+                        <button className= "cancel-button"
+                        onClick = {props.closeModal}>Cancel</button>
                     </div>
                 </div>
             </div>

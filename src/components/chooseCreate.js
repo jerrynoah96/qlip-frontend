@@ -1,18 +1,11 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import singleLogo from '../images/single.svg';
 import multipleLogo from '../images/multiple.svg';
 import '../styles/chooseCreate.css';
 
 
 const ChooseCreate = (props)=> {
-    let currentpage = 'create';
-    const setPage=(page)=> {
-        page = currentpage;
-        props.setPage(page);
-
-    }
-
 
     return(
         <div className="choose-create">
