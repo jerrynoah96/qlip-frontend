@@ -31,11 +31,11 @@ const Exhibit = (props) => {
     }
 
     useEffect(() => {
-       // if(!tokenId) return history.replace("/");
+        if(!tokenId) return history.replace("/");
 
         const currentNFT = props.allTokensArray.find(token => token.id === tokenId);
 
-      //  if(!currentNFT) return history.replace("/");
+        if(!currentNFT) return history.replace("/");
         
         setPageData(currentNFT)
         
