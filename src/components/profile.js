@@ -247,7 +247,7 @@ const [show, setShow] = useState(false);
                    <div className="share-icons">
                       <WhatsappShareButton 
                       title={"Get "+shareTokenName+" on Qlip"}
-                      url={"https://qlt.netlify.app/exhibit/"+shareTokenId}>
+                      url={"https://clip-frontend.vercel.app/exhibit/"+shareTokenId}>
                      
                         <WhatsappIcon round={true}>
 
