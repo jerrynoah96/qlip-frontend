@@ -19,6 +19,7 @@ const Profile = (props) => {
   let history = useHistory();
  // const [tokensArray, setTokensArray] = useState([]);
 const [show, setShow] = useState(false);
+const [showForm, setShowForm] = useState(false);
 
  const urlList = props.tokenUrls;
  console.log(urlList, 'url list')
@@ -239,6 +240,10 @@ const [show, setShow] = useState(false);
       'active-nft-nav': currentDisplay === tokensNotOnSale
     })
 
+    const formClass = classNames('profile-edit-form', {
+      'form-class':  showForm === true
+  })
+
 
     return(
       <>
@@ -262,6 +267,19 @@ const [show, setShow] = useState(false);
                    </div>
                 </Modal.Body>
             </Modal>
+       {/*  form display for profile edit */}
+            <div className={formClass}>
+              <p className="form-close"
+              onClick={()=> {
+                setShowForm(false)
+              }}>+</p>
+              <form>
+                <input className="username-input" type="text"/>
+                <textarea></textarea>
+                <button>submit</button>
+              </form>
+
+            </div>
         <div className = "profile-main-body">
         <div className = "cover-photo-container">
           <img src = {coverPhoto} alt = "header"className = "cover-photo-image" />
@@ -290,6 +308,15 @@ const [show, setShow] = useState(false);
                 <h2>Anonymous <img src = {verifiedIcon} className = "verified-icon" alt = "verified icon" /></h2>
                 <p className = "address">{address.slice(0,7).concat('...').concat(address.slice(11,18)) }</p>
               </div>
+
+              {/* this icon here should form display for profile edit */}
+              <div className="pen-icon-container edit-profile-icon"
+              onClick={()=> {
+                setShowForm(true)
+              }}>
+                    <img src={penIcon} alt="edit-icon" className="edit-icon"/>
+                </div>
+
               <div className = "user-about-section">
                 <p>A 2D hyper-realist artist with 10 years experience designing portrait for influential celebrities and goverment officials</p>
               </div>

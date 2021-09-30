@@ -24,7 +24,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  display: none;
+  
 }
 .cover-photo-edit img{
   margin-left: 1rem;
@@ -68,7 +68,40 @@
 
 }
 
-
+.edit-profile-icon{
+  cursor: pointer;
+}
+.profile-edit-form{
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0,0,0, 0.5);
+  z-index: 999;
+  display: none;
+  position: fixed;
+}
+.form-close{
+  font-size: 1.5rem;
+  transform: rotate(45deg);
+  position: absolute;
+  top: 20%;
+  right: 30%;
+  color: white;
+  cursor: pointer;
+}
+.profile-edit-form form{
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  justify-content: space-between;
+}
+.form-class{
+  display: flex;
+}
 
 .user-profile-card
   .user-details-section
@@ -85,7 +118,7 @@
   right: 1% !important;
   border-radius: 50% !important;
   padding: 0.2rem;
-  display: none;
+  
 }
 
 #avatar-input{
