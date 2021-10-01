@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from "react";
+import React,{useState, useEffect, Component} from "react";
 import { useHistory } from "react-router-dom";
 import headerImg from "../images/Header_Image.png";
 import LineImg from "../images/Line.svg";
@@ -14,8 +14,11 @@ import classNames from 'classnames';
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { TwitterShareButton, WhatsappShareButton } from "react-share";
 import { TwitterIcon, WhatsappIcon } from "react-share";
+import axios from "axios";
+ 
+const Profile = (props) =>  {
 
-const Profile = (props) => {
+  
   let history = useHistory();
  // const [tokensArray, setTokensArray] = useState([]);
 const [show, setShow] = useState(false);
@@ -33,10 +36,59 @@ const [showForm, setShowForm] = useState(false);
   const [userAvatar, setUserAvatar] = useState();
   const [shareTokenName, setShareTokenName] = useState();
   const [shareTokenId, setShareTokenId] = useState();
+
+ // const [personAddress , setAddress] = useState();
+  const [name, setName] = useState('anonymous1');
+  const [description, setDescription] = useState('this is description');
+ // const [users, setUser] = useState('')
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+   // console.log(users);
+  }
+
+  let user = {
+    address: {address},
+    name: {name},
+    description: {description}
+  };
+  
+//useEffect (() => {
+//    axios('https://quiet-temple-37038.herokuapp.com/profiles/0x3472059945ee170660a9A97892a3cf77857Eba3A')
+  //  .then( () => {
+    //  setUser(user)
+   // })
+   // .catch(error => {
+     // console.error ('error fetching data');
+     
+   // })
+//});
+
+useEffect (() => {
+
+  (async  () => {  
+ 
+    let response = await  fetch ('https://quiet-temple-37038.herokuapp.com/0x3472059945ee170660a9A97892a3cf77857Eba3A')
+    //, {
+     // method: 'GET',
+     // headers: {
+      //  'Content-Type': 'application/json',
+   ///   },
+     // body: JSON.stringify(user),
+  //  });
+   let result = await response.json();
+    //alert(result.message)
+
+    console.log(result, 'this is result')
+  
+  })();
+
   
 
+})
 
-  
+
+
 
   const sortTokens =()=>{ 
     const onSale = []
@@ -273,10 +325,11 @@ const [showForm, setShowForm] = useState(false);
               onClick={()=> {
                 setShowForm(false)
               }}>+</p>
-              <form>
-                <input className="username-input" type="text"/>
-                <textarea></textarea>
-                <button>submit</button>
+              <form onSubmit = {handleSubmit}>
+                <input className="username-input" type="text" value={address} />
+                <input className="username-input" type="text" value={name} onChange={(e) => setName(e.target.value)}/>
+                <input className="username-input" type="text" value={description} onChange={(e) => setDescription(e.target.value)}/>
+                <button type= 'submit'>submit</button>
               </form>
 
             </div>
