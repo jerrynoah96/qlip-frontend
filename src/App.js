@@ -28,7 +28,7 @@ class App extends Component  {
       tokenUrls: [],
       contractDetails:{
         account: null,
-        contractAddress: "0x178315F9Dc7D0666D8c28F2a23644e34eD44c57D",
+        contractAddress: "0xB3bc3eB9f76a44968d0981758470AB1c34F97c13",
         contractInstance: null
       },
       form_details: {
@@ -69,7 +69,7 @@ class App extends Component  {
 
 componentDidMount = async () => {
 
-  const instantWeb3 = new Web3('https://data-seed-prebsc-1-s1.binance.org:8545/');
+  const instantWeb3 = new Web3('https://bsc-dataseed.binance.org/');
   this.setState({instantWeb3})
 
   //instatiate contract
@@ -88,11 +88,11 @@ SetWeb3= async web3 => {
   const networkId = await this.state.web3.eth.getChainId();
   console.log(networkId, 'network id')
   
- if(networkId !== 97){
+ if(networkId !== 56){
 
    this.setState({
     show: true,
-    modalMessage: "Kindly ensure you're on the Bsc test network and Reload the page"
+    modalMessage: "Kindly ensure you're on the Bsc Main network and Reload the page"
    })
 
  } else{

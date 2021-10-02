@@ -43,8 +43,9 @@
 .decsriptive-text {
   text-align: center;
   letter-spacing: 2px;
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   padding: 0 2.5rem;
+  margin-bottom: 1rem;
 }
 
 .left-text,
@@ -52,7 +53,7 @@
   position: absolute;
   writing-mode: vertical-rl;
   text-orientation: upright;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 100;
   text-align: center;
 }
@@ -75,6 +76,7 @@
   left: 50%;
   transform: translate(-50%, 0%);
   font-weight: bold;
+  margin-top: 1rem !important;
 }
 
 @media only screen and (max-width: 1250px) {

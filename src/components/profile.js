@@ -108,14 +108,9 @@ const [show, setShow] = useState(false);
               <p><span>Highest bid </span>0.001 BNB</p>
               <p><span>new bid &#128293;</span></p>
           </div>
-          <div className="detail-3">
-            <p><span>share </span></p>
-            <img onClick={()=> {
-              shareNFT(token)}} 
-            src = {shareIcon} alt = "nft product" className = "share-btn"/>
-          </div>
+          
       </div>
-      { token.tokenState === 2 ? <button className = "buy-btn"
+      { token.tokenState === '2' ? <button className = "buy-btn"
        onClick={async ()=> {
          console.log(token, 'selected token')
         await props.resetSale(token)
@@ -150,12 +145,9 @@ const [show, setShow] = useState(false);
               <p><span>Highest bid </span>0.001 BNB</p>
               <p><span>new bid &#128293;</span></p>
           </div>
-          <div className="detail-3">
-            <p><span>share </span></p>
-            <img src = {shareIcon} alt = "nft product" className = "share-btn"/>
-          </div>
+          
       </div>
-      { token.tokenState === 2 ? <button className = "buy-btn"
+      { token.tokenState === '2' ? <button className = "buy-btn"
        onClick={async()=> {
        await props.resetSale(token)
         history.push(`/set-sale/${token.id}`)
@@ -185,12 +177,9 @@ const [show, setShow] = useState(false);
               <p><span>Highest bid </span>0.001 BNB</p>
               <p><span>new bid &#128293;</span></p>
           </div>
-          <div className="detail-3">
-            <p><span>share </span></p>
-            <img src = {shareIcon} alt = "nft product" className = "share-btn"/>
-          </div>
+          
       </div>
-      { token.tokenState === 2 ? <button className = "buy-btn"
+      { token.tokenState === '2' ? <button className = "buy-btn"
        onClick={async()=> {
        await props.resetSale(token)
         history.push(`/set-sale/${token.id}`)
