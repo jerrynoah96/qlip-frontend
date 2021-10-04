@@ -178,7 +178,7 @@ render(){
                         <h2>Upload File in Any Format</h2>
                         <span>PNG, GIF, JPG, WMV, MP4, MP3, OBJ, 3DS</span>
 
-                        <input type="file" id="actual-btn" hidden onChange={this.captureImg}/>
+                        <input type="file" accept="image/*" id="actual-btn" hidden onChange={this.captureImg}/>
                         <label for="actual-btn">Browse Files</label>
                     </div>
                     
