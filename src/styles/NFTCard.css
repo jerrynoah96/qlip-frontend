@@ -10,6 +10,9 @@
   text-align: center;
   position: relative;
 }
+.profile-card{
+  width: 40%;
+}
 
 .nft-card .nft-image-container {
   width: 100%;

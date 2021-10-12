@@ -175,7 +175,7 @@
 				"type": "uint256"
 			},
 			{
-				"internalType": "enum QLIPMarketplace.NFTState",
+				"internalType": "enum QLIPITMarketplace.NFTState",
 				"name": "nftState",
 				"type": "uint8"
 			}
@@ -212,6 +212,66 @@
 				"internalType": "string",
 				"name": "tokenURI_",
 				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "__getAllTokenDetails",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "ownerAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint16",
+						"name": "_category",
+						"type": "uint16"
+					},
+					{
+						"internalType": "string",
+						"name": "tokenURI_",
+						"type": "string"
+					}
+				],
+				"internalType": "struct QLIPITMarketplace.NFTDet",
+				"name": "Details",
+				"type": "tuple"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_nftAddress",
+				"type": "address"
+			}
+		],
+		"name": "__getNftByAddress",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
 			}
 		],
 		"stateMutability": "view",
@@ -333,47 +393,6 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "getAllTokenDetails",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "address",
-						"name": "ownerAddress",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_id",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint16",
-						"name": "_category",
-						"type": "uint16"
-					},
-					{
-						"internalType": "string",
-						"name": "tokenURI_",
-						"type": "string"
-					}
-				],
-				"internalType": "struct QLIPMarketplace.NFTDet",
-				"name": "Details",
-				"type": "tuple"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"inputs": [],
 		"name": "getAllTokens",
 		"outputs": [
@@ -400,7 +419,7 @@
 						"type": "string"
 					}
 				],
-				"internalType": "struct QLIPMarketplace.NFTDet[]",
+				"internalType": "struct QLIPITMarketplace.NFTDet[]",
 				"name": "",
 				"type": "tuple[]"
 			}
@@ -438,7 +457,7 @@
 		"name": "getNFTState",
 		"outputs": [
 			{
-				"internalType": "enum QLIPMarketplace.NFTState",
+				"internalType": "enum QLIPITMarketplace.NFTState",
 				"name": "",
 				"type": "uint8"
 			}
@@ -450,7 +469,7 @@
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "_nftAddress",
+				"name": "userAddress",
 				"type": "address"
 			}
 		],
@@ -579,7 +598,7 @@
 				"type": "uint256"
 			},
 			{
-				"internalType": "enum QLIPMarketplace.NFTState",
+				"internalType": "enum QLIPITMarketplace.NFTState",
 				"name": "nftState",
 				"type": "uint8"
 			}
@@ -802,6 +821,25 @@
 		"inputs": [
 			{
 				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "tokenIsAtIndex",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
 				"name": "tokenId",
 				"type": "uint256"
 			}
@@ -838,6 +876,30 @@
 		"name": "transferFrom",
 		"outputs": [],
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "userOwnedTokens",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{

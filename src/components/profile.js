@@ -94,7 +94,7 @@ const [show, setShow] = useState(false);
     console.log(token.id, 'tokens id in profile');
 
     return(
-      <div key = {token.id} className = "nft-card">
+      <div key = {token.id} className = "nft-card profile-card">
       <div className = "nft-image-container">
           <img src = {token.imgUrl} alt = "nft product" className = "nft-image" />
       </div>
@@ -131,7 +131,7 @@ const [show, setShow] = useState(false);
 
     
     return(
-      <div key = {token.id} className = "nft-card">
+      <div key = {token.id} className = "nft-card profile-card">
       <div className = "nft-image-container">
           <img src = {token.imgUrl} alt = "nft product" className = "nft-image" />
       </div>
@@ -163,7 +163,7 @@ const [show, setShow] = useState(false);
     
     
     return(
-      <div key = {token.id} className = "nft-card">
+      <div key = {token.id} className = "nft-card profile-card">
       <div className = "nft-image-container">
           <img src = {token.imgUrl} alt = "nft product" className = "nft-image" />
       </div>

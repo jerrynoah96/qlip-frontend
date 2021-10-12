@@ -4,6 +4,8 @@ import uploadIcon from '../images/upload-icon.png';
 import arrow from '../images/arrow.svg';
 import signIcon from '../images/sign-icon.png';
 import Modal from 'react-bootstrap/Modal';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../styles/options.css';
 
 
@@ -71,7 +73,7 @@ handleClose=()=> {
 
 MintNft=async(e)=> {
     if(this.props.web3 == null){
-        alert("please connect wallet")
+        toast.error("Please connect your wallet");
     }
     else{
         this.setState({
@@ -195,6 +197,7 @@ MintNft=async(e)=> {
 
 render(){
     
+    
     return(
         <div className="options">
             <Modal show={this.state.show} onHide={this.handleClose}>
@@ -203,6 +206,7 @@ render(){
                     <img src={this.state.loaderUrl} alt="loader"/>
                 </Modal.Body>
             </Modal>
+            <ToastContainer />
             <div className="option-header">
                 <Link to="/create">
                     <img className="back-icon"

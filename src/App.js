@@ -28,7 +28,7 @@ class App extends Component  {
       tokenUrls: [],
       contractDetails:{
         account: null,
-        contractAddress: "0xB3bc3eB9f76a44968d0981758470AB1c34F97c13",
+        contractAddress: "0xAF5A84763c840A0EFB44840d561Dd4F6aF68BD26",
         contractInstance: null
       },
       form_details: {
@@ -69,7 +69,7 @@ class App extends Component  {
 
 componentDidMount = async () => {
 
-  const instantWeb3 = new Web3('https://bsc-dataseed.binance.org/');
+  const instantWeb3 = new Web3('https://data-seed-prebsc-1-s1.binance.org:8545/');
   this.setState({instantWeb3})
 
   //instatiate contract
@@ -88,11 +88,11 @@ SetWeb3= async web3 => {
   const networkId = await this.state.web3.eth.getChainId();
   console.log(networkId, 'network id')
   
- if(networkId !== 56){
+ if(networkId !== 97){
 
    this.setState({
     show: true,
-    modalMessage: "Kindly ensure you're on the Bsc Main network and Reload the page"
+    modalMessage: "Kindly ensure you're on the Bsc test network and Reload the page"
    })
 
  } else{
@@ -189,7 +189,7 @@ FetchUserTokens = async () => {
   userNFts.map(async nftid => {
 
     let tokenData = {};
-    const tokenDetails = await this.state.contractDetails.contractInstance.methods.getAllTokenDetails(nftid).call();
+    const tokenDetails = await this.state.contractDetails.contractInstance.methods.__getAllTokenDetails(nftid).call();
     const token_state = await this.state.contractDetails.contractInstance.methods.getNFTState(nftid).call();
     const nft_amount = await this.state.contractDetails.contractInstance.methods.getSalePrice(nftid).call();
     const nftAmount = await this.state.web3.utils.fromWei(nft_amount);
@@ -219,6 +219,7 @@ FetchUserTokens = async () => {
 FetchAllTokens = async () => {
 
   const allTokens = await this.state.contractInit.methods.getAllTokens().call();
+  console.log(allTokens, 'all tokens fetched')
   let allTokensArray = [];
   
 
