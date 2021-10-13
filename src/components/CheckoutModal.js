@@ -63,6 +63,7 @@ const CheckoutModal = forwardRef((props, ref) => {
 
     useEffect(() => {
       checkUserBal()  
+      console.log(props.tokenDetails.name, 'in checkout')
       },[]);
     
 
@@ -83,7 +84,7 @@ const CheckoutModal = forwardRef((props, ref) => {
                     </div>
                 </div>
                 <div className = "modal-details">
-                    <p className = "about-to-buy">You are about to buy <span>{props.tokenDetails.item_name}</span> from Anonymous.</p>
+                    <p className = "about-to-buy">You are about to buy <span>{props.tokenDetails.name}</span> from Anonymous.</p>
                     <div className = "price-details-container">
                         <div className = "price-detail">
                             <p>Price</p>

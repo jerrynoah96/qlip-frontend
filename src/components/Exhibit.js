@@ -38,6 +38,7 @@ const Exhibit = (props) => {
         if(!currentNFT) return history.replace("/");
         
         setPageData(currentNFT)
+        console.log(pageData, 'page data')
         
 
     }, [])
@@ -52,7 +53,7 @@ const Exhibit = (props) => {
                         <p className = "right-vertical-text">1/1</p>
                         <h1 className = "nft-name">{pageData.item_name}</h1>
                         <p className = "nft-decsriptive-text">{pageData.description}</p>
-                        <h2 className = "nft-price">{pageData.price} BNB</h2>
+                        <h2 className = "nft-price-exhibit">{pageData.price} BNB</h2>
                     </div>
                 </div>
                 <div className = "nft-info-container">
