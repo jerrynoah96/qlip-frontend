@@ -21,7 +21,7 @@ const Profile = (props) => {
 const [show, setShow] = useState(false);
 
  const urlList = props.tokenUrls;
- console.log(urlList, 'url list')
+ console.log(urlList.length, 'url list')
  
   const [tokenObjects] = useState([]);
   const [allOnsale, setOnSaleTokenDisplay]= useState([]);
@@ -284,7 +284,7 @@ const [show, setShow] = useState(false);
               </div>
               <div className = "user-history">
                 <div className = "history-item">
-                  <h3>{tokenObjects.length}</h3>
+                  <h3>{urlList.length}</h3>
                   <p>All NFTs</p>
                 </div>
                 <div className = "history-item">

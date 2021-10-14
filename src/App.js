@@ -11,7 +11,7 @@ import Landing from './components/landing';
 import Modal from 'react-bootstrap/Modal';
 import Exhibit from './components/Exhibit';
 import SetSale from './components/setSale';
-import {Route, Switch, BrowserRouter as Router} from "react-router-dom"
+import {Route, Switch, BrowserRouter as Router} from "react-router-dom";
 import './App.css';
 
 class App extends Component  {
@@ -255,6 +255,8 @@ FetchAllTokens = async () => {
     
     
   })
+
+  console.log(this.state.allTokensArray, 'all tokens on mount')
  
 
 }

@@ -182,26 +182,28 @@ return (
         <ul className={click ? "nav-menu active" : "nav-menu"}>
           <li className="nav-item">
           <Link className="nav-link" to="qlip-nfts" smooth={true} duration={1000}
-             >Explore</Link>
+             
+             onClick={()=> {
+              history.push('/')
+             }}>Explore</Link>
           </li>
           <li className="nav-item">
-            <NavLink
+            <Link
               
-              className="nav-links"
+              className="nav-link"
             onClick={()=> {
-                          if(web3 == null){
-                           alert('unidentified address, please connect your wallet')
-                           history.push('/');
-                           }
+                          if(web3 !== null){
+                           history.push('/profile') 
+                          }
                            else{
-                             history.push('/profile')
+                            alert('unidentified address, please connect your wallet')
                            }
                            
                           }}
                           to="/profile"
             >
               My Profile
-            </NavLink>
+            </ Link>
           </li>
           <li className="nav-item">
               <Link className="nav-link" to="qlip-nfts" smooth={true} duration={1000}

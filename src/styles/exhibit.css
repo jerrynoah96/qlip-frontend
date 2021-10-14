@@ -202,7 +202,9 @@
   margin-top: 2rem;
 }
 
-.contractAddress-value {
+.contractAddress-value,
+.creator-value,
+.tokenId-value {
   color: #b49dff;
   font-size: 0.7rem;
 }
@@ -211,6 +213,7 @@
 .tokenId-key,
 .creator-key {
   margin-bottom: 0.5rem;
+  
 }
 
 @media only screen and (min-width: 768px) {

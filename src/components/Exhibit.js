@@ -19,6 +19,7 @@ const Exhibit = (props) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [pageData, setPageData] = useState({})
+    const [tokenURI, setTokenURI] = useState();
 
     const toggleModal = () => {
         if(isModalOpen) {
@@ -38,7 +39,7 @@ const Exhibit = (props) => {
         if(!currentNFT) return history.replace("/");
         
         setPageData(currentNFT)
-        console.log(pageData, 'page data')
+        
         
 
     }, [])
@@ -51,7 +52,7 @@ const Exhibit = (props) => {
                     <div className = "nft-description">
                         <p className = "left-vertical-text">RUBY</p>
                         <p className = "right-vertical-text">1/1</p>
-                        <h1 className = "nft-name">{pageData.item_name}</h1>
+                        <h1 className = "nft-name">{pageData.name}</h1>
                         <p className = "nft-decsriptive-text">{pageData.description}</p>
                         <h2 className = "nft-price-exhibit">{pageData.price} BNB</h2>
                     </div>
@@ -83,15 +84,31 @@ const Exhibit = (props) => {
                             </ul>
                         </nav>
                         <div className = "selected-item-content">
+                        <div className = "group-one">
+                                <p className = "creator-key">Name</p>
+                                <p className = "creator-value">{pageData.name}</p>
+                            </div>
+
                             <div className = "group-one">
+                                <p className = "creator-key">Description</p>
+                                <p className = "creator-value">{pageData.description}</p>
+                            </div>
+
+                            <div className = "group-one">
+                                <p className = "creator-key">Category</p>
+                                <p className = "creator-value">{pageData.category === '1' ? 'Photography' : pageData.category ==='2' ? 'Art' : pageData.category === '3' ? 'Meme': ''}</p>
+                            </div>
+                            
+
+                            <div className = "group-two">
                                 <p className = "contractAddress-key">Contract Address</p>
                                 <p className = "contractAddress-value">{props.contractDetails.contractAddress}</p>
                             </div>
-                            <div className = "group-two">
+                            <div className = "group-three">
                                 <p className = "tokenId-key">Token ID</p>
                                 <p className = "tokenId-value">{pageData.id}</p>
                             </div>
-                            <div className = "group-three">
+                            <div className = "group-four">
                                 <p className = "creator-key">Creator</p>
                                 <p className = "creator-value">{pageData.owner}</p>
                             </div>
