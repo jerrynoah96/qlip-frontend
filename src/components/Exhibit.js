@@ -4,6 +4,7 @@ import verifiedIcon from "../images/icons8_verified_account.svg"
 import CheckoutModal from "./CheckoutModal"
 import {useParams} from 'react-router-dom'
 import { useHistory } from "react-router-dom";
+import {Helmet} from "react-helmet";
 
 import "../styles/exhibit.css"
 
@@ -46,6 +47,21 @@ const Exhibit = (props) => {
     return(
         
         <>
+            <Helmet title = {pageData.name}
+                htmlAttributes={{ lang: "en" }}
+                meta={[
+                    {
+                        property: "og:url",
+                        content: pageData.imgUrl
+                      },
+
+                      {
+                        property: "og:description",
+                        content: pageData.description
+                      },
+
+            ]}
+        />
             <div className = "exhibit-main-body">
                 <div className = "nft-picture-container exhibitPic">
                     <img src = {pageData.imgUrl} class = "nft-picture" alt = "nft" />
