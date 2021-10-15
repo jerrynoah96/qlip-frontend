@@ -23,6 +23,12 @@ const Landing = props => {
     const [photography, setPhotoGraphy] = useState([]);
     const [meme, setMeme] = useState([]);
     const [art, setArt] = useState([]);
+    const [noOfItems, setNoOfItems] = useState(6);
+    const sliceItems = allTokensArray.slice(0, noOfItems);
+
+    const loadMore = ()=> {
+        setNoOfItems(noOfItems + noOfItems);
+    }
     
     const sortTokens = async () =>{ 
         const tokenObj = []
@@ -56,7 +62,7 @@ const Landing = props => {
         console.log(tokenObjects, 'token objects')
     } 
       
-  const allTokens = allTokensArray.map((token)=> {   
+  const allTokens = sliceItems.map((token)=> {   
     return (
         <NFTCard
             key = {token.id}
@@ -135,7 +141,7 @@ const allBtn = classNames('nav-link',{
 
   const loader =  <SkeletonTheme color="#202020" highlightColor="#444">
                         <p>
-                            <Skeleton count={3} height={500} width={400} />
+                            <Skeleton count={3} height={400} width={300} />
                         </p>
                 </SkeletonTheme>
 
@@ -230,9 +236,11 @@ const allBtn = classNames('nav-link',{
                         {!!allTokensArray.length ? currentDisplay : loader}
                        
                     </div>
+                    { allTokensArray.length > sliceItems.length || sliceItems.length < allTokensArray.length ?
                     <div className = "load-more-btn-container">
-                        <button className = "load-more">Load More</button>
-                    </div>
+                        <button className = "load-more"
+                        onClick={()=> loadMore()}>Load More</button>
+                    </div> : ''}
                     
                 </div>
             </main>
