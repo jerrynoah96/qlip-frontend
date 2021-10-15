@@ -32,6 +32,7 @@ const [show, setShow] = useState(false);
   const [userAvatar, setUserAvatar] = useState();
   const [shareTokenName, setShareTokenName] = useState();
   const [shareTokenId, setShareTokenId] = useState();
+  const [sharingModal, setSharingModal] = useState(false);
   
 
 
@@ -72,15 +73,17 @@ const [show, setShow] = useState(false);
       setShow(false);
     }
 
-    const shareNFT=(token)=> {
+    const shareNFT=async (token)=> {
       const tokenName = token.name;
       const tokenId = token.id;
 
-      setShow(true);
-      setShareTokenName(tokenName);
-      setShareTokenId(tokenId);
+    await  setShareTokenName(tokenName);
+     await setShareTokenId(tokenId);
+
+      setSharingModal(true);
       
-      console.log(token, 'token to be in useState')
+      
+      console.log(token, tokenName, tokenId, 'token to be in useState')
     }
 
     const handleUserAvatar=(e)=> { 
@@ -108,6 +111,16 @@ const [show, setShow] = useState(false);
               <p><span>Highest bid </span>0.001 BNB</p>
               <p><span>new bid &#128293;</span></p>
           </div>
+
+
+          { token.tokenState === '1' ? 
+          <div className = "detail-3">
+          <p><span> Share</span></p>
+            <img src={shareIcon} alt="share-icon"
+            onClick={()=> {
+              shareNFT(token)}}/>
+        </div> : ''}
+          
           
       </div>
       { token.tokenState === '2' ? <button className = "buy-btn"
@@ -145,6 +158,16 @@ const [show, setShow] = useState(false);
               <p><span>Highest bid </span>0.001 BNB</p>
               <p><span>new bid &#128293;</span></p>
           </div>
+
+          { token.tokenState === '1' ? 
+          <div className = "detail-3">
+          <p><span> Share</span></p>
+            <img src={shareIcon} alt="share-icon"
+            onClick={()=> {
+              shareNFT(token)}}/>
+        </div> : ''}
+
+
           
       </div>
       { token.tokenState === '2' ? <button className = "buy-btn"
@@ -228,29 +251,39 @@ const [show, setShow] = useState(false);
       'active-nft-nav': currentDisplay === tokensNotOnSale
     })
 
+    const socialStyle = classNames('socials', {
+        'socials-on': sharingModal === true
+    })
+
 
     return(
       <>
-        <Modal show={show} onHide={handleClose}>
-                <Modal.Body>
+    
+                <div class={socialStyle}>
+                  <p
+                  onClick={()=> {
+                    setSharingModal(false)
+                  }}> + </p>
                    <div className="share-icons">
                       <WhatsappShareButton 
-                      title={"Get "+shareTokenName+" on Qlip"}
-                      url={"https://clip-frontend.vercel.app/exhibit/"+shareTokenId}>
+                      title={"Get my NFT, "+shareTokenName+" on Qlip"}
+                      url={"https://app.qlipit.io/exhibit/"+shareTokenId}>
                      
                         <WhatsappIcon round={true}>
 
                         </WhatsappIcon>
                       </WhatsappShareButton>
 
-                      <TwitterShareButton>
+                      <TwitterShareButton
+                      title={"Get my Nft, "+shareTokenName+" on Qlip"}
+                      url={"https://app.qlipit.io/exhibit/"+shareTokenId}>
                         <TwitterIcon round={true}>
 
                         </TwitterIcon>
                       </TwitterShareButton>
-                   </div>
-                </Modal.Body>
-            </Modal>
+                </div>
+                </div>
+               
         <div className = "profile-main-body">
         <div className = "cover-photo-container">
           <img src = {coverPhoto} alt = "header"className = "cover-photo-image" />
