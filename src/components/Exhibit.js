@@ -113,7 +113,8 @@ const Exhibit = (props) => {
         
         <>
 
-        <ToastContainer />
+        <ToastContainer 
+        autoClose={2000}/>
           <Helmet>
           <meta property="og:title" content={name}/>
             <meta property="og:description" content={description} />
