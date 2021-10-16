@@ -23,7 +23,7 @@ const Landing = props => {
     const [photography, setPhotoGraphy] = useState([]);
     const [meme, setMeme] = useState([]);
     const [art, setArt] = useState([]);
-    const [noOfItems, setNoOfItems] = useState(1);
+    const [noOfItems, setNoOfItems] = useState(6);
     const sliceItems = allTokensArray.slice(0, noOfItems);
 
     const loadMore = ()=> {
