@@ -10,6 +10,9 @@ const CheckoutModal = forwardRef((props, ref) => {
     const [progressText, setProgressText] = useState('');
     const [userBal, setUserBal]= useState('');
 
+    const account = props.account;
+    
+
     let history = useHistory();
     
     
@@ -19,7 +22,7 @@ const CheckoutModal = forwardRef((props, ref) => {
     }
 
     const payForNFT = async()=> {
-        if(props.web3 == null){
+        if(props.account == null){
             alert('please connect your wallet to purchase an nft');
         }
         else{
@@ -30,16 +33,17 @@ const CheckoutModal = forwardRef((props, ref) => {
         
         
     //    const amountToPay = await props.tokenDetails.price;
-        const contractAddress = await props.contractDetails.contractAddress;
+        const contractAddress = await props.contractAddress;
         
-        const account = await props.contractDetails.account;
-        const id = await props.tokenDetails.id;
         
-        const amountToBePaid = await props.contractDetails.contractInstance.methods.getSalePrice(id).call();
+        const id = await props.id;
+        
+        const amountToBePaid = await props.contract.methods.getSalePrice(id).call();
         
        console.log(account,id, amountToBePaid, 'right?' )
+      
         
-     const purchaseReciept = await props.contractDetails.contractInstance.methods.buyTokenOnSale(id,
+     const purchaseReciept = await props.contract.methods.buyTokenOnSale(id,
             contractAddress).send({
             from: account,
             value: amountToBePaid
@@ -55,15 +59,19 @@ const CheckoutModal = forwardRef((props, ref) => {
     }
 
     const checkUserBal = async()=> {
-        const bal = await props.web3.eth.getBalance(await props.contractDetails.account);
+        console.log(account, 'account in user bal')
+        const bal = await props.web3.eth.getBalance(account);
         
         const balance = await props.web3.utils.fromWei(bal);
-        setUserBal(balance)
+        console.log(balance, 'user balance')
+       await setUserBal(balance)
     }
 
-    useEffect(() => {
-      checkUserBal()  
-      console.log(props.tokenDetails.name, 'in checkout')
+    useEffect(async () => {
+    
+     await checkUserBal()  
+      
+      
       },[]);
     
 
@@ -84,11 +92,11 @@ const CheckoutModal = forwardRef((props, ref) => {
                     </div>
                 </div>
                 <div className = "modal-details">
-                    <p className = "about-to-buy">You are about to buy <span>{props.tokenDetails.name}</span> from Anonymous.</p>
+                    <p className = "about-to-buy">You are about to buy <span>{props.tokenName}</span> from Anonymous.</p>
                     <div className = "price-details-container">
                         <div className = "price-detail">
                             <p>Price</p>
-                            <p>{props.tokenDetails.price} BNB</p>
+                            <p>{props.price} BNB</p>
                         </div>
                         <div className = "price-detail">
                             <p><span>Your balance</span></p>
@@ -96,11 +104,11 @@ const CheckoutModal = forwardRef((props, ref) => {
                         </div>
                         <div className = "price-detail">
                             <p><span>Service fee</span></p>
-                            <p>{(props.tokenDetails.price * 0.05).toFixed(5)} BNB</p>
+                            <p>{(props.price * 0.05).toFixed(5)} BNB</p>
                         </div>
                         <div className = "price-detail">
                             <p><span>You will pay</span></p>
-                            <p>{props.tokenDetails.price} BNB</p>
+                            <p>{props.price} BNB</p>
                         </div>
                     </div>
                     <div className = "warning-alert">

@@ -1,4 +1,6 @@
 import {useRef, useState, useEffect} from "react"
+import contractABI from '../contractAbi.json';
+import Web3 from "web3";
 import profilePic from "../images/Profile_picture.png"
 import verifiedIcon from "../images/icons8_verified_account.svg"
 import CheckoutModal from "./CheckoutModal"
@@ -12,6 +14,8 @@ import "../styles/exhibit.css"
 const Exhibit = (props) => {
 
     let history = useHistory();
+    let categry;
+    
 
     const { tokenId } = useParams()
 
@@ -19,63 +23,115 @@ const Exhibit = (props) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const [contractAdd, setContractAdd] = useState();
+    const [token_id, setToken_id] = useState();
+    const [category, setCategory] = useState();
+    const [name, setName] = useState();
+    const [description, setDescription] = useState();
+    const [price, setPrice] = useState();
+    const [imgHash, setImgHash] = useState();
+    const [contract, setContract] = useState();
+    
+    
+
     const [pageData, setPageData] = useState({})
     const [tokenURI, setTokenURI] = useState();
+    const [web3Instance, setWeb3Instance] = useState();
 
     const toggleModal = () => {
         if(isModalOpen) {
             checkoutModalRef.current.style.display = "none"
             setIsModalOpen(false)
         } else {
-            checkoutModalRef.current.style.display = "flex"
+            if(props.contractDetails.account == null){
+                alert('connect wallet to buy')
+            }
+            else{
+                checkoutModalRef.current.style.display = "flex"
             setIsModalOpen(true)
+
+            }
+            
         }
     }
 
-    useEffect(() => {
-        if(!tokenId) return history.replace("/");
 
+    useEffect(async () => {
+      
+        //  if(!tokenId) return history.replace("/");
+       
+        //fetch token detail
         const currentNFT = props.allTokensArray.find(token => token.id === tokenId);
 
-        if(!currentNFT) return history.replace("/");
+    //    if(!currentNFT) return history.replace("/");
         
         setPageData(currentNFT)
+        
+        const instantWeb3 = new Web3('https://bsc-dataseed.binance.org/');
+        const contractAddr = "0xFd24d63126404aDC38983fcF34ECebF9C882fA59";
+        const contractInit = new instantWeb3.eth.Contract(contractABI, contractAddr);
+        await setContractAdd(contractAddr);
+        await setContract(contractInit);
+        await setWeb3Instance(instantWeb3);
+
+        const nft_amount = await contractInit.methods.getSalePrice(tokenId).call();
+        const price = await instantWeb3.utils.fromWei(nft_amount);
+        const Tdetails = await contractInit.methods.__getAllTokenDetails(tokenId).call();
+        
+        console.log(contractAdd, 'contract add in exhibit')
+        setCategory(Tdetails._category);
+       
+        
+        console.log(category, Tdetails._category, 'category in exhibit')
+        setPrice(price);
+        
+
+        const res = await fetch(Tdetails.tokenURI_)
+        const jsonRes = await res.json();
+        const pictureUrl = jsonRes.imgHash;
+       await setImgHash(pictureUrl);
+        setDescription(jsonRes.description);
+        setName(jsonRes.item_name);
+        
+        
+        
         
         
 
     }, [])
+
+    console.log(categry, 'categry')
+    console.log(props.contractDetails.account, 'current account')
+    console.log(props.contractDetails.contractInstance, 'when conected')
+
+    
+
+
     return(
         
         <>
-            <Helmet title = {pageData.name}
-                htmlAttributes={{ lang: "en" }}
-                meta={[
-                    {
-                        property: "og:url",
-                        content: pageData.imgUrl
-                      },
+          <Helmet>
+                <meta charSet="utf-8" />
+                <title>{name}</title>
+                <meta name="description" content={description} />
+                <meta property="og:image" content={imgHash} />
+        </Helmet>
 
-                      {
-                        property: "og:description",
-                        content: pageData.description
-                      },
 
-            ]}
-        />
             <div className = "exhibit-main-body">
                 <div className = "nft-picture-container exhibitPic">
-                    <img src = {pageData.imgUrl} class = "nft-picture" alt = "nft" />
+                    <img src = {imgHash} class = "nft-picture" alt = "nft" />
                     <div className = "nft-description">
                         <p className = "left-vertical-text">RUBY</p>
                         <p className = "right-vertical-text">1/1</p>
-                        <h1 className = "nft-name">{pageData.name}</h1>
-                        <p className = "nft-decsriptive-text">{pageData.description}</p>
-                        <h2 className = "nft-price-exhibit">{pageData.price} BNB</h2>
+                        <h1 className = "nft-name">{name}</h1>
+                        <p className = "nft-decsriptive-text">{description}</p>
+                        <h2 className = "nft-price-exhibit">{price} BNB</h2>
                     </div>
                 </div>
                 <div className = "nft-info-container">
                     <div className = "first-section">
-                        <h1 className = "name">{pageData.item_name}</h1>
+                        <h1 className = "name">{name}</h1>
                         <div className = "ownership_availableNumber">
                             <div className = "ownership">
                                 <img src = {profilePic} alt = "profile" className = "profile-picture" />
@@ -86,7 +142,7 @@ const Exhibit = (props) => {
                         <h2 className = "current-price">Current Price</h2>
                         <div className = "price-container">
                             <img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBNNXA7K21yYyQZxM-iUcGilYqNJp68TcDWaCFepHcLKjA08-UWWOiB65ou1EXlPvDlP4&usqp=CAU" alt = "token logo" />
-                         {' '} <p className = "price">{pageData.price} BNB <span></span></p>
+                         {' '} <p className = "price">{price} BNB <span></span></p>
                         </div>
                         <button class = "buy-btn" onClick = {toggleModal}>Buy Now</button>
                     </div>
@@ -102,39 +158,37 @@ const Exhibit = (props) => {
                         <div className = "selected-item-content">
                         <div className = "group-one">
                                 <p className = "creator-key">Name</p>
-                                <p className = "creator-value">{pageData.name}</p>
+                                <p className = "creator-value">{name}</p>
                             </div>
 
                             <div className = "group-one">
                                 <p className = "creator-key">Description</p>
-                                <p className = "creator-value">{pageData.description}</p>
+                                <p className = "creator-value">{description}</p>
                             </div>
 
                             <div className = "group-one">
                                 <p className = "creator-key">Category</p>
-                                <p className = "creator-value">{pageData.category === '1' ? 'Photography' : pageData.category ==='2' ? 'Art' : pageData.category === '3' ? 'Meme': ''}</p>
+                                <p className = "creator-value">{category === '1' ? 'Photography' : category ==='2' ? 'Art' : category === '3' ? 'Meme': ''}</p>
                             </div>
                             
 
                             <div className = "group-two">
                                 <p className = "contractAddress-key">Contract Address</p>
-                                <p className = "contractAddress-value">{props.contractDetails.contractAddress}</p>
+                                <p className = "contractAddress-value">{contractAdd}</p>
                             </div>
                             <div className = "group-three">
                                 <p className = "tokenId-key">Token ID</p>
-                                <p className = "tokenId-value">{pageData.id}</p>
+                                <p className = "tokenId-value">{tokenId}</p>
                             </div>
-                            <div className = "group-four">
-                                <p className = "creator-key">Creator</p>
-                                <p className = "creator-value">{pageData.owner}</p>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
             </div>
-            <CheckoutModal ref = {checkoutModalRef} closeModal = {toggleModal} tokenDetails={pageData} 
-            contractDetails = {props.contractDetails}
-            web3={props.web3}/>
+            <CheckoutModal ref = {checkoutModalRef} closeModal = {toggleModal}  
+            contract= {props.contractDetails.contractInstance} 
+    web3={web3Instance} tokenName={name} price={price}
+    contractAddress={contractAdd} id={tokenId} account = {props.contractDetails.account}/>
         </>
     );
 }
