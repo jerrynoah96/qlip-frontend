@@ -6,6 +6,8 @@ import verifiedIcon from "../images/icons8_verified_account.svg"
 import CheckoutModal from "./CheckoutModal"
 import {useParams} from 'react-router-dom'
 import { useHistory } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {Helmet} from "react-helmet";
 
 import "../styles/exhibit.css"
@@ -44,7 +46,7 @@ const Exhibit = (props) => {
             setIsModalOpen(false)
         } else {
             if(props.contractDetails.account == null){
-                alert('connect wallet to buy')
+                toast.error('please connect your wallet to buy')
             }
             else{
                 checkoutModalRef.current.style.display = "flex"
@@ -111,10 +113,11 @@ const Exhibit = (props) => {
         
         <>
           <Helmet>
-                <meta charSet="utf-8" />
-                <title>{name}</title>
-                <meta name="description" content={description} />
-                <meta property="og:image" content={imgHash} />
+          <meta property="og:title" content={name}/>
+            <meta property="og:description" content={description} />
+            <meta property="og:image" content={imgHash} />
+            <meta property="og:url" content={"https://app.qlipit.io/exhibit/"+tokenId} />
+            
         </Helmet>
 
 

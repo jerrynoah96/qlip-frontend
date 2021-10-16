@@ -179,6 +179,9 @@ return (
           <span>QLIP</span>
         </NavLink>
 
+
+        <button className = "connect-btn second-connect"
+            onClick={ showWeb3Modal}>{btnText}</button>
         <ul className={click ? "nav-menu active" : "nav-menu"}>
           <li className="nav-item">
           <Link className="nav-link" to="qlip-nfts" smooth={true} duration={1000}

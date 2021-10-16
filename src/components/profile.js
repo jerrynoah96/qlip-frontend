@@ -5,6 +5,10 @@ import LineImg from "../images/Line.svg";
 import penIcon from "../images/penIcon.svg";
 import profilePic from "../images/Profile_picture.png"
 import shareIcon from "../images/share-icon.png";
+import copyIcon from "../images/copy-icon.jpg";
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // import editIcon from "./assets/Edit_icon.svg"
 import verifiedIcon from "../images/icons8_verified_account.svg"
 import Modal from 'react-bootstrap/Modal';
@@ -33,6 +37,7 @@ const [show, setShow] = useState(false);
   const [shareTokenName, setShareTokenName] = useState();
   const [shareTokenId, setShareTokenId] = useState();
   const [sharingModal, setSharingModal] = useState(false);
+  const [copy, setCopy] = useState(false);
   
 
 
@@ -62,6 +67,12 @@ const [show, setShow] = useState(false);
     })
     
   } 
+
+
+  const onCopy=(e)=> {
+    toast('copied');
+    }
+
 
 
   const handleCoverPhoto=(e)=> { 
@@ -258,7 +269,9 @@ const [show, setShow] = useState(false);
 
     return(
       <>
-    
+
+          <ToastContainer 
+          autoClose={1000}/>
                 <div class={socialStyle}>
                   <p
                   onClick={()=> {
@@ -282,6 +295,20 @@ const [show, setShow] = useState(false);
                         </TwitterIcon>
                       </TwitterShareButton>
                 </div>
+                <span> or </span>
+
+                <div className="copy-div">
+
+                  <span className="link-copy"> {"https://app.qlipit.io/exhibit/"+shareTokenId} </span> 
+                  <CopyToClipboard text= {"https://app.qlipit.io/exhibit/"+shareTokenId}
+                  onCopy={onCopy}>
+                    <img className="copy-icon" src={copyIcon} alt="copy"/> 
+                  </CopyToClipboard>
+
+
+                </div>
+                
+                
                 </div>
                
         <div className = "profile-main-body">

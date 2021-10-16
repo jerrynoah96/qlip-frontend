@@ -9,7 +9,7 @@ const NFTCard = ({name, imageSrc, price, uniqueId}) => {
     }
     
     return(
-        <div className = "nft-card">
+        <div className = "nft-card token-card">
             <div className = "nft-image-container">
                 <img src = {imageSrc} alt = "nft product" className = "nft-image" />
             </div>
