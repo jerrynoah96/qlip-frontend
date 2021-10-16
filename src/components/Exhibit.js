@@ -112,6 +112,8 @@ const Exhibit = (props) => {
     return(
         
         <>
+
+        <ToastContainer />
           <Helmet>
           <meta property="og:title" content={name}/>
             <meta property="og:description" content={description} />
