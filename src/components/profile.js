@@ -336,7 +336,7 @@ const [show, setShow] = useState(false);
                 
               </div>
               <div className = "user-details">
-                <h2>Anonymous <img src = {verifiedIcon} className = "verified-icon" alt = "verified icon" /></h2>
+               {/* <h2>Anonymous <img src = {verifiedIcon} className = "verified-icon" alt = "verified icon" /></h2> */}
                 <p className = "address">{address.slice(0,7).concat('...').concat(address.slice(11,18)) }</p>
               </div>
               <div className = "user-about-section">
