@@ -44,6 +44,21 @@ header {
   justify-content: center;
   align-items: center;
 }
+.landing{
+  background: rgba(22, 22, 30, 1);
+}
+
+.moving-text{
+  width: auto !important;
+  height: 20px !important;
+  background: rgba(22, 22, 30, 1) !important;
+  color: rgba(255, 255, 255);
+  text-align: center;
+}
+.moving-text a{
+  text-decoration: none;
+}
+
 .header-btn:hover{
   color: inherit;
   text-decoration: none;
@@ -183,6 +198,12 @@ main {
     height: 30rem;
     padding: 5rem 5%;
   }
+  .moving-text{
+    width: 200vw !important;
+    background: rgba(22, 22, 30, 1) !important;
+    color: rgba(255, 255, 255);
+    
+  }
 
   .header-content1 {
     width: 100%;
@@ -243,6 +264,13 @@ main {
     font-size: 1.8rem;
   }
 
+  .moving-text{
+    width: 280vw !important;
+    background: rgba(22, 22, 30, 1) !important;
+    color: rgba(255, 255, 255);
+    
+  }
+
   .btn-box {
     margin-top: 2rem;
     width: 100%;
@@ -269,4 +297,14 @@ main {
   .cards-container {
     margin-top: 0;
   }
+}
+
+@media only screen and (max-width: 400px) {
+  .moving-text{
+    width: 280vw !important;
+    background: rgba(22, 22, 30, 1) !important;
+    color: rgba(255, 255, 255);
+    
+  }
+
 }

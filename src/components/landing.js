@@ -6,6 +6,7 @@ import TopSellers from "./TopSellers"
 import "../styles/NFTCard.css"
 import "../styles/exhibit.css"
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { useSpring, animated } from "react-spring";
 import classNames from 'classnames';
 import Header from "./header"
 import QlipNFTS from "./qlipNFTSection"
@@ -25,10 +26,22 @@ const Landing = props => {
     const [art, setArt] = useState([]);
     const [noOfItems, setNoOfItems] = useState(6);
     const sliceItems = allTokensArray.slice(0, noOfItems);
+    const [key, setKey] = useState(1);
 
     const loadMore = ()=> {
         setNoOfItems(noOfItems + noOfItems);
     }
+
+    const scrolling = useSpring({
+        from: { transform: "translate(60%,0)" },
+        to: { transform: "translate(-60%,0)" },
+        config: { duration: 10000 },
+        reset: true,
+        //reverse: key % 2 == 0,
+        onRest: () => {
+          setKey(key + 1);
+        }
+      });
     
     const sortTokens = async () =>{ 
         const tokenObj = []
@@ -185,6 +198,9 @@ const allBtn = classNames('nav-link',{
     return(
         <div className="landing" id="landing">
             <Header/>
+            <animated.div className="moving-text" style={scrolling}>
+                We know you love NFTs, please note that <a href="app.qlipit.io">app.qlipit.io</a> is still in Beta and our contracts are yet to be audited, do trade with caution 😁🎨
+                </animated.div>
             <QlipNFTS ExclusiveClipNftsList = {ExclusiveClipNftsList} />
            
             <main>
