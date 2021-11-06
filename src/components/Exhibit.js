@@ -84,7 +84,7 @@ const Exhibit = (props) => {
         setCategory(Tdetails._category);
        
         
-        console.log(category, Tdetails._category, 'category in exhibit')
+        console.log(Tdetails.ownerAddress, 'token details in exhibit-owner')
         setPrice(price);
         
 
@@ -131,7 +131,7 @@ const Exhibit = (props) => {
                         <p className = "left-vertical-text">RUBY</p>
                         <p className = "right-vertical-text">1/1</p>
                         <h1 className = "nft-name">{name}</h1>
-                        <p className = "nft-decsriptive-text">{description}</p>
+                        {/*<p className = "nft-decsriptive-text">{description}</p> */}
                         <h2 className = "nft-price-exhibit">{price} BNB</h2>
                     </div>
                 </div>

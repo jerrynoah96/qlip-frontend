@@ -12,6 +12,7 @@ const CheckoutModal = forwardRef((props, ref) => {
 
     const account = props.account;
     
+    
 
     let history = useHistory();
     
@@ -34,6 +35,10 @@ const CheckoutModal = forwardRef((props, ref) => {
         
     //    const amountToPay = await props.tokenDetails.price;
         const contractAddress = await props.contractAddress;
+
+        //address of seller- owner of token
+    const tdetails = await props.contract.methods.__getAllTokenDetails(props.id).call();
+    const sellerAddress = tdetails.ownerAddress;
         
         
         const id = await props.id;
@@ -51,6 +56,49 @@ const CheckoutModal = forwardRef((props, ref) => {
 
         if(purchaseReciept.status === true){
            await setProgressText("You have successfully bought this NFT");
+
+           // update buyer profile
+           const buyerP = await fetch('https://adek-cors-anywhere.herokuapp.com/https://quiet-temple-37038.herokuapp.com/profiles/'+account);
+            const buyerProfile  = await buyerP.json();
+            const nfts_bought = buyerProfile.num_of_nft_bought;
+
+           let userBuyer = {
+            address: account,
+            num_of_nft_bought: nfts_bought + 1,
+          };
+    
+          let responseBuyerProfile = await fetch('https://adek-cors-anywhere.herokuapp.com/https://quiet-temple-37038.herokuapp.com/profiles/'+account, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(userBuyer)
+          });
+    
+           await responseBuyerProfile.json();
+          
+
+          //update seller profile
+
+          
+           const sellerP = await fetch('https://adek-cors-anywhere.herokuapp.com/https://quiet-temple-37038.herokuapp.com/profiles/'+sellerAddress);
+            const sellerProfile  = await sellerP.json();
+            const nfts_sold = sellerProfile.num_of_nft_sold;
+
+           let userSeller = {
+            address: account,
+            num_of_nft_sold: nfts_sold + 1,
+          };
+    
+          let responseSellerProfile = await fetch('https://adek-cors-anywhere.herokuapp.com/https://quiet-temple-37038.herokuapp.com/profiles/'+sellerAddress, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(userSeller)
+          });
+    
+           await responseSellerProfile.json();        
             if(history) history.push('/profile');
         }
 

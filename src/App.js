@@ -59,11 +59,24 @@ class App extends Component  {
       setSaleToken: {
         name: '',
         id: ''
+      },
+      profile: {
+        username:'',
+        userDescription: '',
+        bought: '',
+        sold: ' ',
+        coverPhoto: '',
+        profilePhoto: '',
+        created: '',
+        verified: null
+
+
       }
     }
     this.SetWeb3 = this.SetWeb3.bind(this);
     this.FetchUserTokens = this.FetchUserTokens.bind(this);
     this.FetchAllTokens = this.FetchAllTokens.bind(this);
+    this.fetchUserProfile = this.FetchUserProfile(this);
   }
 
 
@@ -115,6 +128,7 @@ SetWeb3= async web3 => {
 
   
   await this.FetchUserTokens();
+  await this.FetchUserProfile();
  
 }
 
@@ -220,6 +234,7 @@ FetchAllTokens = async () => {
 
   const allTokens = await this.state.contractInit.methods.getAllTokens().call();
   console.log(allTokens, 'all tokens fetched')
+
   let allTokensArray = [];
   
 
@@ -258,6 +273,80 @@ FetchAllTokens = async () => {
 
   console.log(this.state.allTokensArray, 'all tokens on mount')
  
+
+}
+
+FetchUserProfile=async ()=> {
+const address = this.state.contractDetails.account;
+  const res = await fetch('https://adek-cors-anywhere.herokuapp.com/https://quiet-temple-37038.herokuapp.com/profiles/'+address);
+  const userProfile = await res.json();
+  console.log(userProfile, 'let see if user profile exists')
+ if(userProfile == null){
+   // if user profile doesn't exist, create a new profile
+   let user = {
+    address: address,
+    name: 'Edit Name',
+    description: 'Put a description of yourself here 😁🎨',
+    coverPhoto: undefined,
+    profilePhoto: undefined
+
+  };
+
+  let response = await fetch('https://adek-cors-anywhere.herokuapp.com/https://quiet-temple-37038.herokuapp.com/profiles', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+    },
+    body: JSON.stringify(user)
+  });
+
+  await this.setState({
+    profile: {
+      ...this.state.profile,
+      username: 'You can have your name hre',
+      userDescription: 'Put a description of yourself here 😁🎨',
+      bought: 0,
+      sold: 0,
+      coverPhoto: '',
+      profilePhoto: '',
+      created: '',
+      verified: false
+    }
+ })
+
+  console.log(userProfile, 'new profile creation')
+  
+
+ } else{
+   console.log(userProfile, 'user profile ')
+   const username = userProfile.name;
+   const userDescription = userProfile.description;
+   const sold = userProfile.num_of_nft_sold;
+   const bought = userProfile.num_of_nft_bought;
+   const created = userProfile.num_of_nft_created;
+   const profilePhoto = userProfile.profile_photo;
+   const coverPhoto = userProfile.cover_photo;
+   const verified= userProfile.verified;
+
+   await this.setState({
+      profile: {
+        ...this.state.profile,
+        username,
+        userDescription,
+        bought,
+        sold,
+        coverPhoto,
+        profilePhoto,
+        created,
+        verified
+      }
+   })
+
+   console.log(this.state.profile, 'updated profile in App.js state')
+   
+
+ }
+
 
 }
 
@@ -368,7 +457,8 @@ FetchAllTokens = async () => {
                   contractDetails={this.state.contractDetails}
                   tokenUrls={this.state.tokenUrls}
                   fetchUserTokens={this.FetchUserTokens}
-                  resetSale={this.ResetSale}/>
+                  resetSale={this.ResetSale}
+                  profileDetails={this.state.profile}/>
                 </Route>
     
                 <Route exact path = "/exhibit/:tokenId">

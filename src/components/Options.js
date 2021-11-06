@@ -138,6 +138,32 @@ MintNft=async(e)=> {
             console.log(tokenId, price, contractAddress, 'tokenid and price');
 
            if(mint_reciept.status === true){
+            
+            // get intial num of nft created
+            const userProf = await fetch('https://adek-cors-anywhere.herokuapp.com/https://quiet-temple-37038.herokuapp.com/profiles/'+account);
+            const userProfile  = await userProf.json();
+            const nfts_created = userProfile.num_of_nft_created;
+
+            //update nfts created
+
+            let userData = {
+                address: account,
+                num_of_nft_created: nfts_created + 1,
+              };
+        
+              let userProfResponse = await fetch('https://adek-cors-anywhere.herokuapp.com/https://quiet-temple-37038.herokuapp.com/profiles/'+account, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify(userData)
+              });
+        
+               await userProfResponse.json();   
+
+
+
+
             this.setState({
                 progressText: "approving your NFT to Sale",
                 loaderUrl: "https://i.gifer.com/ZZ5H.gif"

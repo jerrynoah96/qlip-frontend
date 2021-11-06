@@ -1,4 +1,5 @@
-import React,{useState, useEffect} from "react";
+import React,{useState, useRef, useEffect} from "react";
+import ContentEditable from 'react-contenteditable';
 import { useHistory } from "react-router-dom";
 import headerImg from "../images/Header_Image.png";
 import LineImg from "../images/Line.svg";
@@ -19,14 +20,29 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { TwitterShareButton, WhatsappShareButton } from "react-share";
 import { TwitterIcon, WhatsappIcon } from "react-share";
 
+const ipfsClient = require('ipfs-http-client')
+const ipfs = ipfsClient({host: "ipfs.infura.io", port: 5001, protocol:"https"})
+
+const pinataSDK = require('@pinata/sdk');
+const pinata = pinataSDK('29b5df03356e2400ff68',
+ 'c2381374c17a87b16191150d09e541545f157b3427a68f94a1e04d488643a2fe');
+
 const Profile = (props) => {
+  console.log(props.profileDetails, 'profile details in profile')
   let history = useHistory();
+  const profileUserName = useRef(props.profileDetails.username);
+  const profileDescription = useRef(props.profileDetails.userDescription);
+  
  // const [tokensArray, setTokensArray] = useState([]);
 const [show, setShow] = useState(false);
+const contentEditable = React.createRef();
+const[profileName, setProfileName] = useState("<p>My new Name</p>");
+const[profileInfo, setProfileInfo] = useState("<p>Give a brief description of yourself here, can help you get more followers 😁 </p>");
 
  const urlList = props.tokenUrls;
  console.log(urlList.length, 'url list')
  
+  
   const [tokenObjects] = useState([]);
   const [allOnsale, setOnSaleTokenDisplay]= useState([]);
   const [notforSale, setNotForSaleDisplay]= useState([]);
@@ -38,6 +54,7 @@ const [show, setShow] = useState(false);
   const [shareTokenId, setShareTokenId] = useState();
   const [sharingModal, setSharingModal] = useState(false);
   const [copy, setCopy] = useState(false);
+ 
   
 
 
@@ -70,14 +87,110 @@ const [show, setShow] = useState(false);
 
 
   const onCopy=(e)=> {
-    toast('copied');
+    
+    }
+
+   const handleProfileName = (e) => {
+      profileUserName.current = e.target.value;
+      console.log(profileUserName.current, e.target.value, 'new name change')
+      // setProfileName(text.current);
+      // console.log(evt.target.value, 'on change name')
+      
+
+
+    };
+
+    const handleDescription = (e) => {
+      profileDescription.current = e.target.value;
+      
+    };
+
+    const updateName = async()=> {
+      console.log(profileUserName.current, 'the name to update')
+      const newName = profileUserName.current;
+      let user = {
+        address: address,
+        name: newName
+      };
+
+      console.log(newName, user.name, 'the name updated')
+      let response = await fetch('https://adek-cors-anywhere.herokuapp.com/https://quiet-temple-37038.herokuapp.com/profiles/'+address, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(user)
+      });
+
+      const result = await response.json();
+      toast('Name updated succesffuly');
+    console.log(result, 'profile name updated successfully')
+
+    }
+
+    const handleProfileInfo = async (evt)=> {
+     // setProfileInfo(evt.target.value);
+      console.log(evt.target.value, profileInfo, 'what correct');
+      const newDescription = profileDescription.current;
+
+      let user = {
+        address: address,
+        description: newDescription
+      };
+
+      let response = await fetch('https://adek-cors-anywhere.herokuapp.com/https://quiet-temple-37038.herokuapp.com/profiles/'+address, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(user)
+      });
+
+      const result = await response.json();
+      toast('description field updated');
+    console.log(result, 'profile info updated successfully')
     }
 
 
 
-  const handleCoverPhoto=(e)=> { 
+  const handleCoverPhoto=async(e)=> { 
+    let coverPhotoLink;
+    const pic = e.target.files[0];
      const selectedPhoto = URL.createObjectURL(e.target.files[0]);
       setCoverPhoto(selectedPhoto)
+      // create buffer
+      const reader = new window.FileReader();
+
+     await reader.readAsArrayBuffer(pic);
+      reader.onloadend = async() => {
+            
+          const imgBuffer = Buffer(reader.result)
+          const result = await ipfs.add(imgBuffer);
+         coverPhotoLink = "https://ipfs.infura.io/ipfs/"+result.cid.string;    
+         console.log(coverPhotoLink, 'cover photo link')
+          
+      let user = {
+        address: address,
+        cover_photo: coverPhotoLink
+      };
+
+      
+      let response = await fetch('https://adek-cors-anywhere.herokuapp.com/https://quiet-temple-37038.herokuapp.com/profiles/'+address, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(user)
+      });
+
+      const res = await response.json();
+      toast('cover photo updated');
+    console.log(res, 'cover photo successfully updated')
+        }   
+
+        
+       
+      
     }
 
    const handleClose = ()=> {
@@ -97,9 +210,41 @@ const [show, setShow] = useState(false);
       console.log(token, tokenName, tokenId, 'token to be in useState')
     }
 
-    const handleUserAvatar=(e)=> { 
+    const handleUserAvatar=async (e)=> {
+      let avatarLink; 
       const selectedAvatar = URL.createObjectURL(e.target.files[0]);
+      const pic = e.target.files[0];
        setUserAvatar(selectedAvatar);
+
+       const reader = new window.FileReader();
+
+       await reader.readAsArrayBuffer(pic);
+        reader.onloadend = async() => {
+              
+            const imgBuffer = Buffer(reader.result)
+            const result = await ipfs.add(imgBuffer);
+           avatarLink = "https://ipfs.infura.io/ipfs/"+result.cid.string;    
+           console.log(avatarLink, 'cover photo link')
+            
+        let user = {
+          address: address,
+          profile_photo: avatarLink
+        };
+  
+        
+        let response = await fetch('https://adek-cors-anywhere.herokuapp.com/https://quiet-temple-37038.herokuapp.com/profiles/'+address, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+          },
+          body: JSON.stringify(user)
+        });
+  
+        const res = await response.json();
+        toast('profile picture updated');
+      console.log(res, 'profile successfully updated')
+          }   
+  
        
     }
 
@@ -231,9 +376,50 @@ const [show, setShow] = useState(false);
                 </SkeletonTheme>
   
     useEffect( async()=> {
+      const coverPic = props.profileDetails.coverPhoto;
+      const profileImg = props.profileDetails.profilePhoto;
+
+      if(coverPic == undefined){
+        setCoverPhoto(headerImg)
+      }else{
+        setCoverPhoto(coverPic);
+      }
+
+      if(profileImg == undefined){
+        setUserAvatar(profilePic);
+      }else{
+        setUserAvatar(profileImg);
+      }
+
      await sortTokens();
-     setCoverPhoto(headerImg);
-     setUserAvatar(profilePic);
+     
+  /*   const res = await fetch('https://adek-cors-anywhere.herokuapp.com/https://quiet-temple-37038.herokuapp.com/profiles/'+address);
+      const userProfile = await res.json();
+      console.log(userProfile, 'let see if user profile exists')
+     if(userProfile == null){
+       // if user profile doesn't exist, create a new profile
+       let user = {
+        address: address,
+        name: 'Anonymous',
+        description: 'Put a description of yourself here 😁🎨'
+      };
+  
+      let response = await fetch('https://adek-cors-anywhere.herokuapp.com/https://quiet-temple-37038.herokuapp.com/profiles', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(user)
+      });
+      
+  
+     } else{
+       profileUserName.current = userProfile.name;
+       profileDescription.current = userProfile.description;
+     } */
+
+     
+     
       
     },[])
 
@@ -269,6 +455,14 @@ const [show, setShow] = useState(false);
 
     return(
       <>
+
+      <div className="edit-profile-form">
+        <form>
+          <input placeholder="full name" className="name-input"/>
+          <textarea ></textarea>
+        </form>
+
+      </div>
 
           <ToastContainer 
           autoClose={1000}/>
@@ -336,11 +530,28 @@ const [show, setShow] = useState(false);
                 
               </div>
               <div className = "user-details">
-               {/* <h2>Anonymous <img src = {verifiedIcon} className = "verified-icon" alt = "verified icon" /></h2> */}
+               {/* <h2>Anonymous <img src = {verifiedIcon} className = "verified-icon" alt = "verified icon" /> </h2> */}
+                <ContentEditable
+                  html={profileUserName.current} // innerHTML of the editable div
+                  disabled={false}       // use true to disable editing
+                  onChange={handleProfileName} // handle innerHTML change
+                  tagName='article' // Use a custom HTML tag (uses a div by default)
+                  onBlur={updateName}
+               />
                 <p className = "address">{address.slice(0,7).concat('...').concat(address.slice(11,18)) }</p>
               </div>
+              
+              
               <div className = "user-about-section">
-                <p>A 2D hyper-realist artist with 10 years experience designing portrait for influential celebrities and goverment officials</p>
+
+              <ContentEditable
+                  html={profileDescription.current} // innerHTML of the editable div
+                  disabled={false}       // use true to disable editing
+                  onChange={handleDescription} // handle innerHTML change
+                  onBlur={handleProfileInfo}
+                  tagName='p' // Use a custom HTML tag (uses a div by default)
+               />
+
               </div>
               <div className = "user-history">
                 <div className = "history-item">
@@ -348,11 +559,11 @@ const [show, setShow] = useState(false);
                   <p>All NFTs</p>
                 </div>
                 <div className = "history-item">
-                  <h3>0</h3>
+                  <h3>{props.profileDetails.sold}</h3>
                   <p>NFTs Sold</p>
                 </div>
                 <div className = "history-item">
-                  <h3>0</h3>
+                  <h3>{props.profileDetails.bought}</h3>
                   <p>NFTs Bought</p>
                 </div>
               </div>

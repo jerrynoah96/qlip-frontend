@@ -25,7 +25,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  display: none;
+  z-index: 2;
+  
 }
 .cover-photo-edit img{
   margin-left: 1rem;
@@ -118,7 +119,13 @@
   .profile-picture {
   width: 100%;
   height: 100%;
+  border-radius: 50%;
  
+}
+
+.user-about-section span{
+  text-align: center !important;
+  
 }
 .pen-icon-container{
   background-color: rgba(255, 255, 255) !important;
@@ -127,7 +134,40 @@
   right: 1% !important;
   border-radius: 50% !important;
   padding: 0.2rem;
+  /*display: none; */
+}
+.profile-text-edit{
+  position: absolute;
+  right: 10%;
+  top: 40%;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255);
+  border-radius: 50%;
+  padding: 0.2rem;
+}
+.edit-profile-form{
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0,0,0, 0.5);
+  z-index: 9999;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   display: none;
+}
+.edit-profile-form form{
+  display: flex;
+  flex-direction: column;
+  
+}
+.edit-profile-form textarea{
+  max-height: 100px;
+  margin-top: 2rem;
 }
 
 #avatar-input{
@@ -149,6 +189,9 @@
   margin-top: 1rem;
 }
 
+.user-details article{
+  text-align: center;
+}
 .user-details-section .user-details h2 {
   font-size: 1.8rem;
 }
@@ -367,6 +410,15 @@
     font-size: 0.82rem;
     line-height: 1.5;
   }
+  
+}
+
+@media only screen and (max-width: 500px) {
+ 
+  .cover-photo-edit{
+    margin-bottom: 2rem;
+  }
+  
 }
 
 
