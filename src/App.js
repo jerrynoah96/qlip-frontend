@@ -277,7 +277,7 @@ FetchAllTokens = async () => {
 }
 
 FetchUserProfile=async ()=> {
-const address = this.state.contractDetails.account;
+  const address = this.state.contractDetails.account;
   const res = await fetch('https://adek-cors-anywhere.herokuapp.com/https://quiet-temple-37038.herokuapp.com/profiles/'+address);
   const userProfile = await res.json();
   console.log(userProfile, 'let see if user profile exists')

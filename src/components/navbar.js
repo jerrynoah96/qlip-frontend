@@ -84,13 +84,18 @@ const NavBar = (props) => {
     
     if(!accounts){
       accounts = await web3.eth.getAccounts();
+      const acc = accounts[0];
+      const userBalance = await web3.eth.getBalance(acc);
+      const walletBalance = await web3.utils.fromWei(userBalance, 'ether');
+      const walletBal = parseFloat(walletBalance).toFixed(3);
+      console.log(acc, walletBal,'connected acc')
       const networkId =await web3.eth.getChainId();
       props.setWeb3(web3);
       if(networkId !== 56){
         btnText= "Connect Wallet"  
       }
       else{
-        btnText = "Connected"
+        btnText = acc.slice(0,6).concat('...').concat(acc.slice(14,18))
       }
       
     }

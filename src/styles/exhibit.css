@@ -109,10 +109,11 @@
 }
 
 .first-section .ownership_availableNumber .profile-picture {
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   display: inline-block;
   margin-right: 1rem;
+  border-radius: 50%;
 }
 
 .first-section .ownership_availableNumber p {
@@ -215,6 +216,8 @@
   margin-bottom: 0.5rem;
   
 }
+
+
 
 @media only screen and (min-width: 768px) {
   .exhibit-main-body {

@@ -33,6 +33,8 @@ const Exhibit = (props) => {
     const [price, setPrice] = useState();
     const [imgHash, setImgHash] = useState();
     const [contract, setContract] = useState();
+    const [ownerName, setOwnerName] = useState();
+    const [ownerDp, setOwnerDp] = useState();
     
     
 
@@ -86,8 +88,10 @@ const Exhibit = (props) => {
         
         console.log(Tdetails.ownerAddress, 'token details in exhibit-owner')
         setPrice(price);
-        
 
+
+        
+        //load nft details from contracts
         const res = await fetch(Tdetails.tokenURI_)
         const jsonRes = await res.json();
         const pictureUrl = jsonRes.imgHash;
@@ -95,6 +99,14 @@ const Exhibit = (props) => {
         setDescription(jsonRes.description);
         setName(jsonRes.item_name);
         
+        //get nft owner's name from DB
+        const nftOwnerName = Tdetails.ownerAddress;
+
+        const dbRes = await fetch('https://adek-cors-anywhere.herokuapp.com/https://quiet-temple-37038.herokuapp.com/profiles/'+nftOwnerName);
+        const userProfile = await dbRes.json();
+        console.log(userProfile, 'user profile from db')
+        setOwnerName(userProfile.name);
+        setOwnerDp(userProfile.profile_photo);
         
         
         
@@ -140,10 +152,10 @@ const Exhibit = (props) => {
                         <h1 className = "name">{name}</h1>
                         <div className = "ownership_availableNumber">
                             <div className = "ownership">
-                                <img src = {profilePic} alt = "profile" className = "profile-picture" />
-                                <p><span>Owned by Anonymous </span><img src = {verifiedIcon} className = "verifiedIcon" alt = "verified account icon" /></p>
+                                <img src = {ownerDp} alt = "profile" className = "profile-picture" />
+                                <p><span>Owned by {ownerName}</span>{/*<img src = {verifiedIcon} className = "verifiedIcon" alt = "verified account icon" />*/}</p>
                             </div>
-                            <p className = "availableNumber"><span>Available: </span>20 in stock</p>
+                            <p className = "availableNumber"><span>Available: </span>1 in stock</p>
                         </div>
                         <h2 className = "current-price">Current Price</h2>
                         <div className = "price-container">
