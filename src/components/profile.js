@@ -9,6 +9,8 @@ import shareIcon from "../images/share-icon.png";
 import copyIcon from "../images/copy-icon.jpg";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import { ToastContainer, toast } from 'react-toastify';
+import warningIcon from "../images/icons_Warning_Shield.svg";
+import sendIcon from "../images/send-message.png";
 import 'react-toastify/dist/ReactToastify.css';
 // import editIcon from "./assets/Edit_icon.svg"
 import verifiedIcon from "../images/icons8_verified_account.svg"
@@ -30,6 +32,8 @@ const pinata = pinataSDK('29b5df03356e2400ff68',
 const Profile = (props) => {
   console.log(props.profileDetails, 'profile details in profile')
   let history = useHistory();
+  let recipient;
+  
   const profileUserName = useRef(props.profileDetails.username);
   const profileDescription = useRef(props.profileDetails.userDescription);
   
@@ -54,7 +58,9 @@ const[profileInfo, setProfileInfo] = useState("<p>Give a brief description of yo
   const [shareTokenId, setShareTokenId] = useState();
   const [sharingModal, setSharingModal] = useState(false);
   const [copy, setCopy] = useState(false);
- 
+  const [sendActive, setSendActive] = useState(false);
+  const [sendId, setSendId] = useState('');
+  
   
 
 
@@ -192,6 +198,27 @@ const[profileInfo, setProfileInfo] = useState("<p>Give a brief description of yo
        
       
     }
+   const handleRecipient = async (e)=> {
+     recipient = e.target.value;
+     
+      console.log(e.target.value, recipient,sendId, 'recipient')
+    }
+    const sendNFT = async(id)=> {
+     const sendReciept= await props.contractDetails.contractInstance.methods.safeTransferFrom(
+       address, recipient, sendId
+     ).send({
+        from: address
+      })
+
+      if(sendReciept.status == true){
+        toast('NFT sent successfully');
+        setSendActive(false)
+      }else{
+        toast.error("something went wrong")
+        setSendActive(false)
+      }
+
+    }
 
    const handleClose = ()=> {
       setShow(false);
@@ -275,10 +302,19 @@ const[profileInfo, setProfileInfo] = useState("<p>Give a brief description of yo
             <img src={shareIcon} alt="share-icon"
             onClick={()=> {
               shareNFT(token)}}/>
-        </div> : ''}
-          
-          
+        </div> : ''}  
+
+        <div className = "detail-4">
+          <p><span> Give away</span></p>
+            <img src={sendIcon} alt="share-icon"
+            onClick={()=> {
+              setSendActive(true)
+              setSendId(token.id)
+              
+            }}/>
+        </div>
       </div>
+     
       { token.tokenState === '2' ? <button className = "buy-btn"
        onClick={async ()=> {
          console.log(token, 'selected token')
@@ -323,9 +359,18 @@ const[profileInfo, setProfileInfo] = useState("<p>Give a brief description of yo
               shareNFT(token)}}/>
         </div> : ''}
 
-
-          
       </div>
+
+      <div className = "detail-4">
+          <p><span> Give away</span></p>
+            <img src={sendIcon} alt="share-icon"
+            onClick={()=> {
+              setSendActive(true)
+              setSendId(token.id)
+              
+            }}/>
+        </div>
+
       { token.tokenState === '2' ? <button className = "buy-btn"
        onClick={async()=> {
        await props.resetSale(token)
@@ -358,11 +403,22 @@ const[profileInfo, setProfileInfo] = useState("<p>Give a brief description of yo
           </div>
           
       </div>
+
+      <div className = "detail-4">
+          <p><span> Give away</span></p>
+            <img src={sendIcon} alt="share-icon"
+            onClick={()=> {
+              setSendActive(true)
+              setSendId(token.id)
+            }}/>
+        </div>
       { token.tokenState === '2' ? <button className = "buy-btn"
        onClick={async()=> {
        await props.resetSale(token)
         history.push(`/set-sale/${token.id}`)
        }}>Set To Sale</button> : ''}
+
+
   </div>
       // <NFTCard key = {token.imgHash} name = {token.item_name} imageSrc = {token.imgHash} price = {token.price} description = {token.description} />
     )
@@ -452,18 +508,42 @@ const[profileInfo, setProfileInfo] = useState("<p>Give a brief description of yo
         'socials-on': sharingModal === true
     })
 
+    const sendModalClass = classNames('send-modal', {
+      'send-active': sendActive == true
+    })
+
 
     return(
       <>
+      <div className={sendModalClass}>
 
-      <div className="edit-profile-form">
-        <form>
-          <input placeholder="full name" className="name-input"/>
-          <textarea ></textarea>
-        </form>
+        <div className="sendModal-content">
+          <div className="sendModal-text">
+          <img src = {warningIcon} alt = "warning icon" className = "warning-icon" />
+            <span>Warning:</span>
+            <p>Please do note sending implies you will not be recieving payment for this. Cancel if this is not what you intend.</p>
+          </div>
 
-      </div>
+          <div className="send-form">
+            
+            <input className="send-input" placeholder="recipient address"
+            onChange={handleRecipient}/>
+           
+            <div className="send-btns">
+              <button className="cancel"
+              onClick={()=> {
+                setSendActive(false)
+              }}>Cancel</button>
+              <button className="send"
+              onClick={sendNFT}>Give away</button>
+            </div>
+          </div>
 
+        </div>
+          
+          
+        </div>   
+          
           <ToastContainer 
           autoClose={1000}/>
                 <div class={socialStyle}>
@@ -504,8 +584,12 @@ const[profileInfo, setProfileInfo] = useState("<p>Give a brief description of yo
                 
                 
                 </div>
+
+             
                
         <div className = "profile-main-body">
+
+        
         <div className = "cover-photo-container">
           <img src = {coverPhoto} alt = "header"className = "cover-photo-image" />
           <div className="cover-photo-edit">

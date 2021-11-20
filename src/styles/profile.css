@@ -13,7 +13,7 @@ html {
   
 }
 .profile-main-body .cover-photo-container .cover-photo-image {
-  position: absolute !important;
+  
   object-fit: cover;
   width: 100%;
   height: 100%;
@@ -313,6 +313,68 @@ html {
   gap: 1rem;
 }
 
+.send-modal{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background-color:rgba(22, 22, 30, 0.9);
+  z-index: 9999;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+  
+  
+}
+.send-active{
+  display: flex;
+}
+
+.send-modal .sendModal-content{
+  height: 100px;
+  width: 300px;
+  color: rgba(255, 255, 255);
+  text-align: center;
+}
+.send-form input{
+  height: 30px;
+  width: 300px;
+  text-align: center;
+}
+.send-form{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.send-form .send-btns{
+  width: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-around;
+  margin-top: 1rem;
+}
+.send-btns button{
+  width: 110px;
+  height: 30px;
+  border: none;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255);
+  
+  
+}
+.send-btns .send{
+  background-color: #4f26d7;
+ 
+}
+
+.send-btns .cancel{
+  background-color: rgba(255, 0,0, 0.7);
+}
 .nfts-section .nfts-container::-webkit-scrollbar {
   display: none;
 }
@@ -430,6 +492,8 @@ html {
   .cover-photo-edit{
     margin-bottom: 2rem;
   }
+ 
+  
   
 }
 
