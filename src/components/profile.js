@@ -521,7 +521,7 @@ const[profileInfo, setProfileInfo] = useState("<p>Give a brief description of yo
           <div className="sendModal-text">
           <img src = {warningIcon} alt = "warning icon" className = "warning-icon" />
             <span>Warning:</span>
-            <p>Please do note sending implies you will not be recieving payment for this. Cancel if this is not what you intend.</p>
+            <p>Please, do note sending implies you will not be recieving payment for this. Cancel if this is not what you intend.</p>
           </div>
 
           <div className="send-form">
