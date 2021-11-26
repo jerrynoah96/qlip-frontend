@@ -119,9 +119,22 @@ option {
 
 
 .small-inputs {
-  width: 400px;
+  width: 450px;
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
+}
+.properties-boxes{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.properties-boxes img{
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  
 }
 .small-inputs .input-box input {
   width: 180px;

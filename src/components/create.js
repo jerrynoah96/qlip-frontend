@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+
 import switchLogo from '../images/switch.png';
 import arrow from '../images/arrow.svg';
 import closeIcon from "../images/iCon_Close.svg";
@@ -7,8 +8,9 @@ import autoSaveIcon from '../images/autosaving.svg';
 import { ToggleButton } from "./toggleButton";
 import Preview from './create-preview';
 import classNames from 'classnames';
+import plusIcon from '../images/plus-icon.png';
+import deleteIcon from '../images/delete-icon.png';
 import '../styles/create.css';
-
 
 
 class Create extends Component {
@@ -18,6 +20,7 @@ class Create extends Component {
         super(props);
         this.state={
             show: false,
+            propertiesLength: [0, 1],
             imgReadableStream: null,
             imgIpfsHash: "",
             loaderShow: false,
@@ -50,9 +53,7 @@ class Create extends Component {
       // this.MintNft = this.MintNft.bind(this); 
       
     }
-
-    
-   
+  
       handleInput=(e)=> {
         this.setState({
             nftDetails :{
@@ -75,8 +76,7 @@ class Create extends Component {
 
 
     }
-
-      
+ 
       captureImg = (e)=>{
         e.preventDefault();
         console.log('file catured')
@@ -131,6 +131,69 @@ render(){
     const previewClass = classNames('preview', {
         'preview-mobile': this.state.preview_btn === true
     })
+    
+
+    
+    
+
+    const incrementProperties =()=> {
+        let propArray = this.state.propertiesLength;
+        const increaseNum = propArray.slice(-1)[0] + 1;
+        this.setState({propertiesLength: [...this.state.propertiesLength, increaseNum]});
+        console.log(this.state.propertiesLength, increaseNum, 'properties lenght in state')
+        
+    } 
+
+    const deleteInput=(num)=> {
+        let propArray = this.state.propertiesLength;
+       let itemIndex = propArray.indexOf(num);
+       //split array
+       let newArray = propArray.splice(itemIndex, 1);
+       console.log(newArray, 'new Array upon delete')
+       
+        
+        
+        
+    } 
+
+  const properties= this.state.propertiesLength.map((num)=> {
+
+            return(
+                <div className="properties-boxes" key={num}>
+        
+                             
+                      <div className="input-box">
+                          <label htmlFor="key">Key</label>
+                          <input type="text" id="key" placeholder="e.g. Size"
+                          name="size" 
+                          />
+        
+                      </div>
+        
+                      <div className="input-box">
+                          <label htmlFor="value">Value</label>
+                          <input type="text" id="value" placeholder="e.g. Height, Width"
+                          name="property" 
+                           />
+                      </div>
+
+                      
+                        <img src={plusIcon} className="plus-icon"
+                        onClick={incrementProperties}/>
+                      
+                     {/* <img src={deleteIcon} className="delete-icon"
+                      onClick={deleteInput(num)}/> */}
+
+                      
+                      
+                  </div>
+        
+            )
+
+        })
+
+
+  
 
     return(
 
@@ -262,24 +325,11 @@ render(){
                             
                         </div>
                         <div className="small-inputs">
-            
-                            <div className="input-box">
-                                <label htmlFor="size">SIZE (Optional)</label>
-                                <input type="text" id="size" placeholder="e.g. Size"
-                                name="size" 
-                                value={this.state.nftDetails.size}
-                                onChange={this.handleInput}/>
+                            
+                            <label htmlFor="properties">Properties(Optional)</label>
+                            {properties}
+                    </div>
 
-                            </div>
-
-                            <div className="input-box">
-                                <label htmlFor="properties">PROPERTIES(Optional)</label>
-                                <input type="text" id="property" placeholder="e.g. Height, Width"
-                                name="property" 
-                                value={this.state.nftDetails.property}
-                                onChange={this.handleInput} />
-                            </div>
-                        </div>
                         <div className="toggle-options">
                             <div className="toggle-option">
                                 <div className="texts">
