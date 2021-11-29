@@ -9,8 +9,13 @@ import { useHistory } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {Helmet} from "react-helmet";
-
 import "../styles/exhibit.css"
+import ExhibitDetailsTab from "./ExhibitDetailsTab";
+import ExhibitAboutArtistTab from './ExhibitAboutArtistTab'
+import ExhibitOffersTab from './ExhibitOffersTab'
+import ExhibitPriceHistoryTab from './ExhibitPriceHistoryTab'
+import ExhibitPropertiesTab from './ExhibitPropertiesTab'
+
 
 
 const Exhibit = (props) => {
@@ -41,6 +46,7 @@ const Exhibit = (props) => {
     const [pageData, setPageData] = useState({})
     const [tokenURI, setTokenURI] = useState();
     const [web3Instance, setWeb3Instance] = useState();
+    const [selectedTab, setSelectedTab] = useState('details')
 
     const toggleModal = () => {
         if(isModalOpen) {
@@ -118,6 +124,16 @@ const Exhibit = (props) => {
     console.log(props.contractDetails.account, 'current account')
     console.log(props.contractDetails.contractInstance, 'when conected')
 
+
+    const setActiveTab = (e) => {
+        document.getElementById(selectedTab).classList.remove("active-tab");
+        setSelectedTab(e.target.id)
+    }
+
+    useEffect(() => {
+        document.getElementById(selectedTab).classList.add("active-tab");
+    }, [selectedTab])
+
     
 
 
@@ -167,38 +183,27 @@ const Exhibit = (props) => {
                     <div className = "second-section">
                         <nav>
                             <ul>
-                                <li className = "active-nav">Details</li>
-                                <li>Price History</li>
-                                <li>Offers</li>
-                                <li>About Artist</li>
+                                <li onClick = {setActiveTab} id = "details" className = "tab">Details</li>
+                                <li onClick = {setActiveTab} id = "price-history" className = "tab">Price History</li>
+                                <li onClick = {setActiveTab} id = "offers" className = "tab">Offers</li>
+                                <li onClick = {setActiveTab} id = "about-artist" className = "tab">About Artist</li>
+                                <li onClick = {setActiveTab} id = "properties" className = "tab">Properties</li>
                             </ul>
                         </nav>
                         <div className = "selected-item-content">
-                        <div className = "group-one">
-                                <p className = "creator-key">Name</p>
-                                <p className = "creator-value">{name}</p>
-                            </div>
+                            {selectedTab === "details" && <ExhibitDetailsTab name = {name} 
+                                description = {description} 
+                                category = {category} 
+                                contractAdd = {contractAdd} 
+                                tokenId = {tokenId} 
+                            />}
+                            {selectedTab === "price-history" && <ExhibitPriceHistoryTab /> }
 
-                            <div className = "group-one">
-                                <p className = "creator-key">Description</p>
-                                <p className = "creator-value">{description}</p>
-                            </div>
+                            {selectedTab === "offers" && <ExhibitOffersTab />}
 
-                            <div className = "group-one">
-                                <p className = "creator-key">Category</p>
-                                <p className = "creator-value">{category === '1' ? 'Photography' : category ==='2' ? 'Art' : category === '3' ? 'Meme': ''}</p>
-                            </div>
-                            
+                            {selectedTab === "about-artist" && <ExhibitAboutArtistTab />}
 
-                            <div className = "group-two">
-                                <p className = "contractAddress-key">Contract Address</p>
-                                <p className = "contractAddress-value">{contractAdd}</p>
-                            </div>
-                            <div className = "group-three">
-                                <p className = "tokenId-key">Token ID</p>
-                                <p className = "tokenId-value">{tokenId}</p>
-                            </div>
-                            
+                            {selectedTab === "properties" && <ExhibitPropertiesTab />}
                         </div>
                     </div>
                 </div>

@@ -175,6 +175,7 @@
   display: flex;
   justify-content: space-between;
   overflow-x: scroll;
+  padding-left: 0;
 }
 
 .second-section nav ul::-webkit-scrollbar {
@@ -188,7 +189,11 @@
   font-size: 0.7rem;
 }
 
-.second-section nav ul li.active-nav {
+.second-section nav ul li.tab {
+  cursor: pointer;
+}
+
+.second-section nav ul li.active-tab {
   background: linear-gradient(180deg, #5429e1 0%, #441ebf 100%);
   border-radius: 1rem;
 }
@@ -283,4 +288,11 @@
   .first-section {
     padding-top: 2rem;
   }
+}
+
+
+.tab-details {
+  text-align: center;
+  opacity: .5;
+  min-height: 8rem;
 }
