@@ -60,7 +60,18 @@
 .input-box {
   margin-bottom: 1rem;
 }
+.sm-input-props img{
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline !important;
+}
 
+.label-props{
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
 .royalties select {
   width: 100%;
   padding: 1.5rem 0.8rem;

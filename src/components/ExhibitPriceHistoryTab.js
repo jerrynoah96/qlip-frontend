@@ -1,7 +1,7 @@
 const ExhibitPriceHistoryTab = () => {
     return(
         <div className = "tab-details">
-            Not Available
+            This Feature is currently not available
         </div>
     );
 }

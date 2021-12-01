@@ -20,7 +20,7 @@ class Create extends Component {
         super(props);
         this.state={
             show: false,
-            propertiesLength: [0, 1],
+            propertiesLength: [0],
             imgReadableStream: null,
             imgIpfsHash: "",
             loaderShow: false,
@@ -37,7 +37,10 @@ class Create extends Component {
                 price: "",
                 royalty: "",
                 size: "",
-                property: "",
+                properties:[
+                    {'key': '',
+                    'value': ''}
+                ],
                 on_sale: false,
                 instant_sale_price: false,
                 unlock_on_purchase: false,
@@ -111,6 +114,39 @@ class Create extends Component {
             show: false
         })
     }
+
+    incrementProperties =()=> {
+        let propArray = this.state.propertiesLength;
+        const increaseNum = propArray.slice(-1)[0] + 1;
+        this.setState({propertiesLength: [...this.state.propertiesLength, increaseNum]});
+        console.log(this.state.propertiesLength, increaseNum, 'properties lenght in state')
+        
+    } 
+
+     deleteInput=(num)=> {
+        let propArray = this.state.propertiesLength;
+       let itemIndex = propArray.indexOf(num);
+       //split array
+     //  let newArray = propArray.splice(itemIndex, 1);
+
+     if(propArray.length == 1){
+         console.log("min input lenght should be 1")
+     }else{
+        let newArray = propArray.filter(item => item !== num)
+        console.log(newArray, 'newArray')
+        this.setState({
+            propertiesLength: newArray
+        })
+ 
+        console.log(this.state.propertiesLength,itemIndex, 'new array upon delete in state')
+        
+         
+
+     }
+       
+        
+        
+    }
     
 
    
@@ -131,30 +167,7 @@ render(){
     const previewClass = classNames('preview', {
         'preview-mobile': this.state.preview_btn === true
     })
-    
-
-    
-    
-
-    const incrementProperties =()=> {
-        let propArray = this.state.propertiesLength;
-        const increaseNum = propArray.slice(-1)[0] + 1;
-        this.setState({propertiesLength: [...this.state.propertiesLength, increaseNum]});
-        console.log(this.state.propertiesLength, increaseNum, 'properties lenght in state')
-        
-    } 
-
-    const deleteInput=(num)=> {
-        let propArray = this.state.propertiesLength;
-       let itemIndex = propArray.indexOf(num);
-       //split array
-       let newArray = propArray.splice(itemIndex, 1);
-       console.log(newArray, 'new Array upon delete')
-       
-        
-        
-        
-    } 
+     
 
   const properties= this.state.propertiesLength.map((num)=> {
 
@@ -178,11 +191,10 @@ render(){
                       </div>
 
                       
-                        <img src={plusIcon} className="plus-icon"
-                        onClick={incrementProperties}/>
+                        
                       
-                     {/* <img src={deleteIcon} className="delete-icon"
-                      onClick={deleteInput(num)}/> */}
+                     <img src={deleteIcon} className="delete-icon"
+                      onClick={()=> this.deleteInput(num)}/>
 
                       
                       
@@ -324,9 +336,15 @@ render(){
                             </label>
                             
                         </div>
-                        <div className="small-inputs">
+                        <div className="small-inputs sm-input-props">
+                            <div className="label-props">
+                                <label htmlFor="properties">Properties(Optional)</label>
+                            <img src={plusIcon} className="plus-icon"
+                            onClick={this.incrementProperties}/>
+                                
+                            </div>
                             
-                            <label htmlFor="properties">Properties(Optional)</label>
+                            
                             {properties}
                     </div>
 
